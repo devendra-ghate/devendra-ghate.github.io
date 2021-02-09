@@ -1,0 +1,4 @@
+Sitemap: https://devendra-ghate.github.io/sitemap.xml
+
+User-agent: *
+Disallow:
