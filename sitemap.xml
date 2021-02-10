@@ -20,6 +20,12 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>https://devendra-ghate.github.io/mdo/assignment03/index.html</loc>
+    <lastmod>2021-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>https://devendra-ghate.github.io/about/index.html</loc>
     <lastmod>2021-02-05</lastmod>
     <changefreq>monthly</changefreq>
