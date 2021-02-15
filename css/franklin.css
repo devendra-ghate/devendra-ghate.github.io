@@ -7,7 +7,7 @@
 
 html {
   background: var(--background);
-    font-family: sans-serif, Arial, times;
+    font-family: ITCFranklinGothic, sans-serif, Arial;
     font-size  : 14px;
     color: var(--black);
 }
