@@ -13,8 +13,7 @@ necessary and sufficient condition to find a minima.
 
 Let us consider a standard engineering optimisation problem.
 
-**Q**: Do we k
-
+$$f(\bar{x}) = f()$$
 
 
 

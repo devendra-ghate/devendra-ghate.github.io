@@ -6,8 +6,10 @@
    <link rel="stylesheet" href="/libs/katex/katex.min.css">
  
   
+  
   <link rel="stylesheet" href="/css/franklin.css">
   <link rel="stylesheet" href="/css/basic.css">
+
   <link rel="icon" href="/assets/favicon.png">
   <link rel="icon" href="/assets/favicon.ico">
    <title> Assignment 3 - mdo-lab </title> 
@@ -43,7 +45,7 @@
 <p><strong>Due: 17-02-2021</strong></p>
 <span style="font-size:85%;line-height:0em;color:maroon;"><strong>Note</strong>:  The due date will not be extended unless there is an medical emergency.</span>
 <div class="franklin-toc"><ol><li><a href="#problem_statement">Problem Statement</a></li><li><a href="#questions">Questions</a></li><li><a href="#deliverables">Deliverables</a></li></ol></div>
-<h4 id="problem_statement"><a href="#problem_statement">Problem Statement</a></h4>
+<h4 id="problem_statement"><a href="#problem_statement" class="header-anchor">Problem Statement</a></h4>
 <p>We know that Taylor&#39;s series is</p>
 \[ f(x_0 + \Delta x) \approx f(x_0) + \Delta x f'(x_0) + \frac{(\Delta x)^2}{2!} f''(x_0) + ...\]
 <p>If we ignore the higher order terms then a linear approximation can be written as</p>
@@ -53,8 +55,8 @@
 <p>This is called as the finite difference approximation of a derivative. This is extensively used in scientific computing to approximate derivatives of functions. Clearly, as \(\Delta x \rightarrow 0\), right hand side tends to the analytical derivative \(f'(x_0)\). We want to investigate the accuracy of this approximation as we reduce \(\Delta x\). </p>
 <p>Consider \(f'(x_0)\) for \(f(x) = \sin{x}\) at \(x_0 \in [\pi/16, \pi/4, 15\pi/16] \) and \(\Delta x = 10^{-\alpha},\ \alpha \in [1,..., 13]\). Error of finite difference &#40;FD&#41; approximation can be defined as</p>
 \[E_{FD} = \left\lVert  1 - \frac{f'_{FD}(x_0)}{f'(x_0)} \right\rVert_{2}.\]
-<p>Plot \(E_{FD}\) Vs. \(\alpha\) for all the values of \(x_0\).</p>
-<h4 id="questions"><a href="#questions">Questions</a></h4>
+<p>Plot \(E_{FD}\) Vs. \(\alpha\) for all the values of \(x_0\). Use <code>log</code> scale for <code>y</code> axis.</p>
+<h4 id="questions"><a href="#questions" class="header-anchor">Questions</a></h4>
 <ol>
 <li><p>Does error reduce monotonically as \(\alpha\) increases?</p>
 </li>
@@ -63,7 +65,7 @@
 <li><p>If we set \(f(x) = x^2 \sin{(x)} \cos{(x)}\), then can we expect the minimum \(E_{FD}\) at the same \(\Delta x\) for a given \(x_0\) ?</p>
 </li>
 </ol>
-<h4 id="deliverables"><a href="#deliverables">Deliverables</a></h4>
+<h4 id="deliverables"><a href="#deliverables" class="header-anchor">Deliverables</a></h4>
 <ul>
 <li><p>A <code>pdf</code> report with source code and a discussion the three questions.</p>
 </li>

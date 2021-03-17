@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Assignment 4 - mdo-lab </title> 
+   <meta name="description" content="Estimation of rate of convergence for SD" /> 
+
+   <meta property="og:title" content="Assignment 4" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Estimation of rate of convergence for SD" /> 
+  
+
+   <meta name="twitter:title" content="Assignment 4" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Estimation of rate of convergence for SD" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/mdo/">mdo</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Assignment 4</h1> 
+</div>
+<div class="franklin-content">
+<p><strong>Due: 24-02-2021</strong></p>
+<span style="font-size:85%;line-height:0em;color:maroon;"><strong>Note</strong>:  The due date will not be extended unless there is an medical emergency.</span>
+<div class="franklin-toc"><ol><li><a href="#problem_statement">Problem Statement</a></li><li><a href="#deliverables">Deliverables</a></li></ol></div>
+<h4 id="problem_statement"><a href="#problem_statement" class="header-anchor">Problem Statement</a></h4>
+<p>We wish to compare the rate of convergence of algorithms that we understand &#40;from lectures and theory&#41; and the algorithms that are implemented in commercial optimisation libraries. We will use <a href="https://www.mit.edu/~dimitrib/PTseng/516/hmwk1_add.txt">this</a> <code>matlab</code> implementation of Steepest Descent algorithm with Armijo&#39;s stepsize calculation<sup id="fnref:1"><a href="#fndef:1" class="fnref">[1]</a></sup>.</p>
+<p>Matlab&#39;s <code>fminunc</code> function has following algorithms:</p>
+<ul>
+<li><p>quasi-Newton, and</p>
+</li>
+<li><p>trust-region.</p>
+</li>
+</ul>
+<p>We will use 2-dimensional <a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock function</a> as a test function. Plot the convergence of Rosenbrock function starting from the initial guess of \(\bar{x}^{(0)} = [1.5, 2.5]^T\).<sup id="fnref:2"><a href="#fndef:2" class="fnref">[2]</a></sup> Using these plots, estimate the convergence ratio &#40;\(\beta\)&#41; and the rate of convergence &#40;\(r\)&#41; for these algorithms. Set \(\left\lVert  \Delta f \right\rVert_{2} \le 10^{-10}\).</p>
+<p>We expect quasi-Newton and trust-region algorithms to converge faster that the plain vanilla implementation of steepest descent.</p>
+<h4 id="deliverables"><a href="#deliverables" class="header-anchor">Deliverables</a></h4>
+<ul>
+<li><p>A <code>pdf</code> report with source code and a discussion the three questions.</p>
+</li>
+</ul>
+<p><table class="fndef" id="fndef:1">
+    <tr>
+        <td class="fndef-backref"><a href="#fnref:1">[1]</a></td>
+        <td class="fndef-content">Please understand the implementation and learn to use it.</td>
+    </tr>
+</table>
+<table class="fndef" id="fndef:2">
+    <tr>
+        <td class="fndef-backref"><a href="#fnref:2">[2]</a></td>
+        <td class="fndef-content">Do inform me if the optimisers are behaving funny starting from this initial guess. I have not solved the problem myself. We might change the initial guess.</td>
+    </tr>
+</table>
+</p>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

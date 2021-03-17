@@ -2,14 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-    <loc>https://devendra-ghate.github.io/index.html</loc>
+    <loc>https://devendra-ghate.github.io/mdo/assignment02/index.html</loc>
     <lastmod>2021-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://devendra-ghate.github.io/mdo/course-map/index.html</loc>
-    <lastmod>2021-02-15</lastmod>
+    <loc>https://devendra-ghate.github.io/interestingLinks/index.html</loc>
+    <lastmod>2021-03-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/complexity/index.html</loc>
+    <lastmod>2021-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/assignment04/index.html</loc>
+    <lastmod>2021-03-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/lineSearch/index.html</loc>
+    <lastmod>2021-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/ga/index.html</loc>
+    <lastmod>2021-03-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -20,32 +44,26 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>https://devendra-ghate.github.io/mdo/convexity/index.html</loc>
+    <lastmod>2021-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>https://devendra-ghate.github.io/mdo/assignment03/index.html</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://devendra-ghate.github.io/about/index.html</loc>
-    <lastmod>2021-02-05</lastmod>
+    <loc>https://devendra-ghate.github.io/mdo/assignment06/index.html</loc>
+    <lastmod>2021-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://devendra-ghate.github.io/mdo/index.html</loc>
-    <lastmod>2021-02-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://devendra-ghate.github.io/mdo/usefulLinks/index.html</loc>
-    <lastmod>2021-02-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://devendra-ghate.github.io/mdo/assignment02/index.html</loc>
-    <lastmod>2021-02-10</lastmod>
+    <loc>https://devendra-ghate.github.io/posts/how-to-calculate-machine-precision/index.html</loc>
+    <lastmod>2021-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -56,8 +74,62 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>https://devendra-ghate.github.io/mdo/usefulLinks/index.html</loc>
+    <lastmod>2021-03-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/index.html</loc>
+    <lastmod>2021-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/course-map/index.html</loc>
+    <lastmod>2021-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/about/index.html</loc>
+    <lastmod>2021-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/index.html</loc>
+    <lastmod>2021-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>https://devendra-ghate.github.io/posts/trading-vs-investing/index.html</loc>
     <lastmod>2021-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/peaks/index.html</loc>
+    <lastmod>2021-03-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/posts/write-fast-code/index.html</loc>
+    <lastmod>2021-02-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/notebooks/questionBank/</loc>
+    <lastmod>2021-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/mdo/notebooks/complexity/</loc>
+    <lastmod>2021-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>

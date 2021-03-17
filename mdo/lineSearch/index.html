@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Line Search Methods - mdo-lab </title> 
+   <meta name="description" content="Introduction to line search methods for unconstrained optimisation problems." /> 
+
+   <meta property="og:title" content="Line Search Methods" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Introduction to line search methods for unconstrained optimisation problems." /> 
+  
+
+   <meta name="twitter:title" content="Line Search Methods" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Introduction to line search methods for unconstrained optimisation problems." /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/mdo/">mdo</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Line Search Methods</h1> 
+</div>
+<div class="franklin-content">
+<p>Consider the following unconstrained optimisation problem statement.</p>
+\[ \min_{\bar{x} \in \Re^n} f(\bar{x}) \]
+<p>where \(f(\bar{x})\) is a sufficiently smooth nonlinear function. The most obvious way of calculating the minima to solve the set of nonlinear equations arising from the necessary condition of optimality.</p>
+\[\nabla f(\bar{x}) = 0\]
+<p>This is only only possible if \(f(\bar{x})\) is an explicit function of \(\bar{x}\). When the explicit form of the objective function is not known, then necessary conditions of optimality cannot be used to find the minima. This is the case for most of the engineering problems. Moreover, engineering </p>
+<h4 id="gradient_descent_algorithms"><a href="#gradient_descent_algorithms" class="header-anchor">Gradient Descent Algorithms</a></h4>
+<p>Any algorithm that guarantees that \(f(\bar{x}^{(k+1)} < f(\bar{x}^{(k)}\) </p>
+<h4 id="general_gradient_descent_algorithm"><a href="#general_gradient_descent_algorithm" class="header-anchor">General Gradient Descent algorithm</a></h4>
+<ol>
+<li><p>Select an initial guess \(\bar{x}^{(0)}\)</p>
+</li>
+<li><p>Compute \(\bar{c}^{(0)} = \nabla f( \bar{x}^{(0)} )\)</p>
+</li>
+<li><p>Check the termination criteria</p>
+</li>
+</ol>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

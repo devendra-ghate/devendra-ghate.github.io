@@ -136,6 +136,40 @@ table tbody tr td {
   background: cornflowerblue;
 }
 
+.hint {
+  margin-top: 0.5em;
+  width: 95%;
+  margin-left:2px;
+  margin-right:auto;
+  background-color:  aliceblue;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 1em;
+  color: black;
+  filter: blur(0.25em);
+  background: rgba(162, 148, 30, 0.2);
+  border: 0px solid;
+}
+
+.hint:hover {
+  filter: blur(0em);
+}
+
+.hint .content {
+  padding: 10px;
+  padding-left: 12px;
+}
+.hint .title{
+  font-size: 105%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-left: 7px;
+  padding-top: 2px;
+  color: black;
+}
+
 .note {
   margin-top: 1.5em;
   width: 95%;
@@ -146,6 +180,7 @@ table tbody tr td {
   border-bottom-right-radius: 5px;
   margin-bottom: 1em;
 }
+
 .note .content {
   padding: 10px;
   padding-left: 12px;

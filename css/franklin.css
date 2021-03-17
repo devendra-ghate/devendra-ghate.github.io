@@ -179,10 +179,10 @@ html {
     HYPERREFS AND FOOTNOTES
 ================================================================== */
 
-.franklin-content .eqref a  { 
+.franklin-content .eqref a  {
   color: var(--accent);
 }
-.franklin-content .bibref a { 
+.franklin-content .bibref a {
   color: var(--accent);
 }
 
@@ -235,7 +235,7 @@ body { counter-reset: eqnum; }
 
 .katex-display .katex {
   /* overwrite KaTeX settings. */
-  display: inline-block; 
+  display: inline-block;
   /* Allow display equations to wrap on small screens. */
   white-space: normal; }
 
@@ -317,7 +317,7 @@ ul.blog-posts li a:visited {
 .avatar-image {
   width: 8rem !important;
   heigth: auto;
-  border-radius: 50%; 
+  border-radius: 50%;
 }
 
 .tikz img {

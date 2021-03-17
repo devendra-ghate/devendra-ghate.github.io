@@ -6,8 +6,10 @@
    <link rel="stylesheet" href="/libs/katex/katex.min.css">
  
   
+  
   <link rel="stylesheet" href="/css/franklin.css">
   <link rel="stylesheet" href="/css/basic.css">
+
   <link rel="icon" href="/assets/favicon.png">
   <link rel="icon" href="/assets/favicon.ico">
    <title> Study Guide - mdo-lab </title> 
@@ -40,8 +42,8 @@
    <h1>Study Guide</h1> 
 </div>
 <div class="franklin-content">
-<div class="franklin-toc"><ol><li><a href="#gradient_methods">Gradient methods</a><ol><li><a href="#gradient_descent_algorithms">Gradient descent algorithms</a><ol><li><a href="#step-size_calculation">Step-size Calculation</a><ol><li><a href="#exact_step-size_calculation">Exact step-size calculation</a></li><li><a href="#iterative_step-size_calculation">Iterative step-size calculation</a></li><li><a href="#inexact_line_search">Inexact line search</a></li></ol></li><li><a href="#drawbacks_of_steepest_descent_method">Drawbacks of steepest descent method</a></li></ol></li></ol></li><li><a href="#stoppage_criteria">Stoppage criteria</a></li><li><a href="#algorithm_performance">Algorithm Performance</a><ol><li><a href="#computational_complexity_space_and_time">Computational complexity &#40;space and time&#41;</a></li><li><a href="#rate_of_convergence">Rate of convergence</a></li><li><a href="#calculation_of_gradient_and_hessian">Calculation of Gradient &#40;and Hessian&#41;</a><ol><li><a href="#finite_difference">Finite Difference</a></li></ol></li></ol></li></ol></div>
-<h2 id="gradient_methods"><a href="#gradient_methods">Gradient methods</a></h2>
+<div class="franklin-toc"><ol><li><a href="#gradient_methods">Gradient methods</a><ol><li><a href="#gradient_descent_algorithms">Gradient descent algorithms</a><ol><li><a href="#step-size_calculation">Step-size Calculation</a><ol><li><a href="#exact_step-size_calculation">Exact step-size calculation</a></li><li><a href="#iterative_step-size_calculation">Iterative step-size calculation</a></li><li><a href="#inexact_line_search">Inexact line search</a></li></ol></li><li><a href="#drawbacks_of_steepest_descent_method">Drawbacks of steepest descent method</a></li></ol></li></ol></li><li><a href="#stoppage_criteria">Stoppage criteria</a></li><li><a href="#algorithm_performance">Algorithm Performance</a><ol><li><a href="#computational_complexity_space_and_time">Computational complexity &#40;space and time&#41;</a></li><li><a href="#rate_of_convergence">Rate of convergence</a></li><li><a href="#calculation_of_gradient_and_hessian">Calculation of Gradient &#40;and Hessian&#41;</a><ol><li><a href="#finite_difference">Finite Difference</a></li></ol></li></ol></li><li><a href="#non-gradient_methods">Non-gradient methods</a></li></ol></div>
+<h2 id="gradient_methods"><a href="#gradient_methods" class="header-anchor">Gradient methods</a></h2>
 <ol>
 <li><p>Line search methods</p>
 <ul>
@@ -62,21 +64,27 @@
 <li><p>Trust region methods</p>
 </li>
 </ol>
-<h3 id="gradient_descent_algorithms"><a href="#gradient_descent_algorithms">Gradient descent algorithms</a></h3>
+<span style="font-size:85%;line-height:0em;color:maroon;"><strong>Note</strong>:  Line search methods assume a linear model of the objective function &#40;\(f(\alpha) = f(\bar{x}^{k}) + \alpha \bar{d}^{k}\)&#41; locally and find a descent direction &#40;\(\bar{d}\)&#41;. However, actual nonlinear model &#40;\(f(\bar{x})\)&#41; is used to calculate the stepsize. In contrast to this, trust region methods create a local quadratic model of the objective function and calculate the next step &#40;\(\bar{x}^{(k+1)}\)&#41;.</span>
+<h3 id="gradient_descent_algorithms"><a href="#gradient_descent_algorithms" class="header-anchor">Gradient descent algorithms</a></h3>
 <ul>
 <li><p>Select a descent direction</p>
 </li>
 <li><p>Select a step-size &#40;\(\alpha\)&#41; along the descent direction</p>
 </li>
 </ul>
-<h4 id="step-size_calculation"><a href="#step-size_calculation">Step-size Calculation</a></h4>
+<h4 id="step-size_calculation"><a href="#step-size_calculation" class="header-anchor">Step-size Calculation</a></h4>
 <p>Step-size calculation methods can be classified as:</p>
-<h5 id="exact_step-size_calculation"><a href="#exact_step-size_calculation">Exact step-size calculation</a></h5>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; what is it? - why is it useful? - Can I do it for engineering problems? - calculation of exact step-size for a symmetric positive definite quadratic objective function - show \(\bar{c}^{(k+1)^T} \bar{d}^{(k)} = 0\) for exact step-size calculation &#41;</span>
-<h5 id="iterative_step-size_calculation"><a href="#iterative_step-size_calculation">Iterative step-size calculation</a></h5>
+<h5 id="exact_step-size_calculation"><a href="#exact_step-size_calculation" class="header-anchor">Exact step-size calculation</a></h5>
+<span style="font-size:85%;line-height:0em;color:maroon;">&#40; what is it? - why is it useful? - Can I do it for engineering problems? - calculation of exact step-size for a symmetric positive definite quadratic objective function &#41;</span>
+<p><div class="note"><div class="title">Question</div>
+<div class="content"><p>Show </p>
+\[\bar{c}^{(k+1)^T} \bar{d}^{(k)} = 0\]
+<p>for exact step-size calculation.</p></div></div> <div class="note"><div class="title">Question</div>
+<div class="content">Is the above statement true for a general nonlinear objective function?</div></div></p>
+<h5 id="iterative_step-size_calculation"><a href="#iterative_step-size_calculation" class="header-anchor">Iterative step-size calculation</a></h5>
 <span style="font-size:85%;line-height:0em;color:maroon;">&#40; why required - how do we compare algorithm performance - different algorithms &#41;</span>
 <p>Step-size calculation usually happens in two steps:</p>
-<ol>
+<ul>
 <li><p>Bracketing the minima</p>
 <ul>
 <li><p>Equal interval search</p>
@@ -97,28 +105,37 @@
 </li>
 </ul>
 </li>
-</ol>
-<h5 id="inexact_line_search"><a href="#inexact_line_search">Inexact line search</a></h5>
+</ul>
+<h5 id="inexact_line_search"><a href="#inexact_line_search" class="header-anchor">Inexact line search</a></h5>
 <ul>
 <li><p>Armijo&#39;s rule</p>
 </li>
 </ul>
-<h4 id="drawbacks_of_steepest_descent_method"><a href="#drawbacks_of_steepest_descent_method">Drawbacks of steepest descent method</a></h4>
-<h2 id="stoppage_criteria"><a href="#stoppage_criteria">Stoppage criteria</a></h2>
+<p>Armijo&#39;s rule only promises to find \(\alpha\) such that \(f(\bar{x}^{(k+1)} < f(\bar{x}^{k})\).</p>
+<h4 id="drawbacks_of_steepest_descent_method"><a href="#drawbacks_of_steepest_descent_method" class="header-anchor">Drawbacks of steepest descent method</a></h4>
+<ul>
+<li><p>Poor performance for ill-conditioned problems &#40;remember the ellipse in the lecture&#41; as opposed to well-conditioned problems &#40;circle in the lecture&#41;.</p>
+</li>
+<li><p>Method is fast away from the optimum and becomes slow in the neighbourhood of the optimum</p>
+</li>
+</ul>
+<h2 id="stoppage_criteria"><a href="#stoppage_criteria" class="header-anchor">Stoppage criteria</a></h2>
 <span style="font-size:85%;line-height:0em;color:maroon;">&#40; Assignment 1 &#41;</span>
 <ul>
 <li><p>Similar criteria is used for gradient as well as non-gradient methods</p>
 </li>
 </ul>
-<h2 id="algorithm_performance"><a href="#algorithm_performance">Algorithm Performance</a></h2>
-<h3 id="computational_complexity_space_and_time"><a href="#computational_complexity_space_and_time">Computational complexity &#40;space and time&#41;</a></h3>
-<h3 id="rate_of_convergence"><a href="#rate_of_convergence">Rate of convergence</a></h3>
+<h2 id="algorithm_performance"><a href="#algorithm_performance" class="header-anchor">Algorithm Performance</a></h2>
+<h3 id="computational_complexity_space_and_time"><a href="#computational_complexity_space_and_time" class="header-anchor">Computational complexity &#40;space and time&#41;</a></h3>
+<h3 id="rate_of_convergence"><a href="#rate_of_convergence" class="header-anchor">Rate of convergence</a></h3>
 <span style="font-size:85%;line-height:0em;color:maroon;">&#40; what is it? - why is it required? - can I calculate it in engineering problems? -linear convergence - superlinear convergence - quadratic convergence &#41;</span>
+<p>Consider any gradient algorithm. We get a series of design points \(\bar{x}^{(0)}, \bar{x}^{(1)}, ... , \bar{x}^{(k)}, \bar{x}^{(k+1)}, ... , \bar{x}^{(p)}\). We can treat these design points as a sequence. The algorithm is converging if this sequence converges to the actual optima\(\bar{x}^{*}\). We define convergence ratio &#40;\(\beta\)&#41; as follows:</p>
 \[\beta = \frac{\left\lVert  \bar{x}^{(k+1)} - \bar{x}^* \right\rVert_{2} }{\left\lVert  \bar{x}^{(k)} - \bar{x}^* \right\rVert_{2}^r}\]
-<p>where \(\beta\) is convergence ratio and \(r\) is the rate of convergence.</p>
+<p>where \(r\) is the rate of convergence.</p>
 <table><tr><th align="right">Convergence</th><th align="right">Condition</th></tr><tr><td align="right">Linear</td><td align="right">\(r=1\) and \(\beta < 1\) &#40;Only first order information required&#41;</td></tr><tr><td align="right">Superlinear</td><td align="right">\(r=1\) and \(\beta \rightarrow 0\)</td></tr><tr><td align="right">Superlinear</td><td align="right">\(1 < r<2\) and \(\beta < 1\) &#40;Achieved using gradient information from previous steps&#41;</td></tr><tr><td align="right">Quadratic</td><td align="right">\(r=2\) and \(\beta<1\) &#40;Hessian information required&#41;</td></tr></table>
-<div class="blank"></div><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><strong>Q</strong>:  Will an algorithm with quadratic convergence always converge faster than a linear algorithm? If the answer is not affirmative, give an example.</span>
-<h3 id="calculation_of_gradient_and_hessian"><a href="#calculation_of_gradient_and_hessian">Calculation of Gradient &#40;and Hessian&#41;</a></h3>
+<div class="note"><div class="title">Question</div>
+<div class="content">Will an algorithm with quadratic convergence always converge faster than a linear algorithm? If the answer is not affirmative, give an example.</div></div>
+<h3 id="calculation_of_gradient_and_hessian"><a href="#calculation_of_gradient_and_hessian" class="header-anchor">Calculation of Gradient &#40;and Hessian&#41;</a></h3>
 <ul>
 <li><p>Finite Difference</p>
 </li>
@@ -129,11 +146,28 @@
 <li><p>Hyperdual numbers</p>
 </li>
 </ul>
-<h4 id="finite_difference"><a href="#finite_difference">Finite Difference</a></h4>
+<h4 id="finite_difference"><a href="#finite_difference" class="header-anchor">Finite Difference</a></h4>
 <span style="font-size:85%;line-height:0em;color:maroon;">&#40; Assignment 3 &#41;</span>
-<div class="blank"></div><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><strong>Q</strong>:  What is the time complexity of gradient and Hessian calculation for forward and central finite difference method?</span>
-<div class="blank"></div><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><strong>Q</strong>:  Can we apply finite difference method for implicit objective functions?</span>
-<div class="blank"></div><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><strong>Q</strong>:  What are the advantages and disadvantages of finite difference gradient calculation?</span>
+<div class="note"><div class="title">Question</div>
+<div class="content">What is the time complexity of gradient and Hessian calculation for forward and central finite difference method?</div></div>
+<div class="note"><div class="title">Question</div>
+<div class="content">Can we apply finite difference method for implicit objective functions?</div></div>
+<div class="note"><div class="title">Question</div>
+<div class="content">What are the advantages and disadvantages of finite difference gradient calculation?</div></div>
+<h2 id="non-gradient_methods"><a href="#non-gradient_methods" class="header-anchor">Non-gradient methods</a></h2>
+<ul>
+<li><p>Any optimisation algorithm that does not require gradient information is called <em>non-gradient</em> method.</p>
+</li>
+<li><p>Any optimisation algorithm that does not get trapped into a local optima and searches the entire design space to find global optima is can a <em>global</em> method.</p>
+</li>
+<li><p>Any optimisation algorithm that works on populations of candidate designs and evolves them to reach optima is called <em>evolutionary</em> method.</p>
+</li>
+<li><p>Any optimisation algorithm that mimics &#40;or is inspired by&#41; natural systems/animal behaviour is called <em>nature inspired</em> method.</p>
+</li>
+</ul>
+<p>There is a lot of overlap and intersection between this terminology.</p>
+<p>For example, <em>Nelder Mead</em> algorithm is a non-gradient algorithm. It is not global or evolutionary or nature inspired. Genetic algorithm is a non-gradient, global, evolutionary algorithm which is inspired by the evolution process found in all living beings.</p>
+<p>This general area of optimisation is relatively new &#40;as compared to the gradient methods&#41; and hence the terminology has not settled down yet.</p>
 <div class="page-foot">
   <div class="copyright">
     <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
