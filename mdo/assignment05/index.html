@@ -13,17 +13,17 @@
 
   <link rel="icon" href="/assets/favicon.png">
   <link rel="icon" href="/assets/favicon.ico">
-   <title> Assignment 4 - mdo-lab </title> 
-   <meta name="description" content="Nonlinear Least Squares as an optimisation problem" /> 
+   <title> Assignment 5 - mdo-lab </title> 
+   <meta name="description" content="" /> 
 
-   <meta property="og:title" content="Assignment 4" /> 
+   <meta property="og:title" content="Assignment 5" /> 
    <meta property="og:type" content="article" /> 
-   <meta property="og:description" content="Nonlinear Least Squares as an optimisation problem" /> 
+   <meta property="og:description" content="" /> 
   
 
-   <meta name="twitter:title" content="Assignment 4" /> 
+   <meta name="twitter:title" content="Assignment 5" /> 
    <meta name="twitter:card" content="summary" /> 
-   <meta name="twitter:description" content="Nonlinear Least Squares as an optimisation problem" /> 
+   <meta name="twitter:description" content="" /> 
   
 </head>
 <body>
@@ -40,10 +40,10 @@
 
 
 <div class="franklin-content">
-   <h1>Assignment 4</h1> 
+   <h1>Assignment 5</h1> 
 </div>
 <div class="franklin-content">
-<p><strong>Due: 24-03-2021</strong></p>
+<p><strong>Due: 05-04-2021</strong></p>
 <span style="font-size:85%;line-height:0em;color:maroon;"><strong>Note</strong>:  The due date will not be extended unless there is an medical emergency.</span>
 <h4 id="problem_statement"><a href="#problem_statement" class="header-anchor">Problem Statement</a></h4>
 <p>Many times in engineering, observations of a function are made at some discrete points. For example, lets say \(y = f(x_1, x_2),\ x_1, x_2 \in [0,1]\) is the function. Observations can be made for this function at \(n\) points in the domain to yield an array \((x_{1}, x_{2}, y)_i,\ \ i \in [1,n]\). Now the question is how best to approximate the original function \(f\) in the entire domain using these \(n\) observations. \(n\) can be in tens, thousands or even a million.</p>
@@ -56,7 +56,7 @@
 \[\displaystyle y_i - \hat{f}(x_1, x_2, \beta)|_i = 0,\ \forall \ i \in [1,n].\]
 <p>So this curve fitting problem can be recast as an optimisation problem as:</p>
 \[\displaystyle \min_{\beta_i} \sum_{i=1}^{n} || y_i - \hat{f}(x_1, x_2, \beta)|_i ||^2\]
-<p>This is known as the nonlinear least squares method. Find \(\beta_i\) for which this function reaches minima. A set of \(121\) observations can be found in this <code>csv</code> <a href="../assets/data-assignment04.csv">file</a>.</p>
+<p>This is known as the nonlinear least squares method. Find \(\beta_i\) for which this function reaches minima. A set of \(121\) observations can be found in this <code>csv</code> <a href="../data-assignment04.csv">file</a>.</p>
 <div class="note"><div class="title">Question</div>
 <div class="content">You can choose to use partial data only. Experiment with your code with increasing the number of data points you choose, and comment on the total \(L_2\) norm of the error \(y - \hat{f}(x_1, x_2, \beta)\).</div></div>
 <div class="note"><div class="title">Question</div>

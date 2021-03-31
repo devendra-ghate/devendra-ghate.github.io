@@ -13,17 +13,17 @@
 
   <link rel="icon" href="/assets/favicon.png">
   <link rel="icon" href="/assets/favicon.ico">
-   <title> Q1 - mdo-lab </title> 
+   <title> Speed up your code - mdo-lab </title> 
+   <meta name="description" content="An example of how to analyse a code to make it faster." /> 
+
+   <meta property="og:title" content="Speed up your code" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="An example of how to analyse a code to make it faster." /> 
   
 
-   <meta property="og:title" content="Q1" /> 
-  
-  
-  
-
-   <meta name="twitter:title" content="Q1" /> 
-  
-  
+   <meta name="twitter:title" content="Speed up your code" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="An example of how to analyse a code to make it faster." /> 
   
 </head>
 <body>
@@ -40,10 +40,9 @@
 
 
 <div class="franklin-content">
-  
+   <h1>Speed up your code</h1> 
 </div>
-<div class="franklin-content"><p><hr /> title: Endsem date: 24/02/2021 –-</p>
-<h1 id="q1"><a href="#q1" class="header-anchor">Q1</a></h1>
+<div class="franklin-content"><p>This semester I taught Computer Programming with Applications for our first year undergraduate students. We used <code>C&#43;&#43;</code> as an example to teach the principles of programming. Here is a question from the end semester examination. Around 6-7 students from a batch of 140 students were able to identify all the tricks. Surprising, no one converted \(\sin{}\) to \(\cos{}\).</p>
 <p>Rewrite the following code to make it fast and consume minimum amount of memory. Your program should give <strong>exactly</strong> the same output as the following program. &#40; <strong>5 marks</strong> &#41;</p>
 <pre><code class="language-C">#include&lt;iostream&gt;
 #include&lt;cmath&gt;
@@ -71,40 +70,21 @@ main&#40;&#41;&#123;
 &#125;</code></pre>
 <p><strong>Solution</strong> : We note:</p>
 <ol>
-<li><p>The second loop is only working on the diagonal elements. So essentially we</p>
+<li><p>The second loop is only working on the diagonal elements. So essentially we need only a single <code>for</code> loop for calculation. Only the diagonal entries are of interest. &#40;<strong>1 mark</strong>&#41;</p>
+</li>
+<li><p>Now since only the diagonal entries are of interest, we also notice that the first loop is initializing the elements of <code>a</code> in such a way that all the diagonal elements come out to be 1. So this initialization step can also be eliminated. &#40; <strong>1 mark</strong> &#41;</p>
+</li>
+<li><p>We also notice that the division by 100 is being performed repeated and is independent of <code>i</code> and <code>j</code>. Hence it can be moved out of the loop there by saving us many division operations. &#40; <strong>1 mark</strong> &#41;</p>
+</li>
+<li><p>Similarly, I can define a variable <code>pibytwo</code> and avoid a lot of divisions. Now, you might feel that one more variable is being added and memory consumption has increased. But if we consider the trade off, one extra variable is nothing compared to <code>100</code> division operations. So this is a no brainer. &#40; <strong>0.5 marks</strong> &#41;</p>
+</li>
+<li><p>Also, \(\frac{\pi}{2}\frac{(i+2)}{(i+1)} = \frac{\pi}{2} + \frac{\pi}{2}\frac{1}{(i+1)}\). So I have converted &#40; 2 additions &#43; 1 division &#43; 1 multiplication&#41; into &#40;1 addition &#43; 1 division&#41;. &#40; <strong>0.5 marks</strong> &#41;</p>
+</li>
+<li><p>But now I notice that I don&#39;t even have to do that addition <code>i&#43;1</code>. I can simply modify the <code>for</code> loop from <code>0-99</code> to <code>1-100</code>. This is a standard trick in computing and you should always keep this in mind while writing any code.&#40; <strong>1 mark</strong> &#41;</p>
+</li>
+<li><p>In fact, \(\pi/2\) is available in <code>cmath</code> as <code>M_PI_2</code>. You may not know this. So I have not deducted marks for this. We could have saved on one more division operation.</p>
 </li>
 </ol>
-<p>need only a single <code>for</code> loop for calculation. Only the diagonal entries are of interest. &#40;** 1 mark **&#41;</p>
-<ol start="2">
-<li><p>Now since only the diagonal entries are of interest, we also notice that the</p>
-</li>
-</ol>
-<p>first loop is initializing the elements of <code>a</code> in such a way that all the diagonal elements come out to be 1. So this initialization step can also be eliminated. &#40; <strong>1 mark</strong> &#41;</p>
-<ol start="3">
-<li><p>We also notice that the division by 100 is being performed repeated and</p>
-</li>
-</ol>
-<p>is independent of <code>i</code> and <code>j</code>. Hence it can be moved out of the loop there by saving us many division operations. &#40; <strong>1 mark</strong> &#41;</p>
-<ol start="4">
-<li><p>Similarly, I can define a variable <code>pibytwo</code> and avoid a lot of divisions.</p>
-</li>
-</ol>
-<p>Now, you might feel that one more variable is being added and memory consumption has increased. But if we consider the trade off, one extra variable is nothing compared to <code>100</code> division operations. So this is a no brainer. &#40; <strong>0.5 marks</strong> &#41;</p>
-<ol start="5">
-<li><p>Also, \(pibytwo*(i+2)/(i+1) = pibytwo + pibytwo/(i+1)\). So I have converted &#40;</p>
-</li>
-</ol>
-<p>2 additions &#43; 1 division &#43; 1 multiplication&#41; into &#40;1 addition &#43; 1 division&#41;. &#40; <strong>0.5 marks</strong> &#41;</p>
-<ol start="6">
-<li><p>But now I notice that I don&#39;t even have to do that addition <code>i&#43;1</code>. I can</p>
-</li>
-</ol>
-<p>simply modify the <code>for</code> loop from <code>0-99</code> to <code>1-100</code>. This is a standard trick in computing and you should always keep this in mind while writing any code.&#40; <strong>1 mark</strong> &#41;</p>
-<ol start="7">
-<li><p>In fact, \(\pi/2\) is available in <code>cmath</code> as <code>M_PI_2</code>. You may not know this.</p>
-</li>
-</ol>
-<p>So I have not deducted marks for this. We could have saved on one more division operation.</p>
 <p>Here are my two versions of the fastest code:</p>
 <p>Without <code>M_PI_2</code></p>
 <pre><code class="language-C">#include&lt;iostream&gt;
@@ -133,7 +113,7 @@ main&#40;&#41;&#123;
   std::cout &lt;&lt; ans/100 &lt;&lt; std::endl;
   return&#40;0&#41;;
 &#125;</code></pre>
-<p>Both solutions get full marks.</p>
+<span style="font-size:85%;line-height:0em;color:maroon;"><strong>Note</strong>:  It should be noted here that with the increasing sophistication of the compilers, many of the changes made in the code will be done automatically by the compiler. Also, unrolling of the for loop &#40;depending on the cache size&#41; has not been discussed.</span>
 <div class="page-foot">
   <div class="copyright">
     <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
