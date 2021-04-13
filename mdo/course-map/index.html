@@ -42,7 +42,8 @@
    <h1>Study Guide</h1> 
 </div>
 <div class="franklin-content">
-<div class="franklin-toc"><ol><li><a href="#gradient_methods">Gradient methods</a><ol><li><a href="#gradient_descent_algorithms">Gradient descent algorithms</a><ol><li><a href="#step-size_calculation">Step-size Calculation</a><ol><li><a href="#exact_step-size_calculation">Exact step-size calculation</a></li><li><a href="#iterative_step-size_calculation">Iterative step-size calculation</a></li><li><a href="#inexact_line_search">Inexact line search</a></li></ol></li><li><a href="#drawbacks_of_steepest_descent_method">Drawbacks of steepest descent method</a></li></ol></li></ol></li><li><a href="#stoppage_criteria">Stoppage criteria</a></li><li><a href="#algorithm_performance">Algorithm Performance</a><ol><li><a href="#computational_complexity_space_and_time">Computational complexity &#40;space and time&#41;</a></li><li><a href="#rate_of_convergence">Rate of convergence</a></li><li><a href="#calculation_of_gradient_and_hessian">Calculation of Gradient &#40;and Hessian&#41;</a><ol><li><a href="#finite_difference">Finite Difference</a></li></ol></li></ol></li><li><a href="#non-gradient_methods">Non-gradient methods</a></li></ol></div>
+<h2 id="reading_guide"><a href="#reading_guide" class="header-anchor">Reading Guide</a></h2>
+<table><tr><th align="right">Topic</th><th align="right">Reference</th></tr><tr><td align="right">Unconstrained Optimisation</td><td align="right">Jasbir Arora &#40;Ch. 10 &amp; 11&#41;</td></tr><tr><td align="right">Optimality Conditions</td><td align="right">Jasbir Arora &#40;Ch. 4&#41;</td></tr><tr><td align="right">Genetic Algorithms</td><td align="right">Kalyanmoy Deb &#40;Ch. 6&#41;</td></tr><tr><td align="right">Simulated Annealing</td><td align="right">Kalyanmoy Deb &#40;Ch. 6&#41;</td></tr><tr><td align="right">Multi-objective Optimisation</td><td align="right">Kalyanmoy Deb &#40;Ch. 1, 2, 3&#41;</td></tr><tr><td align="right"></td><td align="right">Jasbir Arora &#40;Ch. 17&#41;</td></tr><tr><td align="right">Gradient Calculation Methods</td><td align="right">Alonso Notes</td></tr><tr><td align="right">Surrogate Modelling</td><td align="right"></td></tr></table>
 <h2 id="gradient_methods"><a href="#gradient_methods" class="header-anchor">Gradient methods</a></h2>
 <ol>
 <li><p>Line search methods</p>
@@ -76,11 +77,9 @@
 <p>Step-size calculation methods can be classified as:</p>
 <h5 id="exact_step-size_calculation"><a href="#exact_step-size_calculation" class="header-anchor">Exact step-size calculation</a></h5>
 <span style="font-size:85%;line-height:0em;color:maroon;">&#40; what is it? - why is it useful? - Can I do it for engineering problems? - calculation of exact step-size for a symmetric positive definite quadratic objective function &#41;</span>
-<p><div class="note"><div class="title">Question</div>
-<div class="content"><p>Show </p>
+<p><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Show </p>
 \[\bar{c}^{(k+1)^T} \bar{d}^{(k)} = 0\]
-<p>for exact step-size calculation.</p></div></div> <div class="note"><div class="title">Question</div>
-<div class="content">Is the above statement true for a general nonlinear objective function?</div></div></p>
+<p>for exact step-size calculation.</span> <span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Is the above statement true for a general nonlinear objective function?</span></p>
 <h5 id="iterative_step-size_calculation"><a href="#iterative_step-size_calculation" class="header-anchor">Iterative step-size calculation</a></h5>
 <span style="font-size:85%;line-height:0em;color:maroon;">&#40; why required - how do we compare algorithm performance - different algorithms &#41;</span>
 <p>Step-size calculation usually happens in two steps:</p>
@@ -133,27 +132,7 @@
 \[\beta = \frac{\left\lVert  \bar{x}^{(k+1)} - \bar{x}^* \right\rVert_{2} }{\left\lVert  \bar{x}^{(k)} - \bar{x}^* \right\rVert_{2}^r}\]
 <p>where \(r\) is the rate of convergence.</p>
 <table><tr><th align="right">Convergence</th><th align="right">Condition</th></tr><tr><td align="right">Linear</td><td align="right">\(r=1\) and \(\beta < 1\) &#40;Only first order information required&#41;</td></tr><tr><td align="right">Superlinear</td><td align="right">\(r=1\) and \(\beta \rightarrow 0\)</td></tr><tr><td align="right">Superlinear</td><td align="right">\(1 < r<2\) and \(\beta < 1\) &#40;Achieved using gradient information from previous steps&#41;</td></tr><tr><td align="right">Quadratic</td><td align="right">\(r=2\) and \(\beta<1\) &#40;Hessian information required&#41;</td></tr></table>
-<div class="note"><div class="title">Question</div>
-<div class="content">Will an algorithm with quadratic convergence always converge faster than a linear algorithm? If the answer is not affirmative, give an example.</div></div>
-<h3 id="calculation_of_gradient_and_hessian"><a href="#calculation_of_gradient_and_hessian" class="header-anchor">Calculation of Gradient &#40;and Hessian&#41;</a></h3>
-<ul>
-<li><p>Finite Difference</p>
-</li>
-<li><p>Complex variable trick</p>
-</li>
-<li><p>Automatic Differentiation</p>
-</li>
-<li><p>Hyperdual numbers</p>
-</li>
-</ul>
-<h4 id="finite_difference"><a href="#finite_difference" class="header-anchor">Finite Difference</a></h4>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; Assignment 3 &#41;</span>
-<div class="note"><div class="title">Question</div>
-<div class="content">What is the time complexity of gradient and Hessian calculation for forward and central finite difference method?</div></div>
-<div class="note"><div class="title">Question</div>
-<div class="content">Can we apply finite difference method for implicit objective functions?</div></div>
-<div class="note"><div class="title">Question</div>
-<div class="content">What are the advantages and disadvantages of finite difference gradient calculation?</div></div>
+<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Will an algorithm with quadratic convergence always converge faster than a linear algorithm? If the answer is not affirmative, give an example.</span>
 <h2 id="non-gradient_methods"><a href="#non-gradient_methods" class="header-anchor">Non-gradient methods</a></h2>
 <ul>
 <li><p>Any optimisation algorithm that does not require gradient information is called <em>non-gradient</em> method.</p>
@@ -168,6 +147,24 @@
 <p>There is a lot of overlap and intersection between this terminology.</p>
 <p>For example, <em>Nelder Mead</em> algorithm is a non-gradient algorithm. It is not global or evolutionary or nature inspired. Genetic algorithm is a non-gradient, global, evolutionary algorithm which is inspired by the evolution process found in all living beings.</p>
 <p>This general area of optimisation is relatively new &#40;as compared to the gradient methods&#41; and hence the terminology has not settled down yet.</p>
+<h3 id="calculation_of_gradient_and_hessian"><a href="#calculation_of_gradient_and_hessian" class="header-anchor">Calculation of Gradient &#40;and Hessian&#41;</a></h3>
+<ul>
+<li><p>Finite Difference</p>
+</li>
+<li><p>Complex variable trick</p>
+</li>
+<li><p>Automatic Differentiation</p>
+</li>
+<li><p>Hyperdual numbers &#40;not discussed in the class&#41;</p>
+</li>
+</ul>
+<h4 id="finite_difference"><a href="#finite_difference" class="header-anchor">Finite Difference</a></h4>
+<span style="font-size:85%;line-height:0em;color:maroon;">&#40; Assignment 3 &#41;</span>
+<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  What is the time complexity of gradient and Hessian calculation for forward and central finite difference method?</span>
+<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Can we apply finite difference method for implicit objective functions?</span>
+<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  What are the advantages and disadvantages of finite difference gradient calculation?</span>
+<h3 id="surrogate_modelling"><a href="#surrogate_modelling" class="header-anchor">Surrogate Modelling</a></h3>
+<p>A standard way to find a \((n-1)\) degree interpolating polynomial through \(n\) data points is a Lagrange polynomial. A brief introduction to this for \(f(x):\mathbb{R} \rightarrow \mathbb{R}\) can be found <a href="https://phys.libretexts.org/Bookshelves/Astronomy__Cosmology/Book&#37;3A_Celestial_Mechanics_&#40;Tatum&#41;/01&#37;3A_Numerical_Methods/1.11&#37;3A_Fitting_a_Polynomial_to_a_Set_of_Points_-_Lagrange_Polynomials_and_Lagrange_Interpolation">here</a>.</p>
 <div class="page-foot">
   <div class="copyright">
     <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.

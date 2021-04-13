@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+   <script src="/libs/plotly/plotly.min.js"></script> 
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Multi-objective Optimisation - mdo-lab </title> 
+  
+
+   <meta property="og:title" content="Multi-objective Optimisation" /> 
+  
+  
+  
+
+   <meta name="twitter:title" content="Multi-objective Optimisation" /> 
+  
+  
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/mdo/">mdo</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+  
+</div>
+<div class="franklin-content"><h2 id="multi-objective_optimisation_moop"><a href="#multi-objective_optimisation_moop" class="header-anchor">Multi-objective Optimisation &#40;MOOP&#41;</a></h2>
+<p>Consider the following optimisation problem:</p>
+\[\begin{aligned}
+& \underset{x}{\text{minimize}}
+& & length(x) = 100 x,~weight(x) = 100 x^2 \\
+& \text{subject to}
+& & 0 \leq x \leq 1 \\
+\end{aligned}\]
+<pre><code class="language-julia">using Optim, Plots, JSON, LaTeXStrings
+plotlyjs&#40;&#41;
+x &#61; range&#40;0,stop&#61;1,length&#61;20&#41; # Design space
+length&#40;x&#41; &#61; 100*x; weight&#40;x&#41; &#61; 100*x^2 # Functions to optimise</code></pre>
+
+<div id="fdprop" style="width:600px;height:350px"></div>
+
+<script>
+	var fig = {"layout":{"showlegend":true,"xaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,25.0,50.0,75.0,100.0],"visible":true,"ticks":"inside","range":[-3.0,103.0],"domain":[0.0,0.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"length","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0","25","50","75","100"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"y"},"paper_bgcolor":"rgba(255, 255, 255, 1.000)","annotations":[],"height":400,"margin":{"l":0,"b":20,"r":0,"t":20},"plot_bgcolor":"rgba(255, 255, 255, 1.000)","yaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,25.0,50.0,75.0,100.0],"visible":true,"ticks":"inside","range":[-3.0,103.0],"domain":[1.0,1.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"weight","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0","25","50","75","100"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"x"},"legend":{"borderwidth":1,"tracegroupgap":0,"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"title":{"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"text":""},"traceorder":"normal","x":1.0,"yanchor":"auto","xanchor":"auto","bordercolor":"rgba(0, 0, 0, 1.000)","bgcolor":"rgba(255, 255, 255, 1.000)","y":1.0},"width":600},"data":[{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0,5.263157894736842,10.526315789473683,15.789473684210526,21.052631578947366,26.31578947368421,31.57894736842105,36.84210526315789,42.10526315789473,47.368421052631575,52.63157894736842,57.89473684210527,63.1578947368421,68.42105263157895,73.68421052631578,78.94736842105263,84.21052631578947,89.47368421052632,94.73684210526315,100.0],"showlegend":false,"mode":"markers","name":"","zmin":null,"legendgroup":"","marker":{"symbol":"circle","color":"rgba(0, 154, 250, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"y":[0.0,0.27700831024930744,1.1080332409972298,2.493074792243767,4.432132963988919,6.925207756232686,9.972299168975068,13.573407202216064,17.728531855955676,22.437673130193904,27.700831024930743,33.51800554016621,39.88919667590027,46.81440443213297,54.293628808864256,62.32686980609419,70.9141274238227,80.05540166204986,89.75069252077562,100.0],"type":"scatter"}]};
+	CONTAINER = document.getElementById('fdprop');
+	Plotly.newPlot(CONTAINER, fig.data, fig.layout)
+</script>
+
+<p>These two objective functions are not conflicting with each other. Hence, this will not lead to an interesting MOOP. So lets consider the following optimisation problem:</p>
+\[\begin{aligned}
+& \underset{x}{\text{minimize}}
+& & weight(x) = 100 x^2,~drag(x) = (x-2)^2 \\
+& \text{subject to}
+& & 0 \leq x \leq 1 \\
+\end{aligned}\]
+<pre><code class="language-julia">#Functions to optimise
+drag&#40;x&#41; &#61; &#40;x-2&#41;^2; dr &#61; map&#40;drag,x&#41;</code></pre>
+
+<div id="fdphij" style="width:150px;height:150x"></div>
+
+<script>
+	var fig = {"layout":{"showlegend":true,"xaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,25.0,50.0,75.0,100.0],"visible":true,"ticks":"inside","range":[-3.0,103.0],"domain":[0.0,0.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"weight","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0","25","50","75","100"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"y"},"paper_bgcolor":"rgba(255, 255, 255, 1.000)","annotations":[],"height":400,"margin":{"l":0,"b":20,"r":0,"t":20},"plot_bgcolor":"rgba(255, 255, 255, 1.000)","yaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[1.0,2.0,3.0,4.0],"visible":true,"ticks":"inside","range":[0.91,4.09],"domain":[1.0,1.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"drag","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["1","2","3","4"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"x"},"legend":{"borderwidth":1,"tracegroupgap":0,"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"title":{"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"text":""},"traceorder":"normal","x":1.0,"yanchor":"auto","xanchor":"auto","bordercolor":"rgba(0, 0, 0, 1.000)","bgcolor":"rgba(255, 255, 255, 1.000)","y":1.0},"width":600},"data":[{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0,0.27700831024930744,1.1080332409972298,2.493074792243767,4.432132963988919,6.925207756232686,9.972299168975068,13.573407202216064,17.728531855955676,22.437673130193904,27.700831024930743,33.51800554016621,39.88919667590027,46.81440443213297,54.293628808864256,62.32686980609419,70.9141274238227,80.05540166204986,89.75069252077562,100.0],"showlegend":false,"mode":"markers","name":"","zmin":null,"legendgroup":"","marker":{"symbol":"circle","color":"rgba(0, 154, 250, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"y":[4.0,3.79224376731302,3.5900277008310253,3.3933518005540164,3.2022160664819945,3.0166204986149587,2.836565096952908,2.6620498614958445,2.4930747922437675,2.329639889196676,2.171745152354571,2.0193905817174516,1.8725761772853187,1.731301939058172,1.595567867036011,1.4653739612188366,1.3407202216066483,1.2216066481994456,1.1080332409972302,1.0],"type":"scatter"}]};
+	CONTAINER = document.getElementById('fdphij');
+	Plotly.newPlot(CONTAINER, fig.data, fig.layout)
+</script>
+
+<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Can we minimise weight and drag simultaneously?</span>
+<p>Some terminology:</p>
+<ul>
+<li><p>Objective space</p>
+</li>
+<li><p>Ideal objective vector &#40;\(z^*\)&#41;</p>
+</li>
+<li><p>Utopian objective vector &#40;\(z^{**}\)&#41;</p>
+</li>
+<li><p>Nadir objective vector &#40;\(z^{nad}\)&#41;</p>
+</li>
+<li><p>Worst feasible function values</p>
+</li>
+</ul>
+<p>Normalised  objective function</p>
+\[f_i^{norm} = \frac{f_i - z^*_i}{z_i^{nad} - z_i^{*}}\]
+<p>A design point \(x^{(1)}\) is said to dominate \(x^{(2)}\), if both conditions are true.</p>
+<ol>
+<li><p>\(x^{(1)}\) is no worse than \(x^{(2)}\) in all objectives \(f_i,\ \ i \in [1,\ldots,m]\)</p>
+</li>
+<li><p>\(x^{(1)}\) is strictly better than \(x^{(2)}\) in at least one objective \(f_i\)</p>
+</li>
+</ol>
+<div class="blank"></div><span style="font-weight:bold;">Pareto Optimal Point</span><blockquote>
+<p>A point \(x^*\) in the feasible design space \(S\) is called <strong>Pareto optimal</strong> if there is no other point \(x\) in the set \(S\) that reduces at least one objective function without increasing another one.</p>
+</blockquote>
+
+<p>The set of all pareto optimal points is called the <strong>Pareto front</strong>.</p>
+<p>We need to formulate strategies that will yield one or all of the points on the pareto optimal front.</p>
+<h2 id="strategy_1_weighted_sum_method"><a href="#strategy_1_weighted_sum_method" class="header-anchor">Strategy 1: Weighted Sum method</a></h2>
+\[f(\mathbf{x}) = \underset{i}{\sum}~{w_i\,f_i(\mathbf{x})}\]
+<pre><code class="language-julia"># Weighted objective function
+w1 &#61; 0.5; w2 &#61; 0.5
+f4&#40;x&#41; &#61; w1*weight&#40;x&#41; &#43; w2*drag&#40;x&#41;
+res &#61; optimize&#40;f4, -1, 1&#41;
+w1 &#61; 0.1; w2 &#61; 0.9
+res &#61; optimize&#40;f4, -1, 1&#41;
+w1 &#61; 0.01; w2 &#61; 0.99
+res &#61; optimize&#40;f4, -1, 1&#41;</code></pre>
+
+<div id="fdpajo" style="width:150px;height:150x"></div>
+
+<script>
+	var fig = {"layout":{"showlegend":true,"xaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,25.0,50.0,75.0,100.0],"visible":true,"ticks":"inside","range":[-3.0,103.0],"domain":[0.0,0.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"weight","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0","25","50","75","100"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"y"},"paper_bgcolor":"rgba(255, 255, 255, 1.000)","annotations":[],"height":400,"margin":{"l":0,"b":20,"r":0,"t":20},"plot_bgcolor":"rgba(255, 255, 255, 1.000)","yaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[1.0,2.0,3.0,4.0],"visible":true,"ticks":"inside","range":[0.91,4.09],"domain":[1.0,1.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"drag","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["1","2","3","4"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"x"},"legend":{"borderwidth":1,"tracegroupgap":0,"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"title":{"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"text":""},"traceorder":"normal","x":1.0,"yanchor":"auto","xanchor":"auto","bordercolor":"rgba(0, 0, 0, 1.000)","bgcolor":"rgba(255, 255, 255, 1.000)","y":1.0},"width":600},"data":[{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0,0.27700831024930744,1.1080332409972298,2.493074792243767,4.432132963988919,6.925207756232686,9.972299168975068,13.573407202216064,17.728531855955676,22.437673130193904,27.700831024930743,33.51800554016621,39.88919667590027,46.81440443213297,54.293628808864256,62.32686980609419,70.9141274238227,80.05540166204986,89.75069252077562,100.0],"showlegend":false,"mode":"markers","name":"","zmin":null,"legendgroup":"","marker":{"symbol":"circle","color":"rgba(0, 154, 250, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"y":[4.0,3.79224376731302,3.5900277008310253,3.3933518005540164,3.2022160664819945,3.0166204986149587,2.836565096952908,2.6620498614958445,2.4930747922437675,2.329639889196676,2.171745152354571,2.0193905817174516,1.8725761772853187,1.731301939058172,1.595567867036011,1.4653739612188366,1.3407202216066483,1.2216066481994456,1.1080332409972302,1.0],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.03921184314488186],"showlegend":true,"mode":"lines+markers","name":"50-50","zmin":null,"legendgroup":"50-50","marker":{"symbol":"diamond","color":"rgba(227, 111, 71, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(227, 111, 71, 1.000)","shape":"linear","dash":"solid","width":1},"y":[3.921184196459078],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[2.727043096911428],"showlegend":true,"mode":"lines+markers","name":"10-90","zmin":null,"legendgroup":"10-90","marker":{"symbol":"diamond","color":"rgba(62, 164, 78, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(62, 164, 78, 1.000)","shape":"linear","dash":"solid","width":1},"y":[3.3667199820964875],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[98.99750006312581],"showlegend":true,"mode":"lines+markers","name":"1-99","zmin":null,"legendgroup":"1-99","marker":{"symbol":"diamond","color":"rgba(195, 113, 210, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(195, 113, 210, 1.000)","shape":"linear","dash":"solid","width":1},"y":[1.0100755031438995],"type":"scatter"}]};
+	CONTAINER = document.getElementById('fdpajo');
+	Plotly.newPlot(CONTAINER, fig.data, fig.layout)
+</script>
+
+<p>The consituent objective functions have to be normalised for the correct working of the weighted sum method.</p>
+<pre><code class="language-julia">## Strategy 1: Weighted Sum method with normalised objective functions
+weight1&#40;x&#41; &#61; x^2; drag1&#40;x&#41; &#61; &#40;&#40;x-2&#41;^2 - 1&#41;/3;
+w &#61; map&#40;weight1,x&#41;; dr &#61; map&#40;drag1,x&#41;
+# Weighted objective function
+f4&#40;x&#41; &#61; w1*weight1&#40;x&#41; &#43; w2*drag1&#40;x&#41;
+w1 &#61; 0.0; w2 &#61; 1.0;
+res &#61; optimize&#40;f4, 0, 1&#41;
+w1 &#61; 0.1; w2 &#61; 0.9
+res &#61; optimize&#40;f4, 0, 1&#41;
+w1 &#61; 0.5; w2 &#61; 0.5;
+res &#61; optimize&#40;f4, 0, 1&#41;
+w1 &#61; 0.9; w2 &#61; 0.1
+res &#61; optimize&#40;f4, 0, 1&#41;
+w1 &#61; 1.0; w2 &#61; 0.0;
+res &#61; optimize&#40;f4, 0, 1&#41;</code></pre>
+
+<div id="fdpkrj" style="width:150px;height:150x"></div>
+
+<script>
+	var fig = {"layout":{"showlegend":true,"xaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,0.25,0.5,0.75,1.0],"visible":true,"ticks":"inside","range":[-0.03,1.03],"domain":[0.0,0.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"weight","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0.00","0.25","0.50","0.75","1.00"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"y"},"paper_bgcolor":"rgba(255, 255, 255, 1.000)","annotations":[],"height":400,"margin":{"l":0,"b":20,"r":0,"t":20},"plot_bgcolor":"rgba(255, 255, 255, 1.000)","yaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,0.25,0.5,0.75,1.0],"visible":true,"ticks":"inside","range":[-0.03,1.03],"domain":[1.0,1.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"drag","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0.00","0.25","0.50","0.75","1.00"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"x"},"legend":{"borderwidth":1,"tracegroupgap":0,"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"title":{"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"text":""},"traceorder":"normal","x":1.0,"yanchor":"auto","xanchor":"auto","bordercolor":"rgba(0, 0, 0, 1.000)","bgcolor":"rgba(255, 255, 255, 1.000)","y":1.0},"width":600},"data":[{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0,0.0027700831024930744,0.011080332409972297,0.02493074792243767,0.04432132963988919,0.06925207756232686,0.09972299168975068,0.13573407202216065,0.17728531855955676,0.22437673130193903,0.27700831024930744,0.33518005540166207,0.39889196675900274,0.46814404432132967,0.5429362880886426,0.6232686980609419,0.709141274238227,0.8005540166204986,0.8975069252077561,1.0],"showlegend":false,"mode":"markers","name":"","zmin":null,"legendgroup":"","marker":{"symbol":"circle","color":"rgba(0, 154, 250, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"y":[1.0,0.9307479224376732,0.8633425669436751,0.7977839335180055,0.7340720221606648,0.672206832871653,0.6121883656509693,0.5540166204986149,0.4976915974145892,0.443213296398892,0.39058171745152376,0.33979686057248387,0.2908587257617729,0.2437673130193907,0.198522622345337,0.15512465373961218,0.11357340720221609,0.07386888273314855,0.03601108033241007,0.0],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.9999999698956843],"showlegend":true,"mode":"lines+markers","name":"0-100","zmin":null,"legendgroup":"0-100","marker":{"symbol":"diamond","color":"rgba(227, 111, 71, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(227, 111, 71, 1.000)","shape":"linear","dash":"solid","width":1},"y":[1.0034772050341681e-8],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.9999999698956843],"showlegend":true,"mode":"lines+markers","name":"10-90","zmin":null,"legendgroup":"10-90","marker":{"symbol":"diamond","color":"rgba(62, 164, 78, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(62, 164, 78, 1.000)","shape":"linear","dash":"solid","width":1},"y":[1.0034772050341681e-8],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.250000007450581],"showlegend":true,"mode":"lines+markers","name":"50-50","zmin":null,"legendgroup":"50-50","marker":{"symbol":"diamond","color":"rgba(195, 113, 210, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(195, 113, 210, 1.000)","shape":"linear","dash":"solid","width":1},"y":[0.41666665921608564],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0051020403586277034],"showlegend":true,"mode":"lines+markers","name":"90-10","zmin":null,"legendgroup":"90-10","marker":{"symbol":"diamond","color":"rgba(172, 142, 24, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(172, 142, 24, 1.000)","shape":"linear","dash":"solid","width":1},"y":[0.906462589153303],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[1.1052718804930925e-31],"showlegend":true,"mode":"lines+markers","name":"100-0","zmin":null,"legendgroup":"100-0","marker":{"symbol":"diamond","color":"rgba(0, 170, 174, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(0, 170, 174, 1.000)","shape":"linear","dash":"solid","width":1},"y":[0.9999999999999997],"type":"scatter"}]};
+	CONTAINER = document.getElementById('fdpkrj');
+	Plotly.newPlot(CONTAINER, fig.data, fig.layout)
+</script>
+
+<h2 id="strategy_2_weighted_min-max_method"><a href="#strategy_2_weighted_min-max_method" class="header-anchor">Strategy 2: Weighted Min-Max method</a></h2>
+\[
+f(\mathbf{x}) = \underset{i}{\text{max}}~{w_i(f_i(\mathbf{x}) - f_i^0)}
+\]
+<p>where \(f_i^0\) is the minimum of the \(i\) objective function.</p>
+<ul>
+<li><p>Provides complete Pareto optimal set</p>
+</li>
+<li><p>May provide non-Pareto poitns as well</p>
+</li>
+<li><p>Requires individual minimum of the objective functions \(f_i\)</p>
+</li>
+</ul>
+<pre><code class="language-julia">## Strategy 2: Weighted Min-Max method
+weight1&#40;x&#41; &#61; x^2; drag1&#40;x&#41; &#61; &#40;&#40;x-2&#41;^2 - 1&#41;/3;
+w &#61; map&#40;weight1,x&#41;; dr &#61; map&#40;drag1,x&#41;
+# Weighted objective function
+f5&#40;x&#41; &#61; max&#40;w1*&#40;weight1&#40;x&#41; - 0&#41;, w2*&#40;drag1&#40;x&#41; - 0&#41;&#41;
+w1 &#61; 0.0; w2 &#61; 1.0;
+res &#61; optimize&#40;f5, 0, 1&#41;
+w1 &#61; 0.1; w2 &#61; 0.9
+res &#61; optimize&#40;f5, 0, 1&#41;
+w1 &#61; 0.5; w2 &#61; 0.5;
+res &#61; optimize&#40;f5, 0, 1&#41;
+w1 &#61; 0.9; w2 &#61; 0.1
+res &#61; optimize&#40;f5, 0, 1&#41;
+w1 &#61; 1.0; w2 &#61; 0.0;
+res &#61; optimize&#40;f5, 0, 1&#41;</code></pre>
+
+<div id="fdppsg" style="width:150px;height:150x"></div>
+
+<script>
+	var fig = {"layout":{"showlegend":true,"xaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,0.25,0.5,0.75,1.0],"visible":true,"ticks":"inside","range":[-0.03,1.03],"domain":[0.0,0.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"weight","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0.00","0.25","0.50","0.75","1.00"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"y"},"paper_bgcolor":"rgba(255, 255, 255, 1.000)","annotations":[],"height":400,"margin":{"l":0,"b":20,"r":0,"t":20},"plot_bgcolor":"rgba(255, 255, 255, 1.000)","yaxis":{"showticklabels":true,"gridwidth":0.5,"tickvals":[0.0,0.25,0.5,0.75,1.0],"visible":true,"ticks":"inside","range":[-0.03,1.03],"domain":[1.0,1.0],"tickmode":"array","linecolor":"rgba(0, 0, 0, 1.000)","showgrid":true,"title":"drag","mirror":false,"tickangle":0,"showline":true,"gridcolor":"rgba(0, 0, 0, 0.100)","titlefont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"tickcolor":"rgb(0, 0, 0)","ticktext":["0.00","0.25","0.50","0.75","1.00"],"zeroline":false,"type":"-","tickfont":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"zerolinecolor":"rgba(0, 0, 0, 1.000)","anchor":"x"},"legend":{"borderwidth":1,"tracegroupgap":0,"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":11},"title":{"font":{"color":"rgba(0, 0, 0, 1.000)","family":"sans-serif","size":15},"text":""},"traceorder":"normal","x":1.0,"yanchor":"auto","xanchor":"auto","bordercolor":"rgba(0, 0, 0, 1.000)","bgcolor":"rgba(255, 255, 255, 1.000)","y":1.0},"width":600},"data":[{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0,0.0027700831024930744,0.011080332409972297,0.02493074792243767,0.04432132963988919,0.06925207756232686,0.09972299168975068,0.13573407202216065,0.17728531855955676,0.22437673130193903,0.27700831024930744,0.33518005540166207,0.39889196675900274,0.46814404432132967,0.5429362880886426,0.6232686980609419,0.709141274238227,0.8005540166204986,0.8975069252077561,1.0],"showlegend":false,"mode":"markers","name":"","zmin":null,"legendgroup":"","marker":{"symbol":"circle","color":"rgba(0, 154, 250, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"y":[1.0,0.9307479224376732,0.8633425669436751,0.7977839335180055,0.7340720221606648,0.672206832871653,0.6121883656509693,0.5540166204986149,0.4976915974145892,0.443213296398892,0.39058171745152376,0.33979686057248387,0.2908587257617729,0.2437673130193907,0.198522622345337,0.15512465373961218,0.11357340720221609,0.07386888273314855,0.03601108033241007,0.0],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.9999999698956843],"showlegend":true,"mode":"lines+markers","name":"0-100","zmin":null,"legendgroup":"0-100","marker":{"symbol":"diamond","color":"rgba(227, 111, 71, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(227, 111, 71, 1.000)","shape":"linear","dash":"solid","width":1},"y":[1.0034772050341681e-8],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.9999999698956843],"showlegend":true,"mode":"lines+markers","name":"10-90","zmin":null,"legendgroup":"10-90","marker":{"symbol":"diamond","color":"rgba(62, 164, 78, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(62, 164, 78, 1.000)","shape":"linear","dash":"solid","width":1},"y":[1.0034772050341681e-8],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.250000007450581],"showlegend":true,"mode":"lines+markers","name":"50-50","zmin":null,"legendgroup":"50-50","marker":{"symbol":"diamond","color":"rgba(195, 113, 210, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(195, 113, 210, 1.000)","shape":"linear","dash":"solid","width":1},"y":[0.41666665921608564],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[0.0051020403586277034],"showlegend":true,"mode":"lines+markers","name":"90-10","zmin":null,"legendgroup":"90-10","marker":{"symbol":"diamond","color":"rgba(172, 142, 24, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(172, 142, 24, 1.000)","shape":"linear","dash":"solid","width":1},"y":[0.906462589153303],"type":"scatter"},{"xaxis":"x","colorbar":{"title":""},"yaxis":"y","x":[1.1052718804930925e-31],"showlegend":true,"mode":"lines+markers","name":"100-0","zmin":null,"legendgroup":"100-0","marker":{"symbol":"diamond","color":"rgba(0, 170, 174, 1.000)","line":{"color":"rgba(0, 0, 0, 1.000)","width":1},"size":8},"zmax":null,"line":{"color":"rgba(0, 170, 174, 1.000)","shape":"linear","dash":"solid","width":1},"y":[0.9999999999999997],"type":"scatter"}]};
+	CONTAINER = document.getElementById('fdppsg');
+	Plotly.newPlot(CONTAINER, fig.data, fig.layout)
+</script>
+
+<h2 id="strategy_3_weighted_global_criterion_method"><a href="#strategy_3_weighted_global_criterion_method" class="header-anchor">Strategy 3: Weighted global criterion method</a></h2>
+\[
+f(\mathbf{x}) = \big\{\underset{i}{\sum}[w_i(f_i(\mathbf{x}) - f_i^0)]^p\big\}^{1/p}
+\]
+<p>where, \( p \in [1,\infty]\).</p>
+<p><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  1. Can you calculate the value of \(p\) so that strategy 3 reduces to strategy 1 &amp; 2.</p>
+<ol>
+<li><p>What does the objective function \(f\) represents for \(p = 2\) ?</span></p>
+</li>
+</ol>
+
+<h3 id="drawbacks_of_the_strategies_used_so_far"><a href="#drawbacks_of_the_strategies_used_so_far" class="header-anchor">Drawbacks of the strategies used so far</a></h3>
+<ol>
+<li><p>The objective functions have to be scaled properly. This is a non-trivial task for complex optimisation problems.</p>
+</li>
+<li><p>Equi-spaced weights to no give equi-spaced pareto points as seen in the strategy two &#40;even for scaled objective functions&#41;. Experimentation is required to capture the entire pareto front.</p>
+</li>
+<li><p>Non-convex regions of the pareto front cannot be captured by these methods</p>
+</li>
+<li><p>For a single weight \(\bar{w}\), multiple solutions may exist on the pareto front. Hence, a single \(\bar{w}\) may map to multiple points on the pareto front.</p>
+</li>
+<li><p>On the other hand, different weight vectors may lead to the same pareto point. This usually happens because of constraints. Constraints may cut off some parts of the pareto front.</p>
+</li>
+</ol>
+<h2 id="strategy_4_epsilon_constraint_method"><a href="#strategy_4_epsilon_constraint_method" class="header-anchor">Strategy 4: \(\epsilon\) constraint method</a></h2>
+<p>The original single MOOP is solved as a series of \(m\) problems defined as:</p>
+\[\begin{aligned}
+& \underset{x}{\text{minimize}} & & f_{\mu}(x), \\
+& \text{subject to} & & f_m(x) \leq \epsilon_m,\ \ \ m = [1,\ldots,M],\ m \neq \mu \\
+&                   & & \bar{g}(\bar{x}) \leq 0 \\
+&                   & & \bar{h}(\bar{x}) = 0 \\
+&                   & & \bar{x}^{(L)} \leq x \leq \bar{x}^{(U)}
+\end{aligned}\]
+<h3 id="comments"><a href="#comments" class="header-anchor">Comments</a></h3>
+<ol>
+<li><p>The big advantage of this method is that it yields the non-convex part of the pareto front.</p>
+</li>
+<li><p>Range of variation of the objective functions &#40;\(f_i\)&#41; on the pareto front has to be known <em>apriori</em>.</p>
+</li>
+</ol>
+<h2 id="conclusion"><a href="#conclusion" class="header-anchor">Conclusion</a></h2>
+<p>There are other methods like Goal programming as well to calculate the entire pareto front. Apart from the gradient based methods discussed in this section, there are a class of population based evolutionary algorithms like NSGA-II that can calculate the entire pareto front in a single run. However, all the methods are prohibitively expensive for engineering optimisation problems. MOOP problem statements are mostly found in the preliminary design stage of the design process. At this stage, most of the analysis routines are low fidelity resulting in cheap function evaluations.</p>
+<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Give three low fidelity models for \(C_L\) and \(C_D\) calculation? How do they compare with Reynolds averaged Navier Stokes &#40;RANS&#41; CFD solution with turbulence model with respect to cost and accuracy?</span>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

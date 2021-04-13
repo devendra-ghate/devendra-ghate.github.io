@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Gradient Calculation Methods - mdo-lab </title> 
+   <meta name="description" content="Brief introduction to standard gradient calculation methods (mdo-2021)" /> 
+
+   <meta property="og:title" content="Gradient Calculation Methods" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Brief introduction to standard gradient calculation methods (mdo-2021)" /> 
+  
+
+   <meta name="twitter:title" content="Gradient Calculation Methods" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Brief introduction to standard gradient calculation methods (mdo-2021)" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/mdo/">mdo</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Gradient Calculation Methods</h1> 
+</div>
+<div class="franklin-content">
+<div class="franklin-toc"><ol><li><a href="#finite_difference">Finite Difference</a><ol><li><a href="#forward_difference">Forward difference</a></li><li><a href="#backward_difference">Backward difference</a></li><li><a href="#central_differnce">Central differnce</a></li><li><a href="#sensitivity_to_step-size">Sensitivity to step-size</a></li></ol></li><li><a href="#complex_variable_trick">Complex variable trick</a></li><li><a href="#automatic_differntiation_ad">Automatic Differntiation &#40;AD&#41;</a></li></ol></div>
+<h2 id="finite_difference"><a href="#finite_difference" class="header-anchor">Finite Difference</a></h2>
+<p>A finite difference is a technique by which derivatives of functions are approximated by differences in the values of the function between a given value of the independent variable, say \(x_0\)</p>
+<p>There are 3 types of finite difference methods used for such approximations:</p>
+<h3 id="forward_difference"><a href="#forward_difference" class="header-anchor">Forward difference</a></h3>
+<p>The approximation</p>
+\[\frac{df}{dx}=\frac{f(x_0+h)-f(x_0)}{h}\]
+<p>is called a forward difference formula because the derivative is based on the value x&#61;\(x_0\) and it involves the function f&#40;x&#41; evaluated at \(x = x_0+h\), i.e., at a point located forward from \(x_0\) by an increment h.</p>
+<h3 id="backward_difference"><a href="#backward_difference" class="header-anchor">Backward difference</a></h3>
+<p>If we include the values of f&#40;x&#41; at x &#61; \(x_0\) - h, and x &#61; \(x_0\), the approximation is written as</p>
+\[\frac{df}{dx}=\frac{f(x_0)-f(x_0-h)}{h}\]
+<p>and is called a backward difference formula. In both the cases the order of error is h.</p>
+<h3 id="central_differnce"><a href="#central_differnce" class="header-anchor">Central differnce</a></h3>
+<p>Using the central difference method the derivative can be approximated as </p>
+\[\frac{df}{dx}=\frac{f(x_0+h)-f(x_0-h)}{2h}\]
+<p>the order of error in this case is \(h^2\) thus it provides a better approximation given that our function is smooth and we dont have any issues along the boundaries.</p>
+<p>To obtain more accurate approximations we can use higher order derivatives but at the cost of making the differences more expensive to compute. Other limitations of this method are faced with practical PDE problems which contain discontinuities &#40;e.g. Heat flow through two mediums&#41;, in such cases the Taylor-series approximation is no longer valid.</p>
+<pre><code class="language-julia"># A comparison between forward,central and backward difference scheme
+using PyPlot
+
+x0&#61;1;
+
+f&#40;x&#41; &#61; x*x*x - x*x &#43; 2.0x &#43; 2.0;
+#f&#40;x&#41;&#61;x*x*x;
+#f&#40;x&#41;&#61;sin&#40;x&#41;;
+#f&#40;x&#41;&#61;sin&#40;x&#41;&#43;cos&#40;x&#41;;
+
+dx&#61;zeros&#40;18,1&#41;
+for i &#61; 1:18;
+    dx&#91;i&#93;&#61;10.0^-i
+end
+
+err1&#61;zeros&#40;18,1&#41;
+err2&#61;zeros&#40;18,1&#41;
+err3&#61;zeros&#40;18,1&#41;
+for j&#61;1:18;
+    err1&#91;j&#93;&#61;abs&#40;&#40;f&#40;x0&#43;dx&#91;j&#93;&#41;-f&#40;x0&#41;&#41;/dx&#91;j&#93; - 3.0*x0*x0&#43;2.0x0*x0-2.0&#41;
+    # doesnt work good for x&#61;2,3,4
+    err2&#91;j&#93;&#61;abs&#40;&#40;f&#40;x0&#43;dx&#91;j&#93;&#41;-f&#40;x0-dx&#91;j&#93;&#41;&#41;/2/dx&#91;j&#93; - 3.0*x0*x0&#43;2.0x0*x0-2.0&#41;
+    err3&#91;j&#93;&#61;abs&#40;&#40;f&#40;x0&#41;-f&#40;x0-dx&#91;j&#93;&#41;&#41;/dx&#91;j&#93; - 3.0*x0*x0&#43;2.0x0*x0-2.0&#41;
+    #err&#91;j&#93;&#61;abs&#40;&#40;f&#40;x0&#43;dx&#91;j&#93;&#41;-f&#40;x0-dx&#91;j&#93;&#41;&#41;/2/dx&#91;j&#93; - 3.0*x0*x0&#41; # good for all x0 best 1,2
+    #err&#91;j&#93;&#61;abs&#40;&#40;f&#40;x0&#43;dx&#91;j&#93;&#41;-f&#40;x0-dx&#91;j&#93;&#41;&#41;/2/dx&#91;j&#93; - cos&#40;x0&#41;&#41; #fails at x&#61;0
+    #err&#91;j&#93;&#61;abs&#40;&#40;f&#40;x0&#43;dx&#91;j&#93;&#41;-f&#40;x0-dx&#91;j&#93;&#41;&#41;/2/dx&#91;j&#93; - cos&#40;x0&#41;&#43;sin&#40;x0&#41;&#41;
+
+end
+pygui&#40;false&#41;
+figure&#40;&#41;
+loglog&#40;dx,err1,&quot;-*&quot;,linewidth&#61;2,label&#61;&quot;Forward difference&quot;&#41;
+loglog&#40;dx,err2,&quot;-o&quot;,linewidth&#61;2,label&#61;&quot;Central difference&quot;&#41;
+loglog&#40;dx,err3,&quot;-s&quot;,linewidth&#61;1,label&#61;&quot;Backward difference&quot;&#41;
+xlabel&#40;&quot;Step Size&quot;&#41;
+ylabel&#40;&quot;Error &quot;&#41;
+title&#40;&quot;Error Vs Step Size for finite difference methods&quot;&#41;
+grid&#40;&quot;on&quot;&#41;
+legend&#40;loc&#61;&quot;upper right&quot;,fancybox&#61;&quot;true&quot;&#41;</code></pre>
+<img src="/assets/mdo/gradientCalc/code/output/fd.svg" alt="">
+<h3 id="sensitivity_to_step-size"><a href="#sensitivity_to_step-size" class="header-anchor">Sensitivity to step-size</a></h3>
+<p>Inappropriate step size could affect the optimization stability and efficiency.</p>
+<p>The main sources of errors in finite difference methods are truncation errors. It&#39;s the error made by truncating an infinite sum &#40;e.g. Taylor series&#41; and approximating it by a finite sum. As we can see from the plot, the truncation error decreases and reaches a minimun. As we go on decreasing the step size the subtractive cancellation error due to finite precision arithmetic gets added. Thus the error goes on increasing.</p>
+<p>The optimal step size can be determined from sensitivity analysis to minimize the total numerical error, yet this will introduce additional computational burdens. </p>
+<h2 id="complex_variable_trick"><a href="#complex_variable_trick" class="header-anchor">Complex variable trick</a></h2>
+<p>Given a function that is infinitely differentiable and can be smoothly extended into the complex plane. We can write it as F&#40;z&#41; and such function can be expanded about \(x_0\) using the Taylor series.</p>
+\[F(x_0+ih)=F(x_0)+ihF'(x_0)−\frac{h^2F″(x_0)}{2!}−i\frac{h^3F^{(3)}}{3!}+....\]
+<p>Take the imaginary part of both sides and divide by h.</p>
+\[F′(x_0)=Im(\frac{F(x_0+ih)}{h})+O(h^2)\]
+<p>Evaluating the function \(F\) for an imaginary argument \(x_0+ih\) and dividing by h, gives an approximation to the value of the derivative, \(F′(x_0)\), that is accurate to order \(O(h^2)\).</p>
+<pre><code class="language-julia">using PyPlot
+using LinearAlgebra
+using Printf
+
+N &#61; 15
+x0 &#61; 1.0
+f&#40;x&#41;&#61;x*x*x
+∇f&#40;x&#41; &#61; 3*x*x
+
+∇f_cd&#40;x,Δx&#41; &#61; &#40;f&#40;x&#43;Δx&#41; - f&#40;x-Δx&#41;&#41;/2Δx
+∇f_cs&#40;x,Δx&#41; &#61; imag&#40;f&#40;x0 &#43; im*Δx&#41;/Δx&#41;
+
+err1&#61;zeros&#40;N,1&#41;; err2 &#61; zeros&#40;N,1&#41;
+Δx &#61; 10.0.^collect&#40;-1:-1:-N&#41;
+for j&#61;1:N
+    err1&#91;j&#93;&#61;norm&#40;∇f_cs&#40;x0,Δx&#91;j&#93;&#41; - ∇f&#40;x0&#41;&#41;
+    err2&#91;j&#93;&#61;norm&#40;∇f_cd&#40;x0,Δx&#91;j&#93;&#41; - ∇f&#40;x0&#41;&#41;
+end
+pygui&#40;false&#41;
+figure&#40;&#41;
+loglog&#40;Δx,err1,label&#61;&quot;Complex Step Differentiation&quot;&#41;
+loglog&#40;Δx,err2,label&#61;&quot;Central difference&quot;&#41;
+xlabel&#40;&quot;Step Size&quot;&#41;; ylabel&#40;&quot;Error &quot;&#41;
+title&#40;&quot;Error Vs Step Size for complex variable trick and central difference methods&quot;&#41;
+grid&#40;&quot;on&quot;&#41;; legend&#40;loc&#61;&quot;upper right&quot;,fancybox&#61;&quot;true&quot;&#41;</code></pre>
+<img src="/assets/mdo/gradientCalc/code/output/cvt.svg" alt="">
+<h2 id="automatic_differntiation_ad"><a href="#automatic_differntiation_ad" class="header-anchor">Automatic Differntiation &#40;AD&#41;</a></h2>
+<p>AD is the most promising method for calculating gradients and Hessians. AD goes through the source code of a function and differtiates the code line-by-line analytically. This involves carrying forward the perturbations in the functions from earlier. AD is available for almost all languages with varying degrees of sophestication. It is easier to create a AD software for low level languages like Fortran and C. Packages like Tapenade have matured to a degree that a successful application of AD technology has been made to industrial CFD softwares. AD methods for higher level languages are not very robust. <code>Julia</code> has many experimental AD packages that use</p>
+<ul>
+<li><p>Source transformation</p>
+</li>
+<li><p>operator overloading</p>
+</li>
+<li><p>Dual numbers</p>
+</li>
+<li><p>Hyper-dual numbers</p>
+</li>
+</ul>
+<p>to calculate \(n^{th}\) order derivatives for native <code>Julia</code> functions.</p>
+<p>AD can be applied in two modes:</p>
+<ul>
+<li><p>Forward mode &#40;Tangent mode&#41;</p>
+</li>
+<li><p>Reverse mode &#40;Adjoint mode&#41;</p>
+</li>
+</ul>
+<p>Here we will demonstrate the AD capabilities of <code>Tapenade</code> to give a flavour of the process.</p>
+<p><strong>Simple Fortran Example Using Tapenade</strong></p>
+<span style="font-weight:bold;">simpleTest.f</span>
+<pre><code class="language-julia">subroutine function&#40;in1, in2, out&#41;
+          real*8 in1, in2, out
+          real*8 tmp1, tmp2
+          
+          tmp1 &#61; sin&#40;in1&#41;
+          out &#61; tmp1 &#43; in2
+
+          return
+      end</code></pre>
+<p><strong>Commands to differentiate the code</strong></p>
+<pre><code class="language-julia">tapenade -forward
+         -head function
+         -output function
+         -vars &quot;in1, in2, out&quot;
+         -outvars &quot;out&quot;
+         simpleTest.f
+
+tapenade -reverse
+         -head function
+         -output function
+         -vars &quot;in1, in2, out&quot;
+         -outvars &quot;out&quot;
+         simpleTest.f</code></pre>
+<p><strong>Forward Differentiated code <code>simpleTest_d.f</code></strong></p>
+<pre><code class="language-julia">C        Generated by TAPENADE     &#40;INRIA, Tropics team&#41;
+C  Tapenade 3.9 &#40;r5096&#41; - 24 Feb 2014 16:53
+C
+C  Differentiation of function in forward &#40;tangent&#41; mode:
+C   variations   of useful results: out
+C   with respect to varying inputs: in1 in2
+C   RW status of diff variables: out:out in1:in in2:in
+      SUBROUTINE FUNCTION_D&#40;in1, in1d, in2, in2d, out, outd&#41;
+      IMPLICIT NONE
+      REAL*8 in1, in2, out
+      REAL*8 in1d, in2d, outd
+      REAL*8 tmp1, tmp2
+      REAL*8 tmp1d
+      INTRINSIC SIN
+      tmp1d &#61; in1d*COS&#40;in1&#41;
+      tmp1 &#61; SIN&#40;in1&#41;
+      outd &#61; tmp1d &#43; in2d
+      out &#61; tmp1 &#43; in2
+C
+      RETURN
+      END</code></pre>
+<p><strong>Reverse Differentiated code <code>simpleTest_b.f</code></strong></p>
+<pre><code class="language-julia">C        Generated by TAPENADE     &#40;INRIA, Tropics team&#41;
+C  Tapenade 3.9 &#40;r5096&#41; - 24 Feb 2014 16:53
+C
+C  Differentiation of function in reverse &#40;adjoint&#41; mode:
+C   gradient     of useful results: out
+C   with respect to varying inputs: out in1 in2
+C   RW status of diff variables: out:in-zero in1:out in2:out
+      SUBROUTINE FUNCTION_B&#40;in1, in1b, in2, in2b, out, outb&#41;
+      IMPLICIT NONE
+      REAL*8 in1, in2, out
+      REAL*8 in1b, in2b, outb
+      REAL*8 tmp1, tmp2
+      REAL*8 tmp1b
+      INTRINSIC SIN
+C
+      tmp1b &#61; outb
+      in2b &#61; outb
+      in1b &#61; COS&#40;in1&#41;*tmp1b
+      outb &#61; 0.0
+      END</code></pre>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>
