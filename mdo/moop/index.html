@@ -224,6 +224,61 @@ f(\mathbf{x}) = \big\{\underset{i}{\sum}[w_i(f_i(\mathbf{x}) - f_i^0)]^p\big\}^{
 &                   & & \bar{h}(\bar{x}) = 0 \\
 &                   & & \bar{x}^{(L)} \leq x \leq \bar{x}^{(U)}
 \end{aligned}\]
+<pre><code class="language-julia">using JuMP
+using Ipopt
+using PyPlot
+
+obj1&#40;x,y&#41; &#61; x
+obj2&#40;x,y&#41; &#61; 1 .&#43; y.^2 .- x .- a.*sin.&#40;b.*π.*x&#41;
+obj_ws&#40;x,y&#41; &#61; w.*x &#43; &#40;1 .- w&#41;.*&#40;1 .&#43; y.^2 .- x .- a.*sin&#40;b.*π.*x&#41;&#41;
+
+# Plotting pareto front
+
+# Convex pareto front
+#&#61;a &#61; 0.2; b &#61; 1.0&#61;#
+# Concave pareto front
+a &#61; 0.1; b &#61; 2.5
+x₂&#61;-2.0:0.05:2.0
+for x₁&#61;0.0:0.05:1.0
+    tmp &#61; minimum&#40;obj2&#40;x₁, x₂&#41;&#41;
+    plot&#40;x₁,tmp,&quot;sk&quot;&#41;
+end
+
+m &#61; Model&#40;Ipopt.Optimizer&#41;
+
+# Global design variables
+@variable&#40;m, x₁, start &#61; 0.5&#41;
+@variable&#40;m, x₂, start &#61; 0.5&#41;
+
+# Parameter
+@NLparameter&#40;m, w &#61;&#61; 0.0&#41;
+
+JuMP.register&#40;m, :obj_ws, 2, obj_ws, autodiff&#61;true&#41;
+# Box constraints
+@constraint&#40;m,  0 &lt;&#61; x₁ &lt;&#61; 1&#41;
+@constraint&#40;m, -2 &lt;&#61; x₂ &lt;&#61; 2&#41;
+
+for i in 0.0:0.1:1.0
+  println&#40;i&#41;
+end
+for i in 0.0:0.1:1.0
+    @NLobjective&#40;m, Min, w*x₁ &#43; &#40;1-w&#41;*&#40;1 &#43; x₂^2 - x₁ - a*sin&#40;b*π*x₁&#41;&#41;&#41;
+    set_value&#40;w,i&#41;
+    optimize&#33;&#40;m&#41;
+    x₁_sol &#61; getvalue&#40;x₁&#41;
+    x₂_sol &#61; getvalue&#40;x₂&#41;
+    plot&#40;obj1&#40;x₁_sol,x₂_sol&#41;, obj2&#40;x₁_sol, x₂_sol&#41;,&quot;o&quot;&#41;
+end
+xlabel&#40;&quot;f₁&quot;&#41;; ylabel&#40;&quot;f₂&quot;&#41;; title&#40;&quot;Pareto Front using weighted sum method&quot;&#41;; grid&#40;&#41;
+
+@NLobjective&#40;m, Min, 1 &#43; x₂^2 - x₁ - a*sin&#40;b*π*x₁&#41;&#41;
+@constraint&#40;m,  0 &lt;&#61; x₁ &lt;&#61; 0.4&#41;
+optimize&#33;&#40;m&#41;
+x₁_sol &#61; getvalue&#40;x₁&#41;
+x₂_sol &#61; getvalue&#40;x₂&#41;
+plot&#40;obj1&#40;x₁_sol,x₂_sol&#41;, obj2&#40;x₁_sol, x₂_sol&#41;,&quot;*&quot;&#41;
+xlabel&#40;&quot;f₁&quot;&#41;; ylabel&#40;&quot;f₂&quot;&#41;; title&#40;&quot;Pareto Front using ϵ Constraint method&quot;&#41;; grid&#40;&#41;</code></pre>
+<img src="/assets/mdo/moop/code/output/epsConstraint.svg" alt="">
 <h3 id="comments"><a href="#comments" class="header-anchor">Comments</a></h3>
 <ol>
 <li><p>The big advantage of this method is that it yields the non-convex part of the pareto front.</p>
@@ -233,7 +288,6 @@ f(\mathbf{x}) = \big\{\underset{i}{\sum}[w_i(f_i(\mathbf{x}) - f_i^0)]^p\big\}^{
 </ol>
 <h2 id="conclusion"><a href="#conclusion" class="header-anchor">Conclusion</a></h2>
 <p>There are other methods like Goal programming as well to calculate the entire pareto front. Apart from the gradient based methods discussed in this section, there are a class of population based evolutionary algorithms like NSGA-II that can calculate the entire pareto front in a single run. However, all the methods are prohibitively expensive for engineering optimisation problems. MOOP problem statements are mostly found in the preliminary design stage of the design process. At this stage, most of the analysis routines are low fidelity resulting in cheap function evaluations.</p>
-<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Give three low fidelity models for \(C_L\) and \(C_D\) calculation? How do they compare with Reynolds averaged Navier Stokes &#40;RANS&#41; CFD solution with turbulence model with respect to cost and accuracy?</span>
 <div class="page-foot">
   <div class="copyright">
     <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
