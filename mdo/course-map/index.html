@@ -68,7 +68,7 @@
 <li><p>Trust region methods</p>
 </li>
 </ol>
-<span style="font-size:85%;line-height:0em;color:maroon;"><strong>Note</strong>:  Line search methods assume a linear model of the objective function &#40;\(f(\alpha) = f(\bar{x}^{k}) + \alpha \bar{d}^{k}\)&#41; locally and find a descent direction &#40;\(\bar{d}\)&#41;. However, actual nonlinear model &#40;\(f(\bar{x})\)&#41; is used to calculate the stepsize. In contrast to this, trust region methods create a local quadratic model of the objective function and calculate the next step &#40;\(\bar{x}^{(k+1)}\)&#41;.</span>
+<span style="font-size:100%;line-height:0em;color:maroon;"><strong>Note</strong>:  Line search methods assume a linear model of the objective function &#40;\(f(\alpha) = f(\bar{x}^{k}) + \alpha \bar{d}^{k}\)&#41; locally and find a descent direction &#40;\(\bar{d}\)&#41;. However, actual nonlinear model &#40;\(f(\bar{x})\)&#41; is used to calculate the stepsize. In contrast to this, trust region methods create a local quadratic model of the objective function and calculate the next step &#40;\(\bar{x}^{(k+1)}\)&#41;.</span>
 <h3 id="gradient_descent_algorithms"><a href="#gradient_descent_algorithms" class="header-anchor">Gradient descent algorithms</a></h3>
 <ul>
 <li><p>Select a descent direction</p>
@@ -79,12 +79,12 @@
 <h4 id="step-size_calculation"><a href="#step-size_calculation" class="header-anchor">Step-size Calculation</a></h4>
 <p>Step-size calculation methods can be classified as:</p>
 <h5 id="exact_step-size_calculation"><a href="#exact_step-size_calculation" class="header-anchor">Exact step-size calculation</a></h5>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; what is it? - why is it useful? - Can I do it for engineering problems? - calculation of exact step-size for a symmetric positive definite quadratic objective function &#41;</span>
-<p><span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Show </p>
+<span style="font-size:100%;line-height:0em;color:maroon;">&#40; what is it? - why is it useful? - Can I do it for engineering problems? - calculation of exact step-size for a symmetric positive definite quadratic objective function &#41;</span>
+<p><span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Show </p>
 \[\bar{c}^{(k+1)^T} \bar{d}^{(k)} = 0\]
-<p>for exact step-size calculation.</span> <span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Is the above statement true for a general nonlinear objective function?</span></p>
+<p>for exact step-size calculation.</span> <span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Is the above statement true for a general nonlinear objective function?</span></p>
 <h5 id="iterative_step-size_calculation"><a href="#iterative_step-size_calculation" class="header-anchor">Iterative step-size calculation</a></h5>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; why required - how do we compare algorithm performance - different algorithms &#41;</span>
+<span style="font-size:100%;line-height:0em;color:maroon;">&#40; why required - how do we compare algorithm performance - different algorithms &#41;</span>
 <p>Step-size calculation usually happens in two steps:</p>
 <ul>
 <li><p>Bracketing the minima</p>
@@ -122,7 +122,7 @@
 </li>
 </ul>
 <h2 id="stoppage_criteria"><a href="#stoppage_criteria" class="header-anchor">Stoppage criteria</a></h2>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; Assignment 1 &#41;</span>
+<span style="font-size:100%;line-height:0em;color:maroon;">&#40; Assignment 1 &#41;</span>
 <ul>
 <li><p>Similar criteria is used for gradient as well as non-gradient methods</p>
 </li>
@@ -130,12 +130,12 @@
 <h2 id="algorithm_performance"><a href="#algorithm_performance" class="header-anchor">Algorithm Performance</a></h2>
 <h3 id="computational_complexity_space_and_time"><a href="#computational_complexity_space_and_time" class="header-anchor">Computational complexity &#40;space and time&#41;</a></h3>
 <h3 id="rate_of_convergence"><a href="#rate_of_convergence" class="header-anchor">Rate of convergence</a></h3>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; what is it? - why is it required? - can I calculate it in engineering problems? -linear convergence - superlinear convergence - quadratic convergence &#41;</span>
+<span style="font-size:100%;line-height:0em;color:maroon;">&#40; what is it? - why is it required? - can I calculate it in engineering problems? -linear convergence - superlinear convergence - quadratic convergence &#41;</span>
 <p>Consider any gradient algorithm. We get a series of design points \(\bar{x}^{(0)}, \bar{x}^{(1)}, ... , \bar{x}^{(k)}, \bar{x}^{(k+1)}, ... , \bar{x}^{(p)}\). We can treat these design points as a sequence. The algorithm is converging if this sequence converges to the actual optima\(\bar{x}^{*}\). We define convergence ratio &#40;\(\beta\)&#41; as follows:</p>
 \[\beta = \frac{\left\lVert  \bar{x}^{(k+1)} - \bar{x}^* \right\rVert_{2} }{\left\lVert  \bar{x}^{(k)} - \bar{x}^* \right\rVert_{2}^r}\]
 <p>where \(r\) is the rate of convergence.</p>
 <table><tr><th align="right">Convergence</th><th align="right">Condition</th></tr><tr><td align="right">Linear</td><td align="right">\(r=1\) and \(\beta < 1\) &#40;Only first order information required&#41;</td></tr><tr><td align="right">Superlinear</td><td align="right">\(r=1\) and \(\beta \rightarrow 0\)</td></tr><tr><td align="right">Superlinear</td><td align="right">\(1 < r<2\) and \(\beta < 1\) &#40;Achieved using gradient information from previous steps&#41;</td></tr><tr><td align="right">Quadratic</td><td align="right">\(r=2\) and \(\beta<1\) &#40;Hessian information required&#41;</td></tr></table>
-<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Will an algorithm with quadratic convergence always converge faster than a linear algorithm? If the answer is not affirmative, give an example.</span>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Will an algorithm with quadratic convergence always converge faster than a linear algorithm? If the answer is not affirmative, give an example.</span>
 <h2 id="non-gradient_methods"><a href="#non-gradient_methods" class="header-anchor">Non-gradient methods</a></h2>
 <ul>
 <li><p>Any optimisation algorithm that does not require gradient information is called <em>non-gradient</em> method.</p>
@@ -162,10 +162,10 @@
 </li>
 </ul>
 <h4 id="finite_difference"><a href="#finite_difference" class="header-anchor">Finite Difference</a></h4>
-<span style="font-size:85%;line-height:0em;color:maroon;">&#40; Assignment 3 &#41;</span>
-<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  What is the time complexity of gradient and Hessian calculation for forward and central finite difference method?</span>
-<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Can we apply finite difference method for implicit objective functions?</span>
-<span style="font-size:85%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  What are the advantages and disadvantages of finite difference gradient calculation?</span>
+<span style="font-size:100%;line-height:0em;color:maroon;">&#40; Assignment 3 &#41;</span>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  What is the time complexity of gradient and Hessian calculation for forward and central finite difference method?</span>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Can we apply finite difference method for implicit objective functions?</span>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  What are the advantages and disadvantages of finite difference gradient calculation?</span>
 <h3 id="surrogate_modelling"><a href="#surrogate_modelling" class="header-anchor">Surrogate Modelling</a></h3>
 <p>A standard way to find a \((n-1)\) degree interpolating polynomial through \(n\) data points is a Lagrange polynomial. A brief introduction to this for \(f(x):\mathbb{R} \rightarrow \mathbb{R}\) can be found <a href="https://phys.libretexts.org/Bookshelves/Astronomy__Cosmology/Book&#37;3A_Celestial_Mechanics_&#40;Tatum&#41;/01&#37;3A_Numerical_Methods/1.11&#37;3A_Fitting_a_Polynomial_to_a_Set_of_Points_-_Lagrange_Polynomials_and_Lagrange_Interpolation">here</a>.</p>
 <div class="page-foot">
