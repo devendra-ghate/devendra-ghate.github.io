@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Vim Tips - mdo-lab </title> 
+  
+
+   <meta property="og:title" content="Vim Tips" /> 
+   <meta property="og:type" content="article" /> 
+  
+  
+
+   <meta name="twitter:title" content="Vim Tips" /> 
+  
+  
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">about</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/mdo/">mdo</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Vim Tips</h1> 
+</div>
+<div class="franklin-content">
+<div class="franklin-toc"><ol><li><a href="#problem_with_freezing">Problem with freezing</a></li><li><a href="#path_variable">Path Variable</a></li><li><a href="#custom_keybindings">Custom Keybindings</a></li><li><a href="#useful_keystrokes">Useful Keystrokes</a></li><li><a href="#digraphs_superscriptssubscripts">Digraphs Superscripts/Subscripts</a></li><li><a href="#spell">Spell</a></li><li><a href="#templates">Templates</a></li><li><a href="#ctags">CTags</a></li><li><a href="#omnicppcomplete">Omnicppcomplete</a></li><li><a href="#delete_in_normal_mode">Delete in Normal mode </a></li><li><a href="#align">Align</a></li></ol></div>
+<h2 id="problem_with_freezing"><a href="#problem_with_freezing" class="header-anchor">Problem with freezing</a></h2>
+<p><code>Ctrl-s</code> freezes <code>vim</code>. Use <code>Ctrl-q</code> to unfreeze it. When the <code>tmux</code> prefix of <code>Ctrl-a</code> is used before <code>Ctrl-s</code> then it doesn&#39;t freeze.</p>
+<h2 id="path_variable"><a href="#path_variable" class="header-anchor">Path Variable</a></h2>
+<p>The path is set in the <code>.vimrc</code> file. <code>~/work/grok</code> is added to it recursively  using <code>**</code> convention. Hence, use <code>find filename&lt;tab&gt;</code> to open all the <code>markdown</code> files.</p>
+<h2 id="custom_keybindings"><a href="#custom_keybindings" class="header-anchor">Custom Keybindings</a></h2>
+<table><tr><th align="right">Action</th><th align="right">Shortcut</th></tr><tr><td align="right">Toggle spellcheck</td><td align="right"><code>F2</code></td></tr><tr><td align="right">Toggle spellcheck</td><td align="right"><code>F2</code></td></tr><tr><td align="right">Insert date and time</td><td align="right"><code>F3</code></td></tr><tr><td align="right">Ranger</td><td align="right"><code>F5</code></td></tr><tr><td align="right">Toggle L2U</td><td align="right"><code>F7</code></td></tr></table>
+<h2 id="useful_keystrokes"><a href="#useful_keystrokes" class="header-anchor">Useful Keystrokes</a></h2>
+<table><tr><th align="right">Action</th><th align="right">Shortcut</th></tr><tr><td align="right">Close all folds</td><td align="right"><code>zM</code></td></tr><tr><td align="right">Open all folds</td><td align="right"><code>zR</code></td></tr><tr><td align="right">Default <code>&lt;leader&gt;</code></td><td align="right">&#92;</td></tr><tr><td align="right">Start line selection mode</td><td align="right"><code>gH</code></td></tr><tr><td align="right">Search for a word</td><td align="right"><code>*</code></td></tr><tr><td align="right">Partial search for a word</td><td align="right"><code>g*</code></td></tr><tr><td align="right">Move line below to current</td><td align="right"><code>J</code></td></tr><tr><td align="right">Insert tab</td><td align="right"><code>Ctrl&#43;t</code></td></tr></table>
+<h2 id="digraphs_superscriptssubscripts"><a href="#digraphs_superscriptssubscripts" class="header-anchor">Digraphs Superscripts/Subscripts</a></h2>
+<p><code>:digraphs</code> will list all the digraphs. To insert a digraph, press <code>C-k</code> followed by the keycode for a digraph.</p>
+<table><tr><th align="right">Action</th><th align="right">Result</th></tr><tr><td align="right"><code>C-k e :</code></td><td align="right">ë</td></tr><tr><td align="right"><code>C-k e &quot;</code></td><td align="right">ë</td></tr><tr><td align="right"><code>C-k 2 S</code></td><td align="right">a²</td></tr><tr><td align="right"><code>C-k 2 s</code></td><td align="right">a₂</td></tr></table>
+<p>Subscripts and superscripts can be used in Julia in variable names.</p>
+<h2 id="spell"><a href="#spell" class="header-anchor">Spell</a></h2>
+<table><tr><th align="right">Action</th><th align="right">Shortcut</th></tr><tr><td align="right">Spell suggestions &#40;insert mode&#41;</td><td align="right"><code>C-X s</code></td></tr><tr><td align="right">Word completion from dictionary &#40;insert mode&#41;</td><td align="right"><code>C-X C-K</code></td></tr><tr><td align="right">Add a word to dictionary</td><td align="right"><code>zg</code> &#40;normal mode&#41;</td></tr><tr><td align="right">Remove a word to dictionary</td><td align="right"><code>zug</code> &#40;normal mode&#41;</td></tr><tr><td align="right">Jump to the next spelling mistake</td><td align="right"><code>&#93;s</code></td></tr><tr><td align="right">Jump to the previous spelling mistake</td><td align="right"><code>&#91;s</code></td></tr></table>
+<h2 id="templates"><a href="#templates" class="header-anchor">Templates</a></h2>
+<p>&#40;Date:    Wed 25 Dec 11:43:26 IST 2013&#41;</p>
+<p>Source:  <a href="http://superuser.com/questions/543101/vim-coding-templates">Vim templates</a></p>
+<p>A templates directory &#40;<code>.vimrc/skeleton/</code>&#41; has been added and a line added to <code>vimrc</code>. The directory has <code>template.extension</code> files for various extensions and whenever a file with that extension is created, the template is added.</p>
+<h2 id="ctags"><a href="#ctags" class="header-anchor">CTags</a></h2>
+<ol>
+<li><p>Install exuberant ctags.</p>
+</li>
+<li><p>Run <code>ctags -R</code> in the directory with the project. <code>-R</code> option will consider all the directories in a recurring fashion.</p>
+</li>
+<li><p><code>Ctrl-&#93;</code> to go to the function.</p>
+</li>
+<li><p><code>Ctrl-W Ctrl-&#93;</code> to open the function definition in a split window.</p>
+</li>
+<li><p><code>Ctrl-T</code> to go back.</p>
+</li>
+<li><p><code>gCtrl-&#93;</code> or <code>:sts</code> to list all the instances of the matching tags &#40;if any&#41;.</p>
+</li>
+</ol>
+<h2 id="omnicppcomplete"><a href="#omnicppcomplete" class="header-anchor">Omnicppcomplete</a></h2>
+<p>&#40;22-08-2014 Fri 01:00 pm&#41;</p>
+<table><tr><th align="right">Keystroke</th><th align="right">Action</th></tr><tr><td align="right"><code>C-&lt;F12&gt;</code></td><td align="right">To build ctags database required by omnicpp</td></tr></table>
+<h2 id="delete_in_normal_mode"><a href="#delete_in_normal_mode" class="header-anchor">Delete in Normal mode </a></h2>
+<table><tr><th align="right">Keystroke</th><th align="right">Meaning</th><th align="right">Action</th></tr><tr><td align="right">x</td><td align="right">stands for dl</td><td align="right">delete character under the cursor</td></tr><tr><td align="right">X</td><td align="right">stands for dh</td><td align="right">delete character left of the cursor</td></tr><tr><td align="right">D</td><td align="right">stands for d\( |   delete to end of the line|
+|   C|   stands for c\)</td><td align="right">change to end of the line</td></tr><tr><td align="right">s</td><td align="right">stands for cl</td><td align="right">change one character</td></tr><tr><td align="right">S</td><td align="right">stands for cc</td><td align="right">change a whole line</td></tr></table>
+<h2 id="align"><a href="#align" class="header-anchor">Align</a></h2>
+<p>&#40;31-03-2014 Mon 01:08 pm&#41;</p>
+<p>Installed using <code>pacman -S vim-align</code>. May be I should also install <code>alignmaps</code>. But that is in future. Presently only basic usage.</p>
+<table><tr><th align="right">Keystroke</th><th align="right">Action</th></tr><tr><td align="right">AlignCtrl &#123;lcr&#125;</td><td align="right">How to align</td></tr><tr><td align="right">1,5Align &amp;</td><td align="right">Align from line 1 to 5 using &amp; as the separator.</td></tr></table>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

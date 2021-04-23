@@ -9,7 +9,7 @@
 </url>
 <url>
     <loc>https://devendra-ghate.github.io/contact/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
+    <lastmod>2021-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -21,7 +21,13 @@
 </url>
 <url>
     <loc>https://devendra-ghate.github.io/etc/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://devendra-ghate.github.io/projects/sciml/index.html</loc>
+    <lastmod>2021-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -32,14 +38,8 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://devendra-ghate.github.io/posts/eye-examination-report/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>https://devendra-ghate.github.io/etc/quotes/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
+    <lastmod>2021-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -98,14 +98,8 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://devendra-ghate.github.io/posts/cholesterol/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://devendra-ghate.github.io/mdo/usefulLinks/index.html</loc>
-    <lastmod>2021-04-19</lastmod>
+    <loc>https://devendra-ghate.github.io/etc/vimTips/index.html</loc>
+    <lastmod>2021-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -140,20 +134,26 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>https://devendra-ghate.github.io/mdo/usefulLinks/index.html</loc>
+    <lastmod>2021-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>https://devendra-ghate.github.io/about/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
+    <lastmod>2021-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>https://devendra-ghate.github.io/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
+    <lastmod>2021-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://devendra-ghate.github.io/posts/nigro-day/index.html</loc>
-    <lastmod>2021-04-21</lastmod>
+    <loc>https://devendra-ghate.github.io/talks/index.html</loc>
+    <lastmod>2021-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
