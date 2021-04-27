@@ -329,3 +329,16 @@ ul.blog-posts li a:visited {
   display: block;
   margin: auto;
 }
+
+.past-student {
+  background: none;
+  padding: 0.2em;
+  border-radius: 10px;
+}
+
+.student-image {
+  width: 8rem !important;
+  heigth: auto;
+  border-radius: 50%;
+}
+

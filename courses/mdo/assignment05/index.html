@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Assignment 5 - mdo-lab </title> 
+   <meta name="description" content="" /> 
+
+   <meta property="og:title" content="Assignment 5" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="" /> 
+  
+
+   <meta name="twitter:title" content="Assignment 5" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">about</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Assignment 5</h1> 
+</div>
+<div class="franklin-content">
+<p><strong>Due: 05-04-2021</strong></p>
+<h4 id="problem_statement"><a href="#problem_statement" class="header-anchor">Problem Statement</a></h4>
+\[\begin{aligned}
+\text{minimize} &\ \ & x_1^2 + x_2 + y_1 + e^{-y_2} \\
+                &\ \ & \\
+\text{w.r.t}    &\ \ & z_1, x_1, x_2 \\
+                &\ \ & \\
+\text{such that}&\ \ & y_1 = z_1^2 + x_1 + x_2 - 0.2y_2\\
+                &\ \ & y_2 = \sqrt{y_1} + z_1 + x_2 \\
+                &\ \ & \\
+                &\ \ & \frac{y_2}{24} - 1 \le 0\\
+                &\ \ & 1 - \frac{y_1}{3.16} \le 0\\
+                &\ \ & \\
+                &\ \ & -10 \le z_1 \le 10\\
+                &\ \ & 0 \le x_1 \le 10 \\
+                &\ \ & 0 \le x_2 \le 10 \\
+\end{aligned}\]
+<div class="hint"><strong>A</strong>:  The global optimum is located at \((z_1, x_1, x_2) = (1.9776, 0, 0)\).</div>
+<p>So this question seems straight forward. But does it really tie into what we are trying to do in this course? Please take a moment, look at the problem statement and think about why would I give this problem statement?</p>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Is it always possible to find an interpolating polynomial through \(n\) points to get an approximation of the function? If yes, under what conditions? If no, why not? Consider the entire range of possible orders of magnitude of \(n\).</span>
+<h4 id="deliverables"><a href="#deliverables" class="header-anchor">Deliverables</a></h4>
+<ul>
+<li><p>A <code>pdf</code> report with source code and a discussion of your implementation methodology and results.</p>
+</li>
+</ul>
+<p></p>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

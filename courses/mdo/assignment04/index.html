@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Assignment 4 - mdo-lab </title> 
+   <meta name="description" content="Nonlinear Least Squares as an optimisation problem" /> 
+
+   <meta property="og:title" content="Assignment 4" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Nonlinear Least Squares as an optimisation problem" /> 
+  
+
+   <meta name="twitter:title" content="Assignment 4" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Nonlinear Least Squares as an optimisation problem" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">about</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Assignment 4</h1> 
+</div>
+<div class="franklin-content">
+<p><strong>Due: 24-03-2021</strong></p>
+<span style="font-size:100%;line-height:0em;color:maroon;"><strong>Note</strong>:  The due date will not be extended unless there is an medical emergency.</span>
+<h4 id="problem_statement"><a href="#problem_statement" class="header-anchor">Problem Statement</a></h4>
+<p>Many times in engineering, observations of a function are made at some discrete points. For example, lets say \(y = f(x_1, x_2),\ x_1, x_2 \in [0,1]\) is the function. Observations can be made for this function at \(n\) points in the domain to yield an array \((x_{1}, x_{2}, y)_i,\ \ i \in [1,n]\). Now the question is how best to approximate the original function \(f\) in the entire domain using these \(n\) observations. \(n\) can be in tens, thousands or even a million.</p>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Is it always possible to find an interpolating polynomial through \(n\) points to get an approximation of the function? If yes, under what conditions? If no, why not? Consider the entire range of possible orders of magnitude of \(n\).</span>
+<p>Since the data represents a physical process, an intelligent guess of the functional form of the function can be made. For example, one can assume that \(C_L\) is a linear function of \(\alpha\) before the stall region. Therefore the functional form will be \(C_L(\alpha) = a \alpha + b\) where \(a\) and \(b\) are the constants.</p>
+<p>Let us assume the following functional form:</p>
+\[y = f(x_1, x_2) \approx \hat{f}(x_1, x_2, \beta) = \beta_1 x_1^2 + \beta_2 x_2^2 + \beta_3 x_1 + \beta_4 x_2 + \beta_5\]
+<p>where \(\beta_i\) are unknown constants. For a given value of these constants, \(\hat{f}(x_1, x_2, \beta)\) represents an approximation to \(f(x_1, x_2)\). Clearly, at all the observation points, we should have</p>
+\[\displaystyle y_i - \hat{f}(x_1, x_2, \beta)|_i = 0,\ \forall \ i \in [1,n].\]
+<p>So this curve fitting problem can be recast as an optimisation problem as:</p>
+\[\displaystyle \min_{\beta_i} \sum_{i=1}^{n} || y_i - \hat{f}(x_1, x_2, \beta)|_i ||^2\]
+<p>This is known as the nonlinear least squares method. Find \(\beta_i\) for which this function reaches minima. A set of \(121\) observations can be found in this <code>csv</code> <a href="../assets/data-assignment04.csv">file</a>.</p>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  You can choose to use partial data only. Experiment with your code with increasing the number of data points you choose, and comment on the total \(L_2\) norm of the error \(y - \hat{f}(x_1, x_2, \beta)\).</span>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Assume that we are using only 20 data points for the approximation. Now there are \(\frac{121!}{(121-10)!\, 10!}\) ways of selecting those points. Do experimentation and see if the choice of points changes the approximation. Can you think of a way to select these measurement points intelligently to reduce the approximation error?</span>
+<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  If the engineer assumed the functional form to be \(y = f(x_1, x_2) \approx \hat{f}(x_1, x_2, \beta) = \beta_1 x_1^2 + \beta_3 x_2 + \beta_5\) what will happen the accuracy of our approximation?</span>
+<h4 id="deliverables"><a href="#deliverables" class="header-anchor">Deliverables</a></h4>
+<ul>
+<li><p>A <code>pdf</code> report with source code and a discussion of your implementation methodology and results.</p>
+</li>
+</ul>
+<p></p>
+
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

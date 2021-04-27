@@ -1,0 +1,204 @@
+Linux via a set of tasks
+
+1. file/dir ls/cp/mv
+
+Who Am I?
+>whoami
+
+List all files starting with `a`
+> ls a*
+
+List all files starting with `a` and `m`
+> ls (a*|m*)
+
+List all `pdf` files
+> ls *.pdf
+
+List all `pdf` files recursively
+> ls -r *.pdf
+
+List all `pdf` and `py` files
+> ls (*.pdf|*.py)
+
+List all files but `log`
+>ls --hide="*.log"
+
+Looks dumb. 
+Why would I do that?
+
+Monitor the system
+>top/htop
+
+Which program?
+>which whoami
+
+Diskspace on computer
+>df -h
+
+Diskspace used by a directory
+>du -h
+
+What processes are running?
+>ps -u deven
+
+List all the processes running on this computer
+>ps aux | less
+
+Find out information about me?
+>grep deven /etc/passwd
+>export ME=`whoami`; grep $ME /etc/passwd
+>grep `whoami` /etc/passwd
+
+Setup alias
+>alias opf='gedit /etc/passwd'
+Save it in `.bashrc` for recurring use.
+
+Monitor files
+>watch tail -n 5 test.txt
+
+Backup all files written by me?
+(Includes txt, tex, m, c)
+>mkdir backup;cp `ls (*.tex|*.txt)` backup
+
+Backup for all directories?
+>mkdir backup;
+ cp `find . -maxdepth 1 
+            -iname (*.tex|*.txt)` backup
+
+Backup for *only new* files for all directories?
+>mkdir backup; 
+ cp `find . -maxdepth 1 
+            -iname "aero*" 
+            -mtime -0.0001` backup
+atime/ctime/mtime
+ranges can also be given
+
+2. Text Editing
+    - Word Processing
+    - Programming
+    - Interaction with OS
+    - email/net/IM
+
+3. Calendar/Task Management
+
+Taskwarrior
+
+> task add "Convince brats 
+           Linux is the bee's knees"
+
+> task add "Convince brats 
+           Linux is the bee's knees"
+           +linuxIntro
+
+Adding tags to club tasks together
+> task tag:linuxIntro
+
+List all the tags
+> task list
+
+What should I do?
+> task next
+
+Set priority of a task
+> task 1 modify priority:H
+
+Delete a task
+> task delete 1
+
+Time management/
+     scheduling/
+     conflict resolution
+
+Automation using script files.
+Integration with gmail etc.
+
+Good tutorial:
+youtube: search "Manage all your tasks with TaskWarrior"
+LinuxConfAu 2018: Sydney, Australia
+
+4. Version Control
+
+Collaborative/distributed development
+
+Easily back-up source code
+
+github
+    - online        - free
+    - Websites      - excellent UI
+
+Easy-to-use gui available
+
+I prefer command-line
+
+Install git package for your distribution
+
+>git clone https://github.com/devendra-ghate/test
+
+>git status
+
+>git add a.md
+
+>less ~/.gitignore_global
+*.pdf not recognised.
+
+>less ~/.gitconfig
+
+>git commit
+>git push
+>git log
+
+>git rm a.md; git status
+
+a.md locally deleted. 
+But exists in git database.
+Recovery possible.
+
+Explore .git directory
+
+>git checkout HEAD -- a.md
+
+Branches for version control
+
+> git branch
+> git checkout -b v0.1
+> git branch
+
+> ls > a.txt
+> git status
+> git add a.txt
+> git commit
+
+> git status
+> ls
+> git checkout master
+> ls
+
+Sync changes with github
+> git push origin https://github.com/devendra-ghate/test
+
+My setup
+ - Linux flavour: `Archlinux`
+ - Browser: `elinks`, `vimb`, `firefox`
+ - Email client: `mutt`, `gmail` web interface
+ - RSS reader: `newsbeuter`
+ - File Manager: `ranger`
+
+My setup
+ - Media player: `mplayer`
+ - Music player: `cmus`
+ - Documentation: `pandoc`
+ 
+My setup
+ - Compiler: `gcc`
+ - Language of choice: `Julia`, `C`
+ - IDE: `vim`
+ - Editor: `vim`
+ - Version control: `gitlab` (local `github`)
+
+My setup
+ - Window manager: `dwm`
+ - Virtual Terminal: `st`
+ - Shell: `zsh`
+ - Screen multiplexer: `tmux`
+ - System monitor: `htop`
+ - Daemon: `incron`

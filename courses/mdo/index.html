@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> MDO - mdo-lab </title> 
+  
+
+   <meta property="og:title" content="MDO" /> 
+  
+  
+  
+
+   <meta name="twitter:title" content="MDO" /> 
+  
+  
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/about/">about</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+  
+</div>
+<div class="franklin-content"><h1 id="mdo"><a href="#mdo" class="header-anchor">MDO</a></h1>
+<ul>
+<li><p>Lecture videos can be found on <a href="https://www.youtube.com/playlist?list&#61;PL3owHB-ujbFHhrjGDHp9-CaeICx9ksnZW">this</a> <code>YouTube</code> channel.</p>
+</li>
+<li><p><a href="./assets/pdfs/mdo-lectures-1-12.pdf">Lecture notes</a></p>
+</li>
+<li><p><a href="./course-map/">Study Guide</a></p>
+</li>
+<li><p><a href="./usefulLinks/">Useful External Links</a></p>
+</li>
+<li><p><a href="./complexity/">Thoughts on algorithmic complexity</a></p>
+</li>
+<li><p><a href="./gradientCalc/">Gradient Calculation</a></p>
+</li>
+<li><p><a href="./moop/">Multi-objective Optimisation</a></p>
+</li>
+</ul>
+<h2 id="assignments"><a href="#assignments" class="header-anchor">Assignments</a></h2>
+<ul>
+<li><p><a href="./assignment02/">Assignment 2</a></p>
+</li>
+<li><p><a href="./assignment03/">Assignment 3</a></p>
+</li>
+<li><p><a href="./assignment04/">Assignment 4</a></p>
+</li>
+</ul>
+<h2 id="syllabus"><a href="#syllabus" class="header-anchor">Syllabus</a></h2>
+<p><strong>Course Code</strong>: AE844</p>
+<p>Multidisciplinary Design Optimization &#40;MDO&#41;: Need and importance – Coupled systems – Anal- yser vs. evaluator – Single vs. bi-level optimisation – Nested vs. simultaneous analysis/design – MDO architectures – Concurrent subspace, collaborative optimisation and BLISS – Sensitivity analysis – AD &#40;forward and reverse mode&#41; – Complex variable and hyperdual numbers – Gradi- ent and Hessian – Uncertainty quantification – Moment methods – PDF and CDF – Uncertainty propagation – Monte Carlo methods – Surrogate modelling – Design of experiments – Robust, reliability based and multi-point optimisation formulations.</p>
+<h2 id="references"><a href="#references" class="header-anchor">References</a></h2>
+<h3 id="gradient_optimisation"><a href="#gradient_optimisation" class="header-anchor">Gradient Optimisation</a></h3>
+<ol>
+<li><p>Jasbir Arora, &quot;Introduction to Optimum Design&quot; <div class="blank"></div><span style="font-size:85%;">&#40;entry level book with a lot of solved examples. Easy to read.&#41;</span></p>
+</li>
+<li><p>Kalyanmoy Deb, &quot;Optimisation for engineering design&quot;<div class="blank"></div> <span style="font-size:85%;">&#40;also good intro to GA, SA&#41;</span></p>
+</li>
+<li><p>Ranjan Ganguli, Engineering Optimization: A Modern Approach, CRC Press &#40;2012&#41;.</p>
+</li>
+<li><p>Nocedal, J. and Wright, S, &quot;Numerical optimization&quot;<div class="blank"></div> <span style="font-size:85%;">&#40;Covers numerical gradient optimisation in great detail with pointers to original theorems.&#41;</span></p>
+</li>
+</ol>
+<h3 id="non-gradient_optimisation"><a href="#non-gradient_optimisation" class="header-anchor">Non-gradient Optimisation</a></h3>
+<ol>
+<li><p>Xin-She Yang, Xing-Shi He, &quot;Mathematical Foundations of Nature-inspired Algorithms&quot;</p>
+</li>
+</ol>
+<h3 id="multi-objective_optimisation"><a href="#multi-objective_optimisation" class="header-anchor">Multi-Objective Optimisation</a></h3>
+<ol>
+<li><p>Kaisa Miettinen, &quot;Nonlinear Multiobjective Optimisation&quot;<div class="blank"></div><span style="font-size:85%;">Great theoretical background. Exhaustive coverage of most gradient multiobjective algorithms.</span></p>
+</li>
+<li><p>Kalyanmoy Deb, &quot;Multi-Objective Optimization using Evolutionary Algorithms&quot;<div class="blank"></div><span style="font-size:85%;">Less rigorous. Good introduction to the theory followed by a short survey of classical &#40;gradient based&#41; methods. Most of the books delves into the newer population based evolutionary optimisation algorithms for multi-objective optimisation.</span></p>
+</li>
+</ol>
+<h3 id="surrogate_modelling"><a href="#surrogate_modelling" class="header-anchor">Surrogate Modelling</a></h3>
+<ol>
+<li><p>Alexander Forrester, Andras Sobester, Andy Keane, &quot;Engineering Design via Surrogate Modelling: A Practical Guide&quot;, Wiley &#40;2008&#41;.</p>
+</li>
+<li><p>Khuri, A. I. and Cornell, J. A., &quot;Response Surfaces: Design and Analyses&quot;, 2nd ed., Marcel Dekker &#40;1996&#41;.</p>
+</li>
+<li><p>Montgomery, D. C., &quot;Design and Analysis of Experiments&quot;, 8th ed., John Wiley &#40;2012&#41;.</p>
+</li>
+</ol>
+<h3 id="automatic_differentiation"><a href="#automatic_differentiation" class="header-anchor">Automatic Differentiation</a></h3>
+<ol>
+<li><p>Griewank, A. and Walther, A., Evaluating Derivatives: Principles and Techniques of Algo- rithmic Differentiation, 2nd ed., SIAM &#40;2008&#41;.</p>
+</li>
+</ol>
+<h3 id="multi-disciplinary_optimisation"><a href="#multi-disciplinary_optimisation" class="header-anchor">Multi-disciplinary Optimisation</a></h3>
+<ol>
+<li><p>J. R. R. A. Martins, and A. Ning, &quot;Engineering Design Optimization&quot;, 2020. <a href="http://www.umich.edu/~mdolaboratory/pdf/Martins2021.pdf">pdf</a></p>
+</li>
+<li><p>Keane, A. J. and Nair, P. B., Computational Approaches for Aerospace Design: The Pursuit of Excellence, Wiley &#40;2005&#41;.</p>
+</li>
+</ol>
+<h3 id="other_mdo_courses"><a href="#other_mdo_courses" class="header-anchor">Other MDO courses</a></h3>
+<ol>
+<li><p>Prof. Alonso, Aero, Stanford &#40; <a href="http://adl.stanford.edu/aa222/Lecture_Notes.html">notes</a> &#41;</p>
+</li>
+<li><p>Prof. Wilcox &#40;and others&#41;, Aero, MIT &#40; <a href="https://ocw.mit.edu/courses/institute-for-data-systems-and-society/ids-338j-multidisciplinary-system-design-optimization-spring-2010/">Lecture Slides</a> &#41;</p>
+</li>
+</ol>
+<h2 id="past_exampapers"><a href="#past_exampapers" class="header-anchor">Past exampapers</a></h2>
+<ol>
+<li><p>2017 &#40; <a href="./assets/pdfs/quiz1-2017.pdf">Quiz 1</a> <a href="./assets/pdfs/quiz2-2017.pdf">Quiz 2</a> <a href="./assets/pdfs/endsem-2017.pdf">Endsemester</a> &#41;</p>
+</li>
+<li><p>2018 &#40; <a href="./assets/pdfs/quiz1-2018.pdf">Quiz 1</a> <a href="./assets/pdfs/quiz2-2018.pdf">Quiz 2</a> <a href="./assets/pdfs/endsem-2018.pdf">Endsemester</a> &#41;</p>
+</li>
+</ol>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+    
+  </body>
+</html>
