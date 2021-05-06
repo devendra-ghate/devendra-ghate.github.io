@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Gasdynamics Equations - mdo-lab </title> 
+  
+
+   <meta property="og:title" content="Gasdynamics Equations" /> 
+   <meta property="og:type" content="article" /> 
+  
+  
+
+   <meta name="twitter:title" content="Gasdynamics Equations" /> 
+  
+  
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Gasdynamics Equations</h1> 
+</div>
+<div class="franklin-content">
+<div class="franklin-toc"><ol><li><a href="#conservation_laws">Conservation laws</a></li><li><a href="#equation_of_state">Equation of state</a></li><li><a href="#adiabatic_reversible_flow">Adiabatic reversible flow</a></li><li><a href="#adiabatic_irreversible_flow">Adiabatic irreversible flow</a></li><li><a href="#normal_shock">Normal Shock</a></li><li><a href="#moving_normal_shock">Moving Normal Shock</a></li><li><a href="#oblique_shock">Oblique Shock</a></li></ol></div>
+<div class="no-number"><h2 id="conservation_laws"><a href="#conservation_laws" class="header-anchor">Conservation laws</a></h2>
+<h2 id="equation_of_state"><a href="#equation_of_state" class="header-anchor">Equation of state</a></h2>
+\[\begin{aligned}
+\text{Perfect Gas}~ ~ ~ pv & = RT\\
+\text{Vander Waal's gas}~ ~ ~ p &= \frac{RT}{v - b} - \frac{a}{v^2}
+\end{aligned}\]
+<span style="font-size:100%;line-height:0em;color:maroon;"><strong>Note</strong>: <span style="font-weight:bold;">Rest of the section holds for <em>perfect gas</em>.</span></span>
+<h2 id="adiabatic_reversible_flow"><a href="#adiabatic_reversible_flow" class="header-anchor">Adiabatic reversible flow</a></h2>
+\[ p v^{\gamma} = \text{const} \]
+<h2 id="adiabatic_irreversible_flow"><a href="#adiabatic_irreversible_flow" class="header-anchor">Adiabatic irreversible flow</a></h2>
+\[\begin{aligned}
+\frac{p_2}{p_1} & = \frac{1 + \gamma M_1^2}{1 + \gamma M_2^2}~ ~&\text{(Momentum Conservation)}\\
+\frac{T_2}{T_1} & = \frac{1 + (\gamma-1)/2 M_1^2}{1 + (\gamma-1)/2 M_2^2}~ ~ &\text{(Energy Conservation)}\\
+\frac{ρ_2}{ρ_1} & = \left(\frac{p_2}{p_1}\right)\left(\frac{T_1}{T_2}\right) ~ ~ &\text{(State Equation of perfect gas)}
+\end{aligned}\]
+<h2 id="normal_shock"><a href="#normal_shock" class="header-anchor">Normal Shock</a></h2>
+\[\begin{aligned}
+M_1^* M_2^* & = 1~ ~ \text{(Prandtl's Relation)}\\
+\text{where,}~ ~ ~ ~M^* & = \sqrt{\frac{M^2(\gamma+1)/2 }{1 + M^2(\gamma-1)/2 }}\\
+\end{aligned}\]
+<p>Please derive following equations using the previous relationships.</p>
+\[\begin{aligned}
+\text{It can be shown that}~ ~ M_2^2 & = \frac{1 + M_1^2(\gamma-1)/2 }{\gamma M_1^2 - (\gamma-1)/2}\\
+  \frac{p_2}{p_1} & = 1 + \frac{2\gamma}{\gamma+1}(M_1^2 -1)\\
+  \frac{\rho_2}{\rho_1} & = \frac{(\gamma+1)M_1^2}{(\gamma-1)M_1^2 + 2}
+\end{aligned}\]
+<h2 id="moving_normal_shock"><a href="#moving_normal_shock" class="header-anchor">Moving Normal Shock</a></h2>
+<p>Speed of a moving shock is given by</p>
+\[w_s = a_1 \left( \frac{\gamma+1}{2\gamma}\frac{p_2}{p_1} + \frac{\gamma-1}{2\gamma} \right)^{1/2}\]
+<p>It can be shown that</p>
+\[\lim_{p_2/p_1 \rightarrow \infty} w_s = \infty\]
+<p>Similarly,</p>
+\[\begin{aligned}
+\frac{\Delta s}{R} & = \frac{\gamma}{\gamma-1}\ln{\frac{T_2}{T_1}} - \ln{\frac{p_2}{p_1}} = \ln{\left(\frac{p_1}{p_2}\right) \left(\frac{T_2}{T_1}\right)^{(\gamma/(\gamma-1)}} = \ln{\frac{p_{0_1}}{p_{0_2}}}\\
+\frac{\rho_2}{\rho_1} & = \frac{(\gamma+1)M_1^2 \sin^2{\beta}}{(\gamma-1)M_1^2 \sin^2{\beta} + 2} \\
+\frac{p_2}{p_1} & = 1 + \frac{2\gamma}{\gamma+1}(M_1^2 \sin^2{\beta} -1)
+\end{aligned}\]
+<h2 id="oblique_shock"><a href="#oblique_shock" class="header-anchor">Oblique Shock</a></h2>
+\[\tan{\theta} = \frac{2 \cot{\beta}(M_1^2 \sin^2{\beta} -1 )}{2 + M_1^2 (\gamma + \cos{2\beta})}\]</div>
+<a href=" /courses/gasdynamics/"><p style="text-align:right; ">&#8617;</p></a>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

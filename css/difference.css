@@ -1,0 +1,140 @@
+0a1,4
+> @import url("https://cdn.jsdelivr.net/npm/fontsource-alegreya-sans@3.0.10/400.css");
+> @import url("https://cdn.jsdelivr.net/npm/fontsource-alegreya-sans@3.0.10/500.css");
+> @import url("https://cdn.jsdelivr.net/npm/fontsource-alegreya-sans@3.0.10/700.css");
+> 
+10,11c14,15
+<     font-family: Helvetica, Arial, sans-serif;
+<     font-size  : 19px;
+---
+>     font-family: "Alegreya Sans", Roboto, ITCFranklinGothic, sans-serif;
+>     font-size  : 17px;
+45,46c49,50
+<     text-decoration: none;
+<     color: var(--accent);
+---
+>     text-decoration: underline;
+>     color: var(--black);
+88,90c92,94
+< .franklin-content h1 { font-size: 29px; }
+< .franklin-content h2 { font-size: 27px; }
+< .franklin-content h3 { font-size: 25px; }
+---
+> .franklin-content h1 { font-size: 22px; }
+> .franklin-content h2 { font-size: 20px; }
+> .franklin-content h3 { font-size: 18px; }
+111c115
+< .franklin-content h2 a { color: inherit; }
+---
+> .franklin-content h2 a { color: inherit;  text-decoration: none;}
+113c117
+< .franklin-content h3 a { color: inherit; }
+---
+> .franklin-content h3 a { color: inherit; text-decoration: none; }
+115c119
+< .franklin-content h4 a { color: inherit; }
+---
+> .franklin-content h4 a { color: inherit; text-decoration: none; }
+117c121
+< .franklin-content h5 a { color: inherit; }
+---
+> .franklin-content h5 a { color: inherit; text-decoration: none; }
+119c123
+< .franklin-content h6 a { color: inherit; }
+---
+> .franklin-content h6 a { color: inherit; text-decoration: none; }
+128d131
+< }
+172,173c175,176
+<     color: var(--accent);
+<     text-decoration: none; }
+---
+>     color: var(--black);
+>     text-decoration: underline; }
+176c179
+<     text-decoration: underline; }
+---
+>     text-decoration: none; }
+182c185
+< .franklin-content .eqref a  { 
+---
+> .franklin-content .eqref a  {
+185c188
+< .franklin-content .bibref a { 
+---
+> .franklin-content .bibref a {
+238c241
+<   display: inline-block; 
+---
+>   display: inline-block;
+255c258
+<   padding: 0.3em;
+---
+>   padding: 0.2em;
+257c260
+<   font-size: 14px;
+---
+>   font-size: 85%;
+320c323
+<   border-radius: 50%; 
+---
+>   border-radius: 50%;
+329,336c332,380
+< .page-title {
+<   margin-bottom: 0.4rem !important;
+< }
+< 
+< .page-date {
+<   display: block;
+<   font-style: italic;
+<   margin-bottom: 40px;
+---
+> .column {
+>   float:left;
+>   width:30%;
+>   margin-bottom:16px;
+>   padding:0 8px; }
+> @media (max-width:62rem) {
+>   .column {
+>     width:45%;
+>     display:block; }
+>   }
+> @media (max-width:30rem){
+>   .column {
+>     width:95%;
+>     display:block;}
+>   }
+> .card { box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); }
+> .card img {
+>   padding-left:0;
+>   width: 100%; }
+> .container { padding: 0 16px; }
+> .container::after, .row::after{
+>   content: "";
+>   clear: both;
+>   display: table; }
+> .title { color: grey; }
+> .vitae { margin-top: 0.5em; }
+> .email {
+>   font-family: courier;
+>   margin-top: 0.5em;
+>   margin-bottom: 0.5em; }
+> .button{
+>   border: none;
+>   outline: 0;
+>   display: inline-block;
+>   padding: 8px;
+>   color: white;
+>   background-color: #000;
+>   text-align: center;
+>   cursor: pointer;
+>   width: 100%; }
+> .button:hover{ background-color: #555; }
+> 
+> /* For equations without numbering.
+>  * https://franklinjl.org/faq/technical/#how_to_disable_numbering_of_math_in_display_mode
+>  */
+> 
+> .no-number .katex-display::after {
+>   counter-increment: nothing;
+>   content: "";

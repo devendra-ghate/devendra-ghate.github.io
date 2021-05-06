@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Oblique Shock - mdo-lab </title> 
+  
+
+   <meta property="og:title" content="Oblique Shock" /> 
+   <meta property="og:type" content="article" /> 
+  
+  
+
+   <meta name="twitter:title" content="Oblique Shock" /> 
+  
+  
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Oblique Shock</h1> 
+</div>
+<div class="franklin-content">
+<pre><code class="language-julia">using JuMP
+using Ipopt
+include&#40;&quot;CompressibleFlow.jl&quot;&#41;
+#import .CompressibleFlow.NormalShock.
+f_1&#40;M₁, β, γ&#61;1.4&#41; &#61; atand&#40; 2cotd&#40;β&#41;* &#40;M₁^2*sind&#40;β&#41;^2 - 1 &#41;/&#40; M₁^2*&#40;γ &#43; cosd&#40;2β&#41;&#41; &#43; 2 &#41; &#41;
+
+function θ&#40;M₁, β, γ&#61;1.4&#41;
+  if M₁*sind&#40;β&#41; &gt;&#61; 1
+   atand&#40; 2cotd&#40;β&#41;* &#40;M₁^2*sind&#40;β&#41;^2 - 1 &#41;/&#40; M₁^2*&#40;γ &#43; cosd&#40;2β&#41;&#41; &#43; 2 &#41; &#41;
+  else
+   0.0
+  end
+end
+
+import ..NormalShock
+
+errormsg &#61; &quot;Infeasible Solution: Normal Mach number is subsonic.&quot;
+
+function βw&#40;M₁, theta, γ&#61;1.4&#41;
+	&quot;&quot;&quot;
+	Function to calculate shock angle for weak oblique shock
+	&quot;&quot;&quot;
+	  model &#61; Model&#40;Ipopt.Optimizer&#41;
+	  @variable&#40;model, beta, start &#61; 10&#41;
+	  @NLparameter&#40;model, gamma &#61;&#61; γ&#41;
+	  @NLparameter&#40;model, M1 &#61;&#61; M₁&#41;
+	  @NLobjective&#40;model, Min, 1&#41;
+	  @NLconstraint&#40;model,0 &lt;&#61; beta &lt;&#61; 90&#41;
+	  register&#40;model, :f_1, 3, f_1, autodiff&#61;true&#41;
+	  @NLconstraint&#40;model, eq, f_1&#40;M1, beta, gamma&#41; &#61;&#61; theta&#41;
+	  print&#40;model&#41;
+	  optimize&#33;&#40;model&#41;
+	  if M₁*sind&#40;value&#40;beta&#41;&#41; &gt;&#61; 1
+	   value&#40;beta&#41;
+	  else
+		  display&#40;errormsg&#41;
+	  end
+end
+
+function βs&#40;M₁, theta, γ&#61;1.4&#41;
+	&quot;&quot;&quot;
+	Function to calculate shock angle for weak oblique shock
+	&quot;&quot;&quot;
+	  model &#61; Model&#40;Ipopt.Optimizer&#41;
+	  @variable&#40;model, beta, start &#61; 80&#41;
+	  @NLparameter&#40;model, gamma &#61;&#61; γ&#41;
+	  @NLparameter&#40;model, M1 &#61;&#61; M₁&#41;
+	  @NLobjective&#40;model, Min, 1&#41;
+	  @NLconstraint&#40;model,0 &lt;&#61; beta &lt;&#61; 90&#41;
+	  register&#40;model, :f_1, 3, f_1, autodiff&#61;true&#41;
+	  @NLconstraint&#40;model, eq, f_1&#40;M1, beta, gamma&#41; &#61;&#61; theta&#41;
+	  print&#40;model&#41;
+	  optimize&#33;&#40;model&#41;
+	  if M₁*sind&#40;value&#40;beta&#41;&#41; &gt;&#61; 1
+	   value&#40;beta&#41;
+	  else
+		  display&#40;errormsg&#41;
+	  end
+end
+
+γ &#61; 1.4
+
+p &#61; plot&#40;1,1&#41;
+for M₁ in &#91;1 2 3 5 10 20&#93;
+	plot&#33;&#40;β-&gt;θ&#40;M₁, β&#41;, 0, 90,
+		label&#61;&quot;M₁&#61; &#36;&#40;M₁&#41;&quot;,
+		xlabel&#61;&quot;β&quot;,
+		ylabel&#61;&quot;θ&quot;,
+		title&#61;&quot;Oblique shock realations&quot;,
+		titlesize&#61;10&#41;
+end
+
+βw&#40;4.6, 24.0&#41;</code></pre>
+\[\begin{equation}
+  \tan{\theta} = \frac{2 \cot{\beta}(M_1^2 \sin^2{\beta} -1 )}{2 + M_1^2 (\gamma + \cos{2\beta})}
+\end{equation}\]
+\[\begin{aligned}
+\frac{\rho_2}{\rho_1} & = & \frac{(\gamma+1)M_1^2 \sin^2{\beta}}{(\gamma-1)M_1^2 \sin^2{\beta} + 2} \\
+\frac{p_2}{p_1} & = & 1 + \frac{2\gamma}{\gamma+1}(M_1^2 \sin^2{\beta} -1)
+\end{aligned}\]
+<a href=" /courses/gasdynamics/"><p style="text-align:right; ">&#8617;</p></a>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

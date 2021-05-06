@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Tutorial 1 - mdo-lab </title> 
+   <meta name="description" content="Tutorial 1" /> 
+
+   <meta property="og:title" content="Tutorial 1" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Tutorial 1" /> 
+  
+
+   <meta name="twitter:title" content="Tutorial 1" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Tutorial 1" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Tutorial 1</h1> 
+</div>
+<div class="franklin-content">
+<h2 id="theoretical"><a href="#theoretical" class="header-anchor">Theoretical</a></h2>
+<ol>
+<li><p>Show that for a reversible process of a perfect gas,</p>
+</li>
+</ol>
+\[ds =  c_p \frac{dv}{v} + c_v \frac{dp}{p}.\]
+<ol start="2">
+<li><p>Using above relationship, show that for an isentropic flow,</p>
+</li>
+</ol>
+\[p v^γ = const.\]
+<ol start="3">
+<li><p>Show that for an ideal gas undergoing any process &#40;1 to 2&#41;,</p>
+</li>
+</ol>
+\[s_2 - s_1 = c_p \ln{\frac{T_2}{T_1}} - R \ln{\frac{p_2}{p_1}}.\]
+<ol start="4">
+<li><p>Show that for an ideal gas undergoing a process 1 to 2,</p>
+</li>
+</ol>
+\[s_2 - s_1 = c_v \ln{\frac{T_2}{T_1}} + R \ln{\frac{v_2}{v_1}}.\]
+<ol start="5">
+<li><p>Show that the mass flow rate per unit area for a converging duct for a perfect gas is</p>
+</li>
+</ol>
+\[\frac{\dot{m}}{A} = \frac{p_0 M \sqrt{γ/RT_0}}{\left( 1 + \frac{γ - 1}{2}M^2\right)^{\frac{γ+1}{2(γ - 1)}}}.\]
+<h2 id="numerical"><a href="#numerical" class="header-anchor">Numerical</a></h2>
+<ol>
+<li><p>Oxygen gas is heated from 25C to 125C. Determine the increase in its internal energy and enthalpy.</p>
+</li>
+<li><p>Air in a cylinder changes state from 101 kPa and 310 K to a pressure of 1100 kPa according to the process \(pv^{1.32} = \text{constant}\). Determine the entropy change associated with this process. Assume air to be an ideal gas with \(c_p = 1004\) J/kg-K and \(γ=1.4\). </p>
+</li>
+<li><p>For the operation of a supersonic test-section, an air flow at the conditions \(p_1 = 6.5\) atm, \(T_1 = 440\) K and \(M_1 = 0.5\) is led through an inlet section of area \(A_1 = 160 ~\text{cm}^2\) to a Laval nozzle which expands the flow to a pressure of \(p_2 = 1\) atm at the test section. What is \(M_2\), \(A^{*}/A_2\) and \(\dot{m}\) ?</p>
+</li>
+<li><p>Air from a high pressure task at 350 kPa and 420 K expands isentropically through a nozzle of exit area \(A_e\) &#61; 0.22 \(m^2\). If \(u_e\) &#61; 525 m/s, determine \(M_e\), \(p_e\), \(\dot{m}_e\) and \(A^*\).</p>
+</li>
+<li><p>An aircraft flies at Mach 0.8 at an altitude where the pressure and temperature are 44 kPa and -15C. Determine the isentropic stagnation pressure and temperature recorded on the aircraft. <em>Do not use gas tables</em>.</p>
+</li>
+</ol>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

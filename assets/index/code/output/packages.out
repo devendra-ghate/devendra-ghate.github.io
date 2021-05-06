@@ -1,15 +1,4 @@
-Franklin v0.10.30
-FuzzyCompletions v0.4.0
-GR v0.55.0
-JSON v0.21.1
-LaTeXStrings v1.2.1
-NodeJS v1.1.1
-Optim v1.2.4
-PlotThemes v2.0.1
-PlotlyJS v0.14.0
-Plots v1.10.6
-Pluto v0.12.21
-PlutoUI v0.7.1
-PyPlot v2.9.0
-Remark v0.3.0
-DelimitedFiles
+JuMP v0.21.6
+Optim v1.3.0
+PlotlyJS v0.14.1
+Plots v1.11.2

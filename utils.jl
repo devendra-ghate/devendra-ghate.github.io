@@ -19,109 +19,6 @@ function hfun_timestamp_now()
     return string(Dates.now()) * "+00:00"
 end
 
-"""
-    {{blogposts}}
-
-Plug in the list of blog posts contained in the `/posts` folder.
-Souce: <https://github.com/abhishalya/abhishalya.github.io>.
-"""
-function hfun_blogposts()
-    today = Dates.today()
-    curyear = year(today)
-    curmonth = month(today)
-    curday = day(today)
-
-    list = readdir("posts")
-    filter!(endswith(".md"), list)
-    function sorter(p)
-        ps  = splitext(p)[1]
-        url = "/posts/$ps/"
-        surl = strip(url, '/')
-        pubdate = pagevar(surl, :published)
-        if isnothing(pubdate)
-            return Date(Dates.unix2datetime(stat(surl * ".md").ctime))
-        end
-        return Date(pubdate, dateformat"d U Y")
-    end
-    sort!(list, by=sorter, rev=true)
-
-    io = IOBuffer()
-    write(io, """<ul class="blog-posts">""")
-    for (i, post) in enumerate(list)
-        if post == "index.md"
-            continue
-        end
-        ps  = splitext(post)[1]
-        write(io, "<li><span><i>")
-        url = "/posts/$ps/"
-        surl = strip(url, '/')
-        title = pagevar(surl, :title)
-        pubdate = pagevar(surl, :published)
-        description = pagevar(surl, :description)
-        if isnothing(pubdate)
-            date = "$curyear-$curmonth-$curday"
-        else
-            date = Date(pubdate, dateformat"d U Y")
-        end
-        write(io, """$date</i></span><b><a href="$url">$title</a></b>""")
-        write(io, """<li><i class="description">$description</i></li>""")
-    end
-    write(io, "</ul>")
-    return String(take!(io))
-end
-
-
-"""
-    {{mdoposts}}
-
-Plug in the list of blog posts contained in the `/mdo` folder.
-Souce: <https://github.com/abhishalya/abhishalya.github.io>.
-"""
-function hfun_mdoposts()
-    today = Dates.today()
-    curyear = year(today)
-    curmonth = month(today)
-    curday = day(today)
-
-    list = readdir("mdo")
-    filter!(endswith(".md"), list)
-    function sorter(p)
-        ps  = splitext(p)[1]
-        url = "/mdo/$ps/"
-        surl = strip(url, '/')
-        pubdate = pagevar(surl, :published)
-        if isnothing(pubdate)
-            return Date(Dates.unix2datetime(stat(surl * ".md").ctime))
-        end
-        return Date(pubdate, dateformat"d U Y")
-    end
-    sort!(list, by=sorter, rev=true)
-
-    io = IOBuffer()
-    write(io, """<ul class="blog-posts">""")
-    for (i, post) in enumerate(list)
-        if post == "index.md"
-            continue
-        end
-        ps  = splitext(post)[1]
-        write(io, "<li><span><i>")
-        url = "/mdo/$ps/"
-        surl = strip(url, '/')
-        title = pagevar(surl, :title)
-        pubdate = pagevar(surl, :published)
-        description = pagevar(surl, :description)
-        if isnothing(pubdate)
-            date = "$curyear-$curmonth-$curday"
-        else
-            date = Date(pubdate, dateformat"d U Y")
-        end
-        write(io, """$date</i></span><b><a href="$url">$title</a></b>""")
-        write(io, """<li><i class="description">$description</i></li>""")
-    end
-    write(io, "</ul>")
-    return String(take!(io))
-end
-
 # From https://github.com/mitmath/18S191/blob/Spring21/website/utils.jl
 function hfun_plutonotebookpage(params)
     path = params[1]
@@ -173,3 +70,91 @@ function hfun_plutonotebookpage(params)
     """
 end
 
+using Dates
+
+"""
+    {{blogposts}}
+Plug in the list of blog posts contained in the `/blog/` folder.
+"""
+function hfun_blogposts()
+    today = Dates.today()
+    curyear = year(today)
+    curmonth = month(today)
+    curday = day(today)
+
+    list = readdir("blog")
+    filter!(f -> endswith(f, ".md"), list)
+    sorter(p) = begin
+        ps  = splitext(p)[1]
+        url = "/blog/$ps/"
+        surl = strip(url, '/')
+        pubdate = pagevar(surl, :published)
+        if isnothing(pubdate)
+            return Date(Dates.unix2datetime(stat(surl * ".md").ctime))
+        end
+        return Date(pubdate, dateformat"d U Y")
+    end
+    sort!(list, by=sorter, rev=true)
+
+    io = IOBuffer()
+    write(io, """<ul class="blog-posts">""")
+    for (i, post) in enumerate(list)
+        if post == "index.md"
+            continue
+        end
+        ps  = splitext(post)[1]
+        write(io, "<li><span><i>")
+        url = "/blog/$ps/"
+        surl = strip(url, '/')
+        title = pagevar(surl, :title)
+        pubdate = pagevar(surl, :published)
+        description = pagevar(surl, :description)
+        if isnothing(pubdate)
+            date    = "$curyear-$curmonth-$curday"
+        else
+            date    = Date(pubdate, dateformat"d U Y")
+        end
+        write(io, """$date</i></span><a href="$url">$title</a>""")
+        write(io, """<li><i class="description">$description</i></li>""")
+    end
+    write(io, "</ul>")
+    return String(take!(io))
+end
+
+"""
+    {{custom_taglist}}
+Plug in the list of blog posts with the given tag
+"""
+function hfun_custom_taglist()::String
+    tag = locvar(:fd_tag)
+    rpaths = globvar("fd_tag_pages")[tag]
+    sorter(p) = begin
+        pubdate = pagevar(p, :published)
+        if isnothing(pubdate)
+            return Date(Dates.unix2datetime(stat(p * ".md").ctime))
+        end
+        return Date(pubdate, dateformat"d U Y")
+    end
+    sort!(rpaths, by=sorter, rev=true)
+
+    io = IOBuffer()
+    write(io, """<ul class="blog-posts">""")
+    # go over all paths
+    for rpath in rpaths
+        write(io, "<li><span><i>")
+        url = get_url(rpath)
+        title = pagevar(rpath, :title)
+        pubdate = pagevar(rpath, :published)
+        description = pagevar(surl, :description)
+        if isnothing(pubdate)
+            date    = "$curyear-$curmonth-$curday"
+        else
+            date    = Date(pubdate, dateformat"d U Y")
+        end
+        # write some appropriate HTML
+        write(io, """$date</i></span><a href="$url">$title</a>""")
+        write(io, """<li><i class="description">$description</i></li>""")
+    end
+    write(io, "</ul>")
+    return String(take!(io))
+end

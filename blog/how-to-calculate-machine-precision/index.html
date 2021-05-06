@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> How to find machine precision - mdo-lab </title> 
+   <meta name="description" content="Program to calculate machine precision" /> 
+
+   <meta property="og:title" content="How to find machine precision" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Program to calculate machine precision" /> 
+  
+
+   <meta name="twitter:title" content="How to find machine precision" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Program to calculate machine precision" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>How to find machine precision</h1> 
+</div>
+<div class="franklin-content">
+<pre><code class="language-julia">global ϵ &#61; 1
+while&#40;1&#61;&#61;1&#41;
+   ϵ &#61; ϵ/2
+   if&#40;1 &#43; ϵ &#61;&#61; 1&#41;
+     break
+   end
+end
+ϵ</code></pre>
+<pre><code class="plaintext">1.1102230246251565e-16
+</code></pre>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

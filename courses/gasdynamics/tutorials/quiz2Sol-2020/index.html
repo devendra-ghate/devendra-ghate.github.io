@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Quiz 2 Solution - mdo-lab </title> 
+  
+
+   <meta property="og:title" content="Quiz 2 Solution" /> 
+  
+  
+  
+
+   <meta name="twitter:title" content="Quiz 2 Solution" /> 
+  
+  
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+  
+</div>
+<div class="franklin-content"><h2 id="quiz_2_solution"><a href="#quiz_2_solution" class="header-anchor">Quiz 2 Solution</a></h2>
+<h2 id="q1"><a href="#q1" class="header-anchor">Q1</a></h2>
+<p>Starting from the conservation laws, derive an expression for \(\frac{u_1 - u_2}{a_1}\) is across a normal shock for a perfect gas.</p>
+<p><strong>Hint</strong>: Please note that \(\frac{\Delta u}{a_1}\) is available in the normal shock tables.</p>
+<h5 id="solution"><a href="#solution" class="header-anchor">Solution</a></h5>
+<p>Derive</p>
+\[\frac{u_2}{u_1} = \frac{\rho_1}{\rho_2} = \frac{(\gamma -1)M_1^2 + 2}{(\gamma + 1)M_1^2}\]
+<p>and substract \(1\) from both sides. After writing \(u_1 = M_1 a_1\), you will get</p>
+\[\frac{u_1 - u_2}{a_1} = \left(\frac{2}{\gamma + 1}\right)\left(\frac{M_1^2 -1}{M_1}\right)\]
+<h2 id="q2"><a href="#q2" class="header-anchor">Q2</a></h2>
+<p>For a choked C-D nozzle, define over-expanded, fully-expanded and under-expanded flow. In each case, explain what kind of shock formation will be happen &#40;if any&#41;.</p>
+<h5 id="solution__2"><a href="#solution__2" class="header-anchor">Solution</a></h5>
+<p>These are standard definitions. 2 marks per definition.</p>
+<h2 id="q3"><a href="#q3" class="header-anchor">Q3</a></h2>
+<p>Represent the normal shock wave on the Rayleigh diagram &#40; h-s diagram&#41;. You should mark the states 1 and 2 along with the total states \(0_1\) and \(0_2\). Clearly mark \(h_{0_1}\), \(h_{0_2}\), \(s_1\), \(s_2\), \(p_{0_1}\), \(p_{0_2}\), \(p_1\) and \(p_2\).</p>
+<h5 id="solution__3"><a href="#solution__3" class="header-anchor">Solution</a></h5>
+<p><img src="../../assets/img/hsNormalShock.png" alt="" /></p>
+<h2 id="q4"><a href="#q4" class="header-anchor">Q4</a></h2>
+<p><img src="../../assets/img/obliqueShock.png" alt="" /></p>
+<p>Given \(M_1 = 3.3\), compute \(M_3\), \(p_3 / p_1\), \(T_3 / T_1\) and \(\delta\).</p>
+<h4 id="solution__4"><a href="#solution__4" class="header-anchor">Solution</a></h4>
+<pre><code class="language-julia">M₁ &#61; 3.3; θ₁ &#61; 25  # Given
+β₁ &#61; &#40;40.57 &#43; 43.22&#41;/2 # From oblique shock tables
+M₁n &#61; M₁*sind&#40;β₁&#41;
+M₂n &#61; 0.5471; p₂byp₁ &#61; 5.48; T₂byT₁ &#61; 1.8569 # From normal shock table
+M₂ &#61; M₂n/sind&#40;β₁ - θ₁&#41;
+θ₂ &#61; θ₁ - 5
+β₂ &#61; 59.21 # From oblique shock tables
+M₂n2 &#61; M₂*sind&#40;β₂&#41;
+M₃n &#61; 1; p₃byp₂ &#61; 1; T₃byT₂ &#61; 1; # From normal shock table
+δ &#61; β₂ - 5 - 20</code></pre>
+<pre><code class="plaintext">M₁n is 2.203633078325248
+M₂n2 is 1.6171906844056108
+M₃n is 1
+M₂ is 1.88253546614397
+θ₂ is 20
+δ is 34.21
+</code></pre>
+<h2 id="q5"><a href="#q5" class="header-anchor">Q5</a></h2>
+<p>Determine the value of \(\theta\) up to which the second shock will remain attached. The upstream Mach number is \(2\) and the first corner has an angle of \(6\) degrees.</p>
+<p><img src="../../assets/img/compressionCorners.png" alt="" /></p>
+<h4 id="solution__5"><a href="#solution__5" class="header-anchor">Solution</a></h4>
+<pre><code class="language-julia">M₁ &#61; 2; θ₁ &#61; 6 # Given
+β₁ &#61; 35.24 # From oblique shock tables
+M₁n &#61; M₁*sind&#40;β₁&#41;
+M₂n &#61; 0.72*0.8820 &#43; 0.25*0.8682 # Linear extrapolation from normal shock table
+M₂ &#61; M₂n/sind&#40;β₁ - θ₁&#41;</code></pre>
+<pre><code class="plaintext">M₂ is 1.7444097350916303
+</code></pre>
+<p>From oblique shock tables, θmax &#61; 16. Hence, θ has to be less than 16 degrees.</p>
+<h2 id="q6"><a href="#q6" class="header-anchor">Q6</a></h2>
+<p>Can a pitot static tube be used for measuring the free stream velocity in a supersonic flow? Explain.</p>
+<h4 id="solution__6"><a href="#solution__6" class="header-anchor">Solution</a></h4>
+<p>This is what is called a <strong>lollipop</strong>, an open ended question. Ease to score but reveals a lot of about the level of understanding of a student.</p>
+<p>The main thing here is to identify the fact that <em>one has to add a correction for shocks</em>. Mostly bow but may be attached oblique shock. If it is bow, in the vicinity of the pitot tube, normal shock correction can be a good starting point. However, based on the geometry of the pitot tube, more accurate correction factors can be derived based on more accurate calculations at various operating conditions.</p>
+<p>No grading queries will be entertained for this question. My grading will be final.</p>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

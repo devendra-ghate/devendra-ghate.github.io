@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+  
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Complexity of an algorithm - mdo-lab </title> 
+   <meta name="description" content="Brief introduction to the concept of algorithmic complexity." /> 
+
+   <meta property="og:title" content="Complexity of an algorithm" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Brief introduction to the concept of algorithmic complexity." /> 
+  
+
+   <meta name="twitter:title" content="Complexity of an algorithm" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Brief introduction to the concept of algorithmic complexity." /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Complexity of an algorithm</h1> 
+</div>
+<div class="franklin-content">
+<p>Complexity of algorithm tells us about the behaviour of time and space consumption by the algorithm with respect to the problem size &#40;\(n\)&#41; asymptotically under a certain computational model.</p>
+<p>Let&#39;s take a closer look at various terms in this definition.</p>
+<ol>
+<li><p><em>Time complexity</em> here means the time required to perform the number of operations.</p>
+</li>
+<li><p><em>Space complexity</em> refers to the memory &#40;RAM&#41; required to run the program and how it scales with the problem size.</p>
+</li>
+<li><p><em>Problem size</em> is usually parameterised &#40;represented&#41; in terms of a variable. Lets call it \(n\). For a matrix-vector product, clearly, \(n\) will represent the size of the vector. If we are considering a large scale numerical PDE solver &#40;like CFD and FEM programs&#41;, \(n\) will be the number of nodes &#40;grid points, cells&#41; at which the PDE is discretised. In case of gradient based optimisation algorithms, \(n\) will be the dimension of the design space.</p>
+</li>
+<li><p><em>Asymptotic</em> behavior means the behaviour of the algorithm as \(n \rightarrow \infty\). This means that for a small enough \(n\), it may be case that the complexity of an algorithm presents a misleading picture. More on this later.</p>
+</li>
+<li><p>A <em>computational model</em> makes certain assumptions on the relative cost of performing basic arithmetic and memory operations. For example, classically, all the complexity algorithms have assumed that addition, subtraction, multiplication and division can all be performed at equal cost. Hence, there is no need to distinguish between them. This simplifies the analysis greatly. In other models, addition and subtraction are ignored and only multiplications are counted. Similarly, a preliminary complexity analysis will often time ignore the time taken for memory access. Most complexity analysis also assume basic <a href="https://en.wikipedia.org/wiki/Turing_machine"><em>Turing Machine</em></a> model. In optimisation we need not worry about this.</p>
+</li>
+</ol>
+<div class="admonition note"><p class="admonition-title">Serial model</p><p>In our priliminary analysis &#40;as undergraduate students&#41; we can assume instantaneous data access and only count the number of arithmetic operations <sup id="fnref:1"><a href="#fndef:1" class="fnref">[1]</a></sup>. We will also asssume that all operations require equal time.</p>
+</div>
+<div class="admonition note"><p class="admonition-title">Parallel model</p><p>Each of the computing node making up our parallel machine, have the properties of our serial model. On top of this, we assume that data transfer between various nodes of the parallel computer is also fast enough &#40;as compared to the computation time required on each node&#41; to ignore.</p>
+</div>
+<p>Under such simplifications, let us look at the complexity of <em>vector-vector</em> product. Clearly, if the size of the vector is \(n\), then we have to perform \(n\) multiplications. Hence the complexity is \(\mathcal{O}(n)\).</p>
+<p>If we consider <em>matrix-vector</em> product, then we have to perform \(n\) additions and \(n\) multiplications for every entry of the output vector. Hence, in total, we are performing \(n^2\) additions and \(n^2\) multiplications. Under our computing model, cost of addition is the same as the cost of multiplications. Hence, we can say \(2n^2\) operations. Hence, the time complexity is \(\mathcal{O}(n^2)\). Let us assume that in practice it takes twice as much time to perform a multiplication as it does to perform additions. Then the total cost will be \((1 + 2)n^2\) operations but the order remains the same.</p>
+<div class="admonition warning"><p class="admonition-title">Question</p><p>What is the time complexity of <em>matrix-matrix</em> multiplication?</p>
+</div>
+<div class="admonition hint"><p class="admonition-title">Answer</p>\(\mathcal{O}(n^3)\)
+</div>
+<p>Similarly, the space complexity of these algorithms can be calculated. However, this is not of interest to us at present.</p>
+<p>If we consider the data parallel model of computation, then <em>vector-vector</em> product is \(\mathcal{O}(n)\) time complexity. The \(n\) multiplication operations happen in the parallel mode followed by the serial &#40;\(n-1\)&#41; additions at the master node. As these additions have to be performed in a sequential manner, the overall order of the parallel execution of <em>vector-vector</em> product is still \(\mathcal{O}(n)\).</p>
+<p>If we consider <em>matrix-vector</em> product, the \(i^{th}\) entry of the output vector is \(\sum_{j=1}^{n} a_{ij} b_{j}\). The summation operation will happen in serial fashion after we gather all the products. This will take \(n-1\) serial operations. Hence, the overall order is \(\mathcal{O}(n)\).</p>
+<p>However, if we consider the <code>trace</code> operator over a matrix \(\mbox{tr}(A) = \sum_{i=1}^{n} a_{ii}\), the complexity remains \(\mathcal{O}(n)\) for serial as well as parallel implementations.</p>
+<p>We note here that there are some operators/functions which are not amenable to straightforward parallelisation.</p>
+<table><tr><th align="right">Operation</th><th align="left">Serial</th><th align="left">Parallel</th></tr><tr><td align="right"><em>vector-vector</em> product</td><td align="left">\(\mathcal{O}(n)\)</td><td align="left">\(\mathcal{O}(n)\)</td></tr><tr><td align="right"><em>matrix-vector</em> product</td><td align="left">\(\mathcal{O}(n^2)\)</td><td align="left">\(\mathcal{O}(n)\) <sup id="fnref:2"><a href="#fndef:2" class="fnref">[2]</a></sup></td></tr><tr><td align="right"><em>matrix-trace</em> operator</td><td align="left">\(\mathcal{O}(n)\)</td><td align="left">\(\mathcal{O}(n)\)</td></tr></table>
+<p>A brief introduction to complexity calculation has been given in this article. Using this as a building block, you should calculate the complexity of other matrix operator like \(A^{-1}\), \(\mbox{det}(A)\) etc. </p>
+<p>Similar methodology is to be used to calculate the complexity of gradient algorithms. </p>
+<ol>
+<li><p>A key difference is that since we do not know the exact number of steps required to reach optima for most nonlinear numerical optimisation algorithms, our complexity analysis will focus on the effect of problem size on the <strong>time and space complexity of one step</strong>. Overall complexity bound cannot be given in most cases. A notable exception can be <em>Conjugate Gradient</em> algorithm for an unconstrained positive definite quadratic function.</p>
+</li>
+<li><p>Another notable difference is the level of abstraction used for calculating the complexity. In case of matrix operations, we were concerned about the calculating the complexity in terms of basic arithmetic operators. In optimisation, the compute time is heavily dependent on the form of the objective function \(f(\bar{x})\). Hence, we only estimate the number of function evaluation &#40;# of \(f(\bar{x})\) calculations&#41; per step. This is justified since cost of \(f(\bar{x})\) remains constant and hence we are only changing the constant of multiplication in the calculation of the overall computational operations. </p>
+</li>
+</ol>
+<a href=" /courses/mdo/"><p style="text-align:right; ">&#8617;</p></a>
+<p><table class="fndef" id="fndef:1">
+    <tr>
+        <td class="fndef-backref"><a href="#fnref:1">[1]</a></td>
+        <td class="fndef-content">This means that we are ignoring the cache available for the CPU. We are also not concerned whether we are using a single-core CPU, multi-core CPU or a GPU. A more in-depth analysis can be performed by taking all these into consideration. However, this kind of analysis will also be specific to a particular implementation of a general algorithm. Hence, it is only useful in the case of developers working on scientific computing libraries.</td>
+    </tr>
+</table>
+ <sup id="fnref:2"><a href="#fndef:2" class="fnref">[2]</a></sup> : A more complete analysis of parallel implementation can be found <a href="http://www.cs.umsl.edu/~sanjiv/classes/cs5740/lectures/mvm.pdf">here</a>.</p>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

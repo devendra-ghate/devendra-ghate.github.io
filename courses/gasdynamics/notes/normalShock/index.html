@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Normal Shock relations - mdo-lab </title> 
+   <meta name="description" content="Notes on normal shock" /> 
+
+   <meta property="og:title" content="Normal Shock relations" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Notes on normal shock" /> 
+  
+
+   <meta name="twitter:title" content="Normal Shock relations" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Notes on normal shock" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Normal Shock relations</h1> 
+</div>
+<div class="franklin-content">
+<pre><code class="language-julia">using Plots
+using LaTeXStrings
+begin
+	γ &#61; &#91;1.66, 1.4, 1.2&#93;
+end
+function ΔsbyR&#40;M₁, γ&#41;
+	γ/&#40;γ-1&#41;*log&#40; 1 &#43; &#40;2*&#40; &#40;γ-1&#41;/&#40;γ&#43;1&#41;^2 &#41; &#41;*&#40; &#40;γ*M₁^2 &#43; 1&#41;/M₁^2 &#41;*&#40; M₁^2 -1 &#41; &#41; - log&#40; 1 &#43; 2γ/&#40;γ&#43;1&#41;*&#40;M₁^2 -1&#41; &#41;
+end
+M₁min1 &#61; 0.4; M₁max1 &#61; 5
+plot&#40;M₁-&gt;ΔsbyR&#40;M₁, γ&#91;1&#93;&#41;, M₁min1, M₁max1,
+           xlabel&#61;&quot;M₁&quot;,
+           ylabel&#61;&quot;ΔsbyR&quot;,
+           label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;,
+           title&#61;&quot;Entropy change across a shock&quot;,
+           titlefontsize&#61;10&#41;
+plot&#33;&#40;M₁-&gt;ΔsbyR&#40;M₁, γ&#91;2&#93;&#41;, M₁min1, M₁max1,
+			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;&#41;
+plot&#33;&#40;M₁-&gt;ΔsbyR&#40;M₁, γ&#91;3&#93;&#41;, M₁min1, M₁max1,
+			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;3&#93;&#41;&quot;&#41;</code></pre>
+<h2 id="can_we_have_subsonic_m_1"><a href="#can_we_have_subsonic_m_1" class="header-anchor">Can we have subsonic \(M_1\)?</a></h2>
+<p style="text-align:center; "><img src=" ex1" alt="" /></p>
+<h2 id="what_is_the_asymptotic_m_2_as_m_1"><a href="#what_is_the_asymptotic_m_2_as_m_1" class="header-anchor">What is the asymptotic \(M_2\) as \(M_1 → ∞\)?</a></h2>
+<pre><code class="language-julia">function M₂&#40;M₁, γ&#41;
+	sqrt&#40; &#40;1 &#43; &#40;γ-1&#41;/2*M₁^2&#41;/&#40;γ*M₁^2 - &#40;γ-1&#41;/2&#41; &#41;
+end
+M₁min2 &#61; 1; M₁max2 &#61; 10
+plot&#40;M₁-&gt;M₂&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
+ 	      xlabel&#61;&quot;M₁&quot;,
+           ylabel&#61;&quot;M₂&quot;, 
+           label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;,
+           title&#61;&quot;Mach change across a shock&quot;,
+	      #annotate &#61; &#40;5,0.5,text&#40;&quot;γ &quot;&#41;&#41;,
+           titlefontsize&#61;10&#41;
+plot&#33;&#40;M₁-&gt;M₂&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
+			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;&#41;
+plot&#33;&#40;M₁-&gt;M₂&#40;M₁, γ&#91;3&#93;&#41;, M₁min2, M₁max2,
+			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;3&#93;&#41;&quot;&#41;</code></pre>
+<p style="text-align:center; "><img src=" ex2" alt="" /></p>
+<h2 id="variation_of_various_properties_with_m_1_for_γ_14"><a href="#variation_of_various_properties_with_m_1_for_γ_14" class="header-anchor">Variation of various properties with \(M_1\) for \(γ = 1.4\)</a></h2>
+<pre><code class="language-julia">function T₂byT₁&#40;M₁, γ&#41;
+	&#40;1 &#43; &#40;γ-1&#41;/2*M₁^2&#41;/&#40;1 &#43; &#40;γ-1&#41;/2*M₂&#40;M₁,γ&#41;^2&#41;
+	#1 &#43; &#40; 2*&#40;γ-1&#41;/&#40;γ&#43;&#33;&#41;^2 &#41;*&#40; &#40;γ*M₁^2 &#43; 1&#41;*&#40;M₁^2-1&#41;/M₁^2 &#41;
+end
+plot&#40;M₁-&gt;T₂byT₁&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
+ 	      xlabel&#61;&quot;M₁&quot;,
+           ylabel&#61;&quot;T₂byT₁&quot;, 
+           label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;,
+           title&#61;&quot;Static Temperature variation&quot;,
+           titlefontsize&#61;10&#41;
+plot&#33;&#40;M₁-&gt;T₂byT₁&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
+			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
+<p style="text-align:center; "><img src=" ex3" alt="" /></p>
+<pre><code class="language-julia">function p₂byp₁&#40;M₁, γ&#41;
+	&#40;1 &#43; γ*M₁^2&#41;/&#40;1 &#43; γ*M₂&#40;M₁,γ&#41;^2&#41;
+end
+plot&#40;M₁-&gt;p₂byp₁&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
+ 	      xlabel&#61;&quot;M₁&quot;,
+           ylabel&#61;&quot;p₂byp₁&quot;, 
+           label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;,
+           title&#61;&quot;Pressure variation&quot;,
+           titlefontsize&#61;10&#41;
+plot&#33;&#40;M₁-&gt;p₂byp₁&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
+	label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
+<p style="text-align:center; "><img src=" ex4.svg" alt="" /></p>
+<pre><code class="language-julia">function ρ₂byρ₁&#40;M₁, γ&#41;
+	p₂byp₁&#40;M₁, γ&#41;/T₂byT₁&#40;M₁, γ&#41;
+end
+plot&#40;M₁-&gt;ρ₂byρ₁&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
+ 	      xlabel&#61;&quot;M₁&quot;,
+           ylabel&#61;&quot;ρ₂byρ₁&quot;, 
+           label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;,
+           title&#61;&quot;Density variation&quot;,
+           titlefontsize&#61;10&#41;
+plot&#33;&#40;M₁-&gt;ρ₂byρ₁&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
+	label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
+<p style="text-align:center; "><img src=" ex5" alt="" /></p>
+<p>We know that for the perfect gas</p>
+\[\begin{aligned}
+\frac{\Delta s}{R} & = \frac{\gamma}{\gamma-1}\ln{\frac{T_2}{T_1}} - \ln{\frac{p_2}{p_1}} \\
+              & =  \ln{\left[\frac{\left(T_2/T_1\right)^{\gamma/(\gamma-1)}}{p_2/p_1}\right]} \\
+              & =  \ln{\frac{p_{0_1}}{p_{0_2}}}
+\end{aligned}\]
+<pre><code class="language-julia">function p02byp01&#40;M₁, γ&#41;
+	exp&#40;-ΔsbyR&#40;M₁, γ&#41;&#41;
+end
+plot&#40;M₁-&gt;p02byp01&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
+		  yaxis&#61;:log,
+	      xlabel&#61;&quot;M₁&quot;,
+           ylabel&#61;&quot;p02byp01&quot;,
+           label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;,
+           title&#61;&quot;Total Pressure variation&quot;,
+           titlefontsize&#61;10&#41;
+plot&#33;&#40;M₁-&gt;p02byp01&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
+		  yaxis&#61;:log,
+		  label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
+<p style="text-align:center; "><img src=" ex6" alt="" /></p>
+<p>To check my calculations, I will calculate \(T_{0_2}/T_{0_1}\).</p>
+<pre><code class="language-julia">function T02byT01&#40;M₁, γ&#41;
+	T₂byT₁&#40;M₁, γ&#41;*&#40; 1 &#43; &#40;&#40;γ-1&#41;*M₂&#40;M₁,γ&#41;^2&#41;/2 &#41;/&#40; 1 &#43; &#40;&#40;γ-1&#41;*M₁^2&#41;/2 &#41;
+end
+g&#61;1.4
+M₁ &#61; 4.914726387
+a &#61; 1 &#43; &#40;&#40;g-1&#41;*M₂&#40;M₁,g&#41;^2&#41;/2
+b &#61; 1 &#43; &#40;&#40;g-1&#41;*M₁^2&#41;/2
+println&#40; &quot;Temperature ratio from first approach is &quot;, T₂byT₁&#40;M₁, g&#41;, &quot;\n&quot;&#41;
+println&#40;T₂byT₁&#40;M₁, g&#41;*a/b&#41;</code></pre>
+Temperature ratio from first approach is 5.635409659763739</p>
+<p>1.0
+<pre><code class="language-julia">begin
+   plot&#40;M₁-&gt;abs&#40;T02byT01&#40;M₁, γ&#91;2&#93;&#41;&#41;, M₁min2, M₁max2,
+              yaxis&#61;:log,
+              xlabel&#61;&quot;M₁&quot;,
+              ylabel&#61;&quot;T02byT01&quot;,
+              label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;,
+              title&#61;&quot;Total Temperature variation&quot;,
+              titlefontsize&#61;10&#41;
+end</code></pre>
+<p style="text-align:center; "><img src=" ex7" alt="" /></p>
+<p>I have not been able to find the bug. \(T_{0_2}/T_{0_1}\) is one everywhere but shoots up in a very narrow region of width less than \(10^{-7}\). Either I am making some mistake or there is a bug in the plotting library. If you figure out, please let me know. Nevertheless, the ratio is unity everywhere else.</p>
+<h3 id="formula_summary"><a href="#formula_summary" class="header-anchor">Formula Summary</a></h3>
+<p>From momentum conservation,</p>
+\[\frac{p_2}{p_1} = \frac{1 + \gamma M_1^2}{1 + \gamma M_2^2}\]
+<p>From energy conservation,</p>
+\[\frac{T_2}{T_1} = \frac{1 + (\gamma-1)/2 M_1^2}{1 + (\gamma-1)/2
+M_2^2}\]
+<p>From the state equation of perfect gas,</p>
+\[\frac{ρ_2}{ρ_1} =
+\left(\frac{p_2}{p_1}\right)\left(\frac{T_1}{T_2}\right)\]
+<p>Prandtl&#39;s relation is</p>
+\[M_1^* M_2^* = 1\]
+<p>where,</p>
+\[M^* = \sqrt{\frac{M^2(\gamma+1)/2 }{1 + M^2(\gamma-1)/2
+}}\]
+<p>From the above two equations we get</p>
+\[M_2^2 = \frac{1 + M_1^2(\gamma-1)/2 }{\gamma M_1^2 -
+(\gamma-1)/2}\]
+<p>Please derive following equations using the previous relationships.</p>
+\[\begin{aligned}
+  \frac{p_2}{p_1} & = 1 + \frac{2\gamma}{\gamma+1}(M_1^2 -1)\\
+  \frac{\rho_2}{\rho_1} & = \frac{(\gamma+1)M_1^2}{(\gamma-1)M_1^2 + 2}
+\end{aligned}\]
+<a href=" /courses/gasdynamics/"><p style="text-align:right; ">&#8617;</p></a>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

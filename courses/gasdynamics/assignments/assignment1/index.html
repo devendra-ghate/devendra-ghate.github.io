@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Assignment 1 - mdo-lab </title> 
+   <meta name="description" content="First assignment for AE 311 (Compressible Flow) in 2021" /> 
+
+   <meta property="og:title" content="Assignment 1" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="First assignment for AE 311 (Compressible Flow) in 2021" /> 
+  
+
+   <meta name="twitter:title" content="Assignment 1" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="First assignment for AE 311 (Compressible Flow) in 2021" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Assignment 1</h1> 
+</div>
+<div class="franklin-content">
+<p>The aim of the assignment is to plot \(\frac{p_0}{p}\) variation with the area ratio \(\frac{A(x)}{A_t}\) for a converging-diverging nozzle. The key issue here is the identification of the normal shock location depending on the back pressure &#40;\(p_b\)&#41;.</p>
+<h2 id="problem_statement"><a href="#problem_statement" class="header-anchor">Problem Statement</a></h2>
+<p>Write a code &#40;in the language of choice&#41; which has <strong>two functions</strong>. The first function takes location &#40;\(x\)&#41; and a few other geometry parameters as input and outputs area ratio of the duct at that location.</p>
+<p>The area ratio function definition is:</p>
+\[\begin{aligned}
+\text{AreaRatio}(x) & = & c_r (x - x_t)^2 + 1& , 0 \le x < x_t \\
+     & = & d_r (x - x_t)^2 + 1& , x_t \ge x \le 1
+\end{aligned}\]
+<p>where, \(c_r\) is the convergence rate, \(d_r\) is the divergence rate and \(x_t\) is the location of the throat.</p>
+<p>The area ratio function has been provided in <code>Julia</code> at the end. The function prototype is</p>
+<pre><code class="language-julia">real y &#61; areaRatio&#40;real x, real xₜ, real cᵣ, real dᵣ&#41;</code></pre>
+<p>The second function takes the input</p>
+<ul>
+<li><p>Total Pressure &#40;\(p_0\)&#41;</p>
+</li>
+<li><p>Total Temperature &#40;\(T_0\)&#41;</p>
+</li>
+<li><p>Back pressure &#40;\(p_b\)&#41;</p>
+</li>
+</ul>
+<p>and it should output</p>
+<ul>
+<li><p>Plot of \(\frac{p_0}{p}\) vs. \(x\)     </p>
+</li>
+<li><p>Location of the normal shock &#40;\(x_n\)&#41; with 3 digit precision</p>
+</li>
+<li><p>Thrust produced by the CD nozzle</p>
+</li>
+<li><p>Entropy change \(\frac{s(x=0) - s(x=1)}{R}\)</p>
+</li>
+</ul>
+<p>Code should work for any values of \(p_0\), \(T_0\) and \(p_b\).</p>
+<p>Function prototype is</p>
+<pre><code class="language-julia">real xn, thrust, deltas &#61; assignment1&#40;real p0, real T0, real pb&#41;</code></pre>
+<h2 id="grading_policy"><a href="#grading_policy" class="header-anchor">Grading Policy</a></h2>
+<p>You will be graded on following aspects</p>
+<ul>
+<li><p>Correctness of code &#40;3&#41;</p>
+</li>
+<li><p>Readability of the code &#40;1&#41;</p>
+</li>
+<li><p>Novelty of the approach and general understanding &#40;1&#41;</p>
+</li>
+</ul>
+<p>I will run your code for different values of \(c_r\), \(d_r\) and \(x_t\). Also, I will choose a reasonable value of \(p_0\), \(T_0\). Code should be well commented and the definition of each variable should also be given in the comments.</p>
+<pre><code class="language-julia">using JuMP
+using Ipopt
+
+function AbyAₜ&#40;x, xₜ, cᵣ, dᵣ&#41;
+	if x &gt;&#61; 0 &amp;&amp; x &lt; xₜ
+		58*&#40;x-xₜ&#41;^2 &#43; 1
+	elseif x &gt;&#61; xₜ &amp;&amp; x &lt;&#61; 1
+		58*&#40;xₜ^2&#43;1&#41;/14*&#40;x-xₜ&#41;^2 &#43; 1
+	end
+end
+plot&#40;x -&gt; AbyAₜ&#40;x, 0.5, 400, 100&#41;, 0, 1&#41;
+plot&#33;&#40;x -&gt; AbyAₜ&#40;x, 0.25, 400, 100&#41;, 0, 1&#41;
+#plot&#33;&#40;x -&gt; AbyAₜ&#40;x, 0.5, 100, 100&#41;, 0, 1&#41;
+#plot&#33;&#40;x -&gt; AbyAₜ&#40;x, 0.25, 100, 5&#41;, 0, 1&#41;
+
+println&#40;58/4.2&#41;
+function mdotmax&#40;p₀, T₀, γ, R&#41;
+	p₀*&#40; γ/R/T₀*&#40;2/γ&#43;1&#41;^&#40; &#40;γ&#43;1&#41;/&#40;γ-1&#41; &#41; &#41;^0.5
+end
+
+function arearatio&#40;γ, M&#41;
+	&#40; &#40;γ&#43;1&#41;/2 &#41;^&#40; -&#40;γ&#43;1&#41;/2/&#40;γ-1&#41; &#41; / M * &#40; 1 &#43; &#40;γ-1&#41;/2*M^2 &#41;^&#40; &#40;γ&#43;1&#41;/2/&#40;γ-1&#41; &#41;
+end
+
+function M&#40;x, M, γ&#61;1.4&#41;
+        &quot;&quot;&quot;
+        Function to calculate shock angle for weak oblique shock
+        &quot;&quot;&quot;
+          model &#61; Model&#40;Ipopt.Optimizer&#41;
+          @variable&#40;model, M, start &#61; 1&#41;
+          @NLparameter&#40;model, gamma &#61;&#61; γ&#41;
+          @NLparameter&#40;model, Mach &#61;&#61; M&#41;
+          @NLobjective&#40;model, Min, 1&#41;
+          #@NLconstraint&#40;model,0 &lt;&#61; beta &lt;&#61; 90&#41;
+          register&#40;model, :f_1, 3, f_1, autodiff&#61;true&#41;
+          @NLconstraint&#40;model, eq, f_1&#40;M1, beta, gamma&#41; &#61;&#61; theta&#41;
+          print&#40;model&#41;
+          optimize&#33;&#40;model&#41;
+          if M₁*sind&#40;value&#40;beta&#41;&#41; &gt;&#61; 1
+           value&#40;beta&#41;
+          else
+                  display&#40;errormsg&#41;
+          end
+end</code></pre>
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

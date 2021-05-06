@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+ 
+   <link rel="stylesheet" href="/libs/highlight/github.min.css">
+ 
+  
+  <link rel="stylesheet" href="/css/franklin.css">
+  <link rel="stylesheet" href="/css/basic.css">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico">
+   <title> Tutorial 1 Solution - mdo-lab </title> 
+   <meta name="description" content="Tutorial 1 Solution" /> 
+
+   <meta property="og:title" content="Tutorial 1 Solution" /> 
+   <meta property="og:type" content="article" /> 
+   <meta property="og:description" content="Tutorial 1 Solution" /> 
+  
+
+   <meta name="twitter:title" content="Tutorial 1 Solution" /> 
+   <meta name="twitter:card" content="summary" /> 
+   <meta name="twitter:description" content="Tutorial 1 Solution" /> 
+  
+</head>
+<body>
+  <header>
+<div class="blog-name"><a href="/">mdo-lab</a></div>
+<nav>
+  <ul>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
+    <li><a href="/blog/">blog</a></li>
+    <li><a href="/etc/">etc</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
+  </ul>
+  <img src="/assets/hamburger.svg" id="menu-icon">
+</nav>
+</header>
+
+
+<div class="franklin-content">
+   <h1>Tutorial 1 Solution</h1> 
+</div>
+<div class="franklin-content">
+<h2 id="problem_1"><a href="#problem_1" class="header-anchor">Problem 1</a></h2>
+<pre><code class="language-julia"># Constants
+γ &#61; 1.4
+Rᵤ &#61; 8.3145 #Universal gas constant J/mole-K 
+
+# Input
+Mₒ &#61; 32*10^-3 # molar mass of Oxygen in kg
+T₁ &#61; 25 &#43; 273 # K
+T₂ &#61; 125 &#43; 273 # K
+
+# Calculations
+R &#61; Rᵤ/Mₒ #Mass specific gas constant for Oxygen J/kg-K 
+cₚ &#61; γ*R/&#40;γ-1&#41; #J/kg-K
+cᵥ &#61; cₚ - R  #J/kg-K
+Δe &#61; cᵥ*&#40;T₂ - T₁&#41;
+Δh &#61; cₚ*&#40;T₂ - T₁&#41;</code></pre>
+
+<h2 id="problem_2"><a href="#problem_2" class="header-anchor">Problem 2</a></h2>
+<pre><code class="language-julia"># Constants
+γ &#61; 1.4
+Rᵤ &#61; 8.3145 #Universal gas constant J/mole-K
+
+# Input
+M &#61; 28.97*10^-3 # molar mass of air in kg
+p₁ &#61; 101*1000 # Pascal &#40;N/m^2&#41;
+p₂ &#61; 1100*1000 # Pascal
+T₁ &#61; 310 # K
+
+# Calculations
+R &#61; Rᵤ/M # J/kg-K
+cₚ &#61; γ*R/&#40;γ-1&#41; # J/kg-K
+cᵥ &#61; cₚ - R # J/kg-K
+v₁ &#61; p₁/R/T₁ # m/s
+v₂ &#61; &#40;p₁/p₂&#41;^&#40;1/1.32&#41; * v₁ # m/s
+Δs &#61; cᵥ*log&#40;p₂/p₁&#41; - cₚ*log&#40;v₁/v₂&#41; # J/kg-K</code></pre>
+
+<h2 id="problem_3"><a href="#problem_3" class="header-anchor">Problem 3</a></h2>
+<pre><code class="language-julia"># Constants
+γ &#61; 1.4
+Rᵤ &#61; 8.3145 #Universal gas constant J/mole-K
+
+# Input
+Mₐ &#61; 28.97*10^-3 # molar mass of air in kg
+p₁ &#61; 6.5*101325 # Pascal &#40;N/m^2&#41;
+p₂ &#61; 1*101325 # Pascal
+T₁ &#61; 440 # K
+M₁ &#61; 0.5 # Dimensionless
+A₁ &#61; 160 * 10^-4 # m^2
+
+# Calculations
+R &#61; Rᵤ/Mₐ # J/kg-K</code></pre>
+<p>From isentropic table \(p_1/p_0 = 0.84\). From this I get the</p>
+\[p_2/p_0 = (p_2/p_1)(p_1/p_0) = (1/6.5)*0.84 = 0.129\]
+<p>Then again from the tables I get \(M_2 = 2\).</p>
+<p>Lets try to do the actual calculations.</p>
+<pre><code class="language-julia">p₀ &#61; p₁*&#40;1 &#43; &#40;γ -1&#41;/2* M₁^2&#41;^&#40;γ/&#40;γ - 1&#41;&#41;
+p₁/p₀</code></pre>
+
+<p>This is a good enough match for the value we got from the tables. Now, I will calculate \(M_2\)&quot;</p>
+<pre><code class="language-julia">M₂ &#61; &#40; &#40; &#40;p₀/p₂&#41;^&#40;&#40;γ - 1&#41;/γ&#41; - 1 &#41; * 2/&#40;γ - 1&#41; &#41;^0.5</code></pre>
+
+<p>This is very close to 2. Hence, we have got the solution with a fraction of the effort without sacrificing much accuracy.</p>
+<p>Now, from tables, \(A^*/A_2 = 0.6\)</p>
+<pre><code class="language-julia">mdot &#61; p₁ * M₁ * A₁ * sqrt&#40;γ/R/T₁&#41; # kg/s</code></pre>
+17.543401969642137
+<div class="page-foot">
+  <div class="copyright">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Devendra Ghate. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

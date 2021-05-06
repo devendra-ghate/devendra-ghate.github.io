@@ -1,6 +1,4 @@
-@import url("https://cdn.jsdelivr.net/npm/fontsource-alegreya-sans@3.0.10/400.css");
-@import url("https://cdn.jsdelivr.net/npm/fontsource-alegreya-sans@3.0.10/500.css");
-@import url("https://cdn.jsdelivr.net/npm/fontsource-alegreya-sans@3.0.10/700.css");
+@import url("https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css");
 
 :root {
   --accent: #3D93F6;
@@ -11,8 +9,8 @@
 
 html {
   background: var(--background);
-    font-family: "Alegreya Sans", Roboto, ITCFranklinGothic, sans-serif;
-    font-size  : 17px;
+    font-family: "Computer Modern Bright", "Computer Modern Serif", Helvetica, Arial, sans-serif;
+    font-size  : 16px;
     color: var(--black);
 }
 
@@ -46,8 +44,8 @@ html {
 ================================================================== */
 
 .franklin-content .page-foot a {
-    text-decoration: underline;
-    color: var(--black);
+    text-decoration: none;
+    color: var(--accent);
     text-decoration: underline; }
 
 .page-foot {
@@ -89,9 +87,9 @@ html {
     TITLES
 ================================================================== */
 
-.franklin-content h1 { font-size: 22px; }
-.franklin-content h2 { font-size: 20px; }
-.franklin-content h3 { font-size: 18px; }
+.franklin-content h1 { font-size: 29px; }
+.franklin-content h2 { font-size: 27px; }
+.franklin-content h3 { font-size: 25px; }
 
 .franklin-content h1, h2, h3, h4, h5, h6 {
     color: var(--black);
@@ -112,15 +110,15 @@ html {
 
 .franklin-content h1 a { color: inherit; }
 .franklin-content h1 a:hover {text-decoration: none;}
-.franklin-content h2 a { color: inherit;  text-decoration: none;}
+.franklin-content h2 a { color: inherit; }
 .franklin-content h2 a:hover {text-decoration: none;}
-.franklin-content h3 a { color: inherit; text-decoration: none; }
+.franklin-content h3 a { color: inherit; }
 .franklin-content h3 a:hover {text-decoration: none;}
-.franklin-content h4 a { color: inherit; text-decoration: none; }
+.franklin-content h4 a { color: inherit; }
 .franklin-content h4 a:hover {text-decoration: none;}
-.franklin-content h5 a { color: inherit; text-decoration: none; }
+.franklin-content h5 a { color: inherit; }
 .franklin-content h5 a:hover {text-decoration: none;}
-.franklin-content h6 a { color: inherit; text-decoration: none; }
+.franklin-content h6 a { color: inherit; }
 .franklin-content h6 a:hover {text-decoration: none;}
 
 .franklin-content table {
@@ -173,20 +171,20 @@ html {
     margin: 0.3rem 0; }
 
 .franklin-content a {
-    color: var(--black);
-    text-decoration: underline; }
+    color: var(--accent);
+    text-decoration: none; }
 
 .franklin-content a:hover {
-    text-decoration: none; }
+    text-decoration: underline; }
 
 /* ==================================================================
     HYPERREFS AND FOOTNOTES
 ================================================================== */
 
-.franklin-content .eqref a  {
+.franklin-content .eqref a  { 
   color: var(--accent);
 }
-.franklin-content .bibref a {
+.franklin-content .bibref a { 
   color: var(--accent);
 }
 
@@ -219,7 +217,7 @@ html {
 ================================================================== */
 
 .franklin-content img {
-    width: 95%; 
+    width: 80%; 
     align: left;
     text-align: center;
     /* padding-right: 0%; */ }
@@ -239,7 +237,7 @@ body { counter-reset: eqnum; }
 
 .katex-display .katex {
   /* overwrite KaTeX settings. */
-  display: inline-block;
+  display: inline-block; 
   /* Allow display equations to wrap on small screens. */
   white-space: normal; }
 
@@ -255,10 +253,11 @@ body { counter-reset: eqnum; }
 ================================================================== */
 
 code {
+  font-family: "Computer Modern";
   background-color: rgba(27,31,35,0.05);
-  padding: 0.2em;
+  padding: 0.3em;
   border-radius: 10px;
-  font-size: 85%;
+  font-size: 14px;
 }
 
 .hljs {
@@ -321,7 +320,7 @@ ul.blog-posts li a:visited {
 .avatar-image {
   width: 8rem !important;
   heigth: auto;
-  border-radius: 50%;
+  border-radius: 50%; 
 }
 
 .tikz img {
@@ -330,15 +329,12 @@ ul.blog-posts li a:visited {
   margin: auto;
 }
 
-.past-student {
-  background: none;
-  padding: 0.2em;
-  border-radius: 10px;
+.page-title {
+  margin-bottom: 0.4rem !important;
 }
 
-.student-image {
-  width: 8rem !important;
-  heigth: auto;
-  border-radius: 50%;
+.page-date {
+  display: block;
+  font-style: italic;
+  margin-bottom: 40px;
 }
-

@@ -31,12 +31,11 @@
 <div class="blog-name"><a href="/">mdo-lab</a></div>
 <nav>
   <ul>
-    <li><a href="/about/">about</a></li>
-    <li><a href="/courses/">courses</a></li>
     <li><a href="/projects/">projects</a></li>
+    <li><a href="/courses/">courses</a></li>
     <li><a href="/blog/">blog</a></li>
     <li><a href="/etc/">etc</a></li>
-    <li><a href="/contact/">contact</a></li>
+    <li><a href="/etc/contact/">contact</a></li>
   </ul>
   <img src="/assets/hamburger.svg" id="menu-icon">
 </nav>
@@ -55,7 +54,6 @@
 & & 0 \leq x \leq 1 \\
 \end{aligned}\]
 <pre><code class="language-julia">using Optim, Plots, JSON, LaTeXStrings
-pyplot&#40;&#41;
 x &#61; range&#40;0,stop&#61;1,length&#61;20&#41; # Design space
 length&#40;x&#41; &#61; 100*x; weight&#40;x&#41; &#61; 100*x^2 # Functions to optimise</code></pre>
 <img src="/assets/courses/mdo/moop/code/output/ex1.svg" alt="">
@@ -69,7 +67,8 @@ length&#40;x&#41; &#61; 100*x; weight&#40;x&#41; &#61; 100*x^2 # Functions to op
 <pre><code class="language-julia">#Functions to optimise
 drag&#40;x&#41; &#61; &#40;x-2&#41;^2; dr &#61; map&#40;drag,x&#41;</code></pre>
 <img src="/assets/courses/mdo/moop/code/output/ex2.svg" alt="">
-<span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  Can we minimise weight and drag simultaneously?</span>
+<span style="color:DarkSlateGray;"><span style="font-weight:bold;">Q</span>:  Can we minimise weight and drag simultaneously?</span></p>
+<p><div class="blank"></div>
 <p>Some terminology:</p>
 <ul>
 <li><p>Objective space</p>
@@ -160,12 +159,13 @@ res &#61; optimize&#40;f5, 0, 1&#41;</code></pre>
 f(\mathbf{x}) = \big\{\underset{i}{\sum}[w_i(f_i(\mathbf{x}) - f_i^0)]^p\big\}^{1/p}
 \]
 <p>where, \( p \in [1,\infty]\).</p>
-<p><span style="font-size:100%;line-height:0em;color:DarkSlateGray;"><div class="blank"></div><span style="font-weight:bold;">Q</span>:  1. Can you calculate the value of \(p\) so that strategy 3 reduces to strategy 1 &amp; 2.</p>
+<p><span style="color:DarkSlateGray;"><span style="font-weight:bold;">Q</span>:  1. Can you calculate the value of \(p\) so that strategy 3 reduces to strategy 1 &amp; 2.</p>
 <ol>
 <li><p>What does the objective function \(f\) represents for \(p = 2\) ?</span></p>
 </li>
 </ol>
-
+</p>
+<p><div class="blank"></div>
 <h3 id="drawbacks_of_the_strategies_used_so_far"><a href="#drawbacks_of_the_strategies_used_so_far" class="header-anchor">Drawbacks of the strategies used so far</a></h3>
 <ol>
 <li><p>The objective functions have to be scaled properly. This is a non-trivial task for complex optimisation problems.</p>
@@ -190,7 +190,7 @@ f(\mathbf{x}) = \big\{\underset{i}{\sum}[w_i(f_i(\mathbf{x}) - f_i^0)]^p\big\}^{
 \end{aligned}\]
 <pre><code class="language-julia">using JuMP
 using Ipopt
-using PyPlot
+using Plots
 
 obj1&#40;x,y&#41; &#61; x
 obj2&#40;x,y&#41; &#61; 1 .&#43; y.^2 .- x .- a.*sin.&#40;b.*π.*x&#41;
@@ -203,11 +203,13 @@ obj_ws&#40;x,y&#41; &#61; w.*x &#43; &#40;1 .- w&#41;.*&#40;1 .&#43; y.^2 .- x .
 # Concave pareto front
 a &#61; 0.1; b &#61; 2.5
 x₂&#61;-2.0:0.05:2.0
+p7&#61;Plots.plot&#40;seriestype&#61;:scatter&#41;
 for x₁&#61;0.0:0.05:1.0
     tmp &#61; minimum&#40;obj2&#40;x₁, x₂&#41;&#41;
-    plot&#40;x₁,tmp,&quot;sk&quot;&#41;
+    println&#40;x₁, tmp&#41;
 end
 
+    #Plots.plot&#33;&#40;p7,&#91;x₁&#93;,&#91;tmp&#93;&#41;
 m &#61; Model&#40;Ipopt.Optimizer&#41;
 
 # Global design variables
@@ -225,15 +227,16 @@ JuMP.register&#40;m, :obj_ws, 2, obj_ws, autodiff&#61;true&#41;
 for i in 0.0:0.1:1.0
   println&#40;i&#41;
 end
+p6 &#61; Plots.plot&#40;xlabel&#61;&quot;f₁&quot;, ylabel&#61;&quot;f₂&quot;, title&#61;&quot;Pareto Front using weighted sum method&quot;&#41;
 for i in 0.0:0.1:1.0
     @NLobjective&#40;m, Min, w*x₁ &#43; &#40;1-w&#41;*&#40;1 &#43; x₂^2 - x₁ - a*sin&#40;b*π*x₁&#41;&#41;&#41;
     set_value&#40;w,i&#41;
     optimize&#33;&#40;m&#41;
     x₁_sol &#61; getvalue&#40;x₁&#41;
     x₂_sol &#61; getvalue&#40;x₂&#41;
-    plot&#40;obj1&#40;x₁_sol,x₂_sol&#41;, obj2&#40;x₁_sol, x₂_sol&#41;,&quot;o&quot;&#41;
+#    plot&#33;&#40;obj1&#40;x₁_sol,x₂_sol&#41;, obj2&#40;x₁_sol, x₂_sol&#41;,&quot;o&quot;&#41;
 end
-xlabel&#40;&quot;f₁&quot;&#41;; ylabel&#40;&quot;f₂&quot;&#41;; title&#40;&quot;Pareto Front using weighted sum method&quot;&#41;; grid&#40;&#41;
+grid&#40;&#41;
 
 @NLobjective&#40;m, Min, 1 &#43; x₂^2 - x₁ - a*sin&#40;b*π*x₁&#41;&#41;
 @constraint&#40;m,  0 &lt;&#61; x₁ &lt;&#61; 0.4&#41;
