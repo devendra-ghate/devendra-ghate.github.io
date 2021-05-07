@@ -101,7 +101,7 @@ ylabel&#40;&quot;Error &quot;&#41;
 title&#40;&quot;Error Vs Step Size for finite difference methods&quot;&#41;
 grid&#40;&quot;on&quot;&#41;
 legend&#40;loc&#61;&quot;upper right&quot;,fancybox&#61;&quot;true&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" fd" alt="" /></p>
+<img src="/assets/courses/mdo/notes/gradientCalc/code/output/fd.svg" alt="">
 <h3 id="sensitivity_to_step-size"><a href="#sensitivity_to_step-size" class="header-anchor">Sensitivity to step-size</a></h3>
 <p>Inappropriate step size could affect the optimization stability and efficiency.</p>
 <p>The main sources of errors in finite difference methods are truncation errors. It&#39;s the error made by truncating an infinite sum &#40;e.g. Taylor series&#41; and approximating it by a finite sum. As we can see from the plot, the truncation error decreases and reaches a minimun. As we go on decreasing the step size the subtractive cancellation error due to finite precision arithmetic gets added. Thus the error goes on increasing.</p>
@@ -137,7 +137,7 @@ loglog&#40;Δx,err2,label&#61;&quot;Central difference&quot;&#41;
 xlabel&#40;&quot;Step Size&quot;&#41;; ylabel&#40;&quot;Error &quot;&#41;
 title&#40;&quot;Error Vs Step Size for complex variable trick and central difference methods&quot;&#41;
 grid&#40;&quot;on&quot;&#41;; legend&#40;loc&#61;&quot;upper right&quot;,fancybox&#61;&quot;true&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" cvt" alt="" /></p>
+<img src="/assets/courses/mdo/notes/gradientCalc/code/output/cvt.svg" alt="">
 <h2 id="automatic_differntiation_ad"><a href="#automatic_differntiation_ad" class="header-anchor">Automatic Differntiation &#40;AD&#41;</a></h2>
 <p>AD is the most promising method for calculating gradients and Hessians. AD goes through the source code of a function and differtiates the code line-by-line analytically. This involves carrying forward the perturbations in the functions from earlier. AD is available for almost all languages with varying degrees of sophestication. It is easier to create a AD software for low level languages like Fortran and C. Packages like Tapenade have matured to a degree that a successful application of AD technology has been made to industrial CFD softwares. AD methods for higher level languages are not very robust. <code>Julia</code> has many experimental AD packages that use</p>
 <ul>

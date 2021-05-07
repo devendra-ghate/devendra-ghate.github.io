@@ -66,7 +66,7 @@ plot&#33;&#40;M₁-&gt;ΔsbyR&#40;M₁, γ&#91;2&#93;&#41;, M₁min1, M₁max1,
 plot&#33;&#40;M₁-&gt;ΔsbyR&#40;M₁, γ&#91;3&#93;&#41;, M₁min1, M₁max1,
 			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;3&#93;&#41;&quot;&#41;</code></pre>
 <h2 id="can_we_have_subsonic_m_1"><a href="#can_we_have_subsonic_m_1" class="header-anchor">Can we have subsonic \(M_1\)?</a></h2>
-<p style="text-align:center; "><img src=" ex1" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex1.svg" alt="">
 <h2 id="what_is_the_asymptotic_m_2_as_m_1"><a href="#what_is_the_asymptotic_m_2_as_m_1" class="header-anchor">What is the asymptotic \(M_2\) as \(M_1 → ∞\)?</a></h2>
 <pre><code class="language-julia">function M₂&#40;M₁, γ&#41;
 	sqrt&#40; &#40;1 &#43; &#40;γ-1&#41;/2*M₁^2&#41;/&#40;γ*M₁^2 - &#40;γ-1&#41;/2&#41; &#41;
@@ -83,7 +83,7 @@ plot&#33;&#40;M₁-&gt;M₂&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
 			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;2&#93;&#41;&quot;&#41;
 plot&#33;&#40;M₁-&gt;M₂&#40;M₁, γ&#91;3&#93;&#41;, M₁min2, M₁max2,
 			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;3&#93;&#41;&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" ex2" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex2.svg" alt="">
 <h2 id="variation_of_various_properties_with_m_1_for_γ_14"><a href="#variation_of_various_properties_with_m_1_for_γ_14" class="header-anchor">Variation of various properties with \(M_1\) for \(γ = 1.4\)</a></h2>
 <pre><code class="language-julia">function T₂byT₁&#40;M₁, γ&#41;
 	&#40;1 &#43; &#40;γ-1&#41;/2*M₁^2&#41;/&#40;1 &#43; &#40;γ-1&#41;/2*M₂&#40;M₁,γ&#41;^2&#41;
@@ -97,7 +97,7 @@ plot&#40;M₁-&gt;T₂byT₁&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
            titlefontsize&#61;10&#41;
 plot&#33;&#40;M₁-&gt;T₂byT₁&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
 			label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" ex3" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex3.svg" alt="">
 <pre><code class="language-julia">function p₂byp₁&#40;M₁, γ&#41;
 	&#40;1 &#43; γ*M₁^2&#41;/&#40;1 &#43; γ*M₂&#40;M₁,γ&#41;^2&#41;
 end
@@ -109,7 +109,7 @@ plot&#40;M₁-&gt;p₂byp₁&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
            titlefontsize&#61;10&#41;
 plot&#33;&#40;M₁-&gt;p₂byp₁&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
 	label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" ex4.svg" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex4.svg" alt="">
 <pre><code class="language-julia">function ρ₂byρ₁&#40;M₁, γ&#41;
 	p₂byp₁&#40;M₁, γ&#41;/T₂byT₁&#40;M₁, γ&#41;
 end
@@ -121,7 +121,7 @@ plot&#40;M₁-&gt;ρ₂byρ₁&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
            titlefontsize&#61;10&#41;
 plot&#33;&#40;M₁-&gt;ρ₂byρ₁&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
 	label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" ex5" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex5.svg" alt="">
 <p>We know that for the perfect gas</p>
 \[\begin{aligned}
 \frac{\Delta s}{R} & = \frac{\gamma}{\gamma-1}\ln{\frac{T_2}{T_1}} - \ln{\frac{p_2}{p_1}} \\
@@ -141,7 +141,7 @@ plot&#40;M₁-&gt;p02byp01&#40;M₁, γ&#91;2&#93;&#41;, M₁min2, M₁max2,
 plot&#33;&#40;M₁-&gt;p02byp01&#40;M₁, γ&#91;1&#93;&#41;, M₁min2, M₁max2,
 		  yaxis&#61;:log,
 		  label&#61;&quot;γ &#61; &#36;&#40;γ&#91;1&#93;&#41;&quot;&#41;</code></pre>
-<p style="text-align:center; "><img src=" ex6" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex6.svg" alt="">
 <p>To check my calculations, I will calculate \(T_{0_2}/T_{0_1}\).</p>
 <pre><code class="language-julia">function T02byT01&#40;M₁, γ&#41;
 	T₂byT₁&#40;M₁, γ&#41;*&#40; 1 &#43; &#40;&#40;γ-1&#41;*M₂&#40;M₁,γ&#41;^2&#41;/2 &#41;/&#40; 1 &#43; &#40;&#40;γ-1&#41;*M₁^2&#41;/2 &#41;
@@ -163,7 +163,7 @@ Temperature ratio from first approach is 5.635409659763739</p>
               title&#61;&quot;Total Temperature variation&quot;,
               titlefontsize&#61;10&#41;
 end</code></pre>
-<p style="text-align:center; "><img src=" ex7" alt="" /></p>
+<img src="/assets/courses/gasdynamics/notes/normalShock/code/output/ex7.svg" alt="">
 <p>I have not been able to find the bug. \(T_{0_2}/T_{0_1}\) is one everywhere but shoots up in a very narrow region of width less than \(10^{-7}\). Either I am making some mistake or there is a bug in the plotting library. If you figure out, please let me know. Nevertheless, the ratio is unity everywhere else.</p>
 <h3 id="formula_summary"><a href="#formula_summary" class="header-anchor">Formula Summary</a></h3>
 <p>From momentum conservation,</p>
